@@ -1,0 +1,95 @@
+1730805691.067453 set_robust_list(0x7f7e55150a20, 24) = 0 <0.000086>
+1730805691.067749 getpid()              = 2942 <0.000053>
+1730805691.067908 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000028>
+1730805691.068439 rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000046>
+1730805691.068560 rt_sigaction(SIGTTIN, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000021>
+1730805691.068657 rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000039>
+1730805691.068795 rt_sigaction(SIGHUP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000036>
+1730805691.068900 rt_sigaction(SIGILL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000020>
+1730805691.068971 rt_sigaction(SIGTRAP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000037>
+1730805691.069088 rt_sigaction(SIGABRT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000025>
+1730805691.069181 rt_sigaction(SIGFPE, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000038>
+1730805691.069270 rt_sigaction(SIGBUS, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000026>
+1730805691.069365 rt_sigaction(SIGSEGV, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000041>
+1730805691.069488 rt_sigaction(SIGSYS, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000022>
+1730805691.069580 rt_sigaction(SIGPIPE, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000027>
+1730805691.069688 rt_sigaction(SIGALRM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000029>
+1730805691.069789 rt_sigaction(SIGXCPU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000027>
+1730805691.069885 rt_sigaction(SIGXFSZ, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000027>
+1730805691.070000 rt_sigaction(SIGVTALRM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000028>
+1730805691.070102 rt_sigaction(SIGUSR1, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000027>
+1730805691.070197 rt_sigaction(SIGUSR2, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000026>
+1730805691.070290 rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec504eaa0, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000021>
+1730805691.070404 rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000022>
+1730805691.070535 rt_sigaction(SIGTERM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000034>
+1730805691.070652 rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec5022b80, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000022>
+1730805691.070741 rt_sigaction(SIGINT, {sa_handler=0x556ec504eaa0, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000019>
+1730805691.070841 rt_sigaction(SIGCHLD, {sa_handler=0x556ec5022b80, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000015>
+1730805691.070953 rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0 <0.000022>
+1730805691.071032 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000055>
+1730805691.071151 rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0 <0.000047>
+1730805691.071262 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000047>
+1730805691.071365 dup2(4<pipe:[16191]>, 0</dev/pts/2>) = 0<pipe:[16191]> <0.000057>
+1730805691.071520 close(4<pipe:[16191]>) = 0 <0.000046>
+1730805691.071743 ioctl(0<pipe:[16191]>, TCGETS, 0x7ffddb8798d0) = -1 ENOTTY (Inappropriate ioctl for device) <0.000047>
+1730805691.071867 lseek(0<pipe:[16191]>, 0, SEEK_CUR) = -1 ESPIPE (Illegal seek) <0.000046>
+1730805691.071983 read(0<pipe:[16191]>, "/", 1) = 1 <0.000032>
+1730805691.072078 read(0<pipe:[16191]>, "h", 1) = 1 <0.000031>
+1730805691.072171 read(0<pipe:[16191]>, "o", 1) = 1 <0.000031>
+1730805691.072262 read(0<pipe:[16191]>, "m", 1) = 1 <0.000031>
+1730805691.072355 read(0<pipe:[16191]>, "e", 1) = 1 <0.000039>
+1730805691.072454 read(0<pipe:[16191]>, "/", 1) = 1 <0.000047>
+1730805691.072580 read(0<pipe:[16191]>, "v", 1) = 1 <0.000031>
+1730805691.072686 read(0<pipe:[16191]>, "e", 1) = 1 <0.000033>
+1730805691.072784 read(0<pipe:[16191]>, "l", 1) = 1 <0.000031>
+1730805691.072877 read(0<pipe:[16191]>, "d", 1) = 1 <0.000031>
+1730805691.072969 read(0<pipe:[16191]>, "r", 1) = 1 <0.000039>
+1730805691.073068 read(0<pipe:[16191]>, "a", 1) = 1 <0.000045>
+1730805691.073180 read(0<pipe:[16191]>, "n", 1) = 1 <0.000045>
+1730805691.073293 read(0<pipe:[16191]>, "e", 1) = 1 <0.000031>
+1730805691.073387 read(0<pipe:[16191]>, "/", 1) = 1 <0.000031>
+1730805691.073489 read(0<pipe:[16191]>, ".", 1) = 1 <0.000032>
+1730805691.073584 read(0<pipe:[16191]>, "l", 1) = 1 <0.000031>
+1730805691.073688 read(0<pipe:[16191]>, "o", 1) = 1 <0.000040>
+1730805691.073791 read(0<pipe:[16191]>, "c", 1) = 1 <0.000045>
+1730805691.073905 read(0<pipe:[16191]>, "a", 1) = 1 <0.000032>
+1730805691.073999 read(0<pipe:[16191]>, "l", 1) = 1 <0.000031>
+1730805691.074092 read(0<pipe:[16191]>, "/", 1) = 1 <0.000031>
+1730805691.074183 read(0<pipe:[16191]>, "s", 1) = 1 <0.000031>
+1730805691.074275 read(0<pipe:[16191]>, "h", 1) = 1 <0.000038>
+1730805691.074373 read(0<pipe:[16191]>, "a", 1) = 1 <0.000020>
+1730805691.074479 read(0<pipe:[16191]>, "r", 1) = 1 <0.000028>
+1730805691.074587 read(0<pipe:[16191]>, "e", 1) = 1 <0.000027>
+1730805691.074707 read(0<pipe:[16191]>, "/", 1) = 1 <0.000046>
+1730805691.074832 read(0<pipe:[16191]>, "f", 1) = 1 <0.000019>
+1730805691.074911 read(0<pipe:[16191]>, "l", 1) = 1 <0.000020>
+1730805691.074989 read(0<pipe:[16191]>, "a", 1) = 1 <0.000023>
+1730805691.075075 read(0<pipe:[16191]>, "t", 1) = 1 <0.000113>
+1730805691.075315 read(0<pipe:[16191]>, "p", 1) = 1 <0.000056>
+1730805691.075467 read(0<pipe:[16191]>, "a", 1) = 1 <0.000023>
+1730805691.075572 read(0<pipe:[16191]>, "k", 1) = 1 <0.000051>
+1730805691.075742 read(0<pipe:[16191]>, "\n", 1) = 1 <0.000088>
+1730805691.075991 ioctl(0<pipe:[16191]>, TCGETS, 0x7ffddb8798d0) = -1 ENOTTY (Inappropriate ioctl for device) <0.000075>
+1730805691.076196 lseek(0<pipe:[16191]>, 0, SEEK_CUR) = -1 ESPIPE (Illegal seek) <0.000076>
+1730805691.076393 read(0<pipe:[16191]>, "/", 1) = 1 <0.108768>
+1730805691.185257 read(0<pipe:[16191]>, "v", 1) = 1 <0.000034>
+1730805691.185366 read(0<pipe:[16191]>, "a", 1) = 1 <0.000032>
+1730805691.185485 read(0<pipe:[16191]>, "r", 1) = 1 <0.000022>
+1730805691.185581 read(0<pipe:[16191]>, "/", 1) = 1 <0.000018>
+1730805691.185695 read(0<pipe:[16191]>, "l", 1) = 1 <0.000027>
+1730805691.185787 read(0<pipe:[16191]>, "i", 1) = 1 <0.000019>
+1730805691.185870 read(0<pipe:[16191]>, "b", 1) = 1 <0.000019>
+1730805691.185953 read(0<pipe:[16191]>, "/", 1) = 1 <0.000019>
+1730805691.186066 read(0<pipe:[16191]>, "f", 1) = 1 <0.000017>
+1730805691.186153 read(0<pipe:[16191]>, "l", 1) = 1 <0.000018>
+1730805691.186237 read(0<pipe:[16191]>, "a", 1) = 1 <0.000018>
+1730805691.186320 read(0<pipe:[16191]>, "t", 1) = 1 <0.000018>
+1730805691.186404 read(0<pipe:[16191]>, "p", 1) = 1 <0.000043>
+1730805691.186518 read(0<pipe:[16191]>, "a", 1) = 1 <0.000022>
+1730805691.186625 read(0<pipe:[16191]>, "k", 1) = 1 <0.000057>
+1730805691.186754 read(0<pipe:[16191]>, "\n", 1) = 1 <0.000038>
+1730805691.186945 ioctl(0<pipe:[16191]>, TCGETS, 0x7ffddb8798d0) = -1 ENOTTY (Inappropriate ioctl for device) <0.000029>
+1730805691.187055 lseek(0<pipe:[16191]>, 0, SEEK_CUR) = -1 ESPIPE (Illegal seek) <0.000022>
+1730805691.187139 read(0<pipe:[16191]>, "", 1) = 0 <0.000273>
+1730805691.187534 write(1<pipe:[35150]>, "/home/veldrane/.local/share/flat"..., 81) = 81 <0.000042>
+1730805691.187727 exit_group(0)         = ?

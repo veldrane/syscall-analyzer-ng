@@ -1,0 +1,137 @@
+1730805690.798604 set_robust_list(0x7f7e55150a20, 24) = 0 <0.000058>
+1730805690.798842 getpid()              = 2930 <0.000045>
+1730805690.798983 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000049>
+1730805690.799111 rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000056>
+1730805690.799241 rt_sigaction(SIGTTIN, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000047>
+1730805690.799366 rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000052>
+1730805690.799520 rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec504e700, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000024>
+1730805690.799621 rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000037>
+1730805690.799736 rt_sigaction(SIGTERM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000022>
+1730805690.799833 rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec5022b80, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000020>
+1730805690.799933 rt_sigaction(SIGCHLD, {sa_handler=0x556ec5022b80, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000022>
+1730805690.800029 rt_sigaction(SIGINT, {sa_handler=0x556ec504eaa0, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000020>
+1730805690.800167 dup2(5<pipe:[35147]>, 1</dev/pts/2>) = 1<pipe:[35147]> <0.000024>
+1730805690.800312 close(5<pipe:[35147]>) = 0 <0.000021>
+1730805690.800409 close(4<pipe:[35147]>) = 0 <0.000024>
+1730805690.800643 rt_sigprocmask(SIG_BLOCK, NULL, [], 8) = 0 <0.000023>
+1730805690.800988 rt_sigaction(SIGHUP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000034>
+1730805690.801101 rt_sigaction(SIGILL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000023>
+1730805690.801192 rt_sigaction(SIGTRAP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000021>
+1730805690.801280 rt_sigaction(SIGABRT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000022>
+1730805690.801368 rt_sigaction(SIGFPE, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000022>
+1730805690.801456 rt_sigaction(SIGBUS, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000026>
+1730805690.801565 rt_sigaction(SIGSEGV, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000023>
+1730805690.801655 rt_sigaction(SIGSYS, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000021>
+1730805690.801755 rt_sigaction(SIGPIPE, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000022>
+1730805690.801843 rt_sigaction(SIGALRM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000020>
+1730805690.801934 rt_sigaction(SIGXCPU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000022>
+1730805690.802052 rt_sigaction(SIGXFSZ, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000021>
+1730805690.802141 rt_sigaction(SIGVTALRM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000022>
+1730805690.802230 rt_sigaction(SIGUSR1, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000022>
+1730805690.802318 rt_sigaction(SIGUSR2, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000022>
+1730805690.802407 rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec504eaa0, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000031>
+1730805690.802517 rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000023>
+1730805690.802615 rt_sigaction(SIGTERM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000049>
+1730805690.802805 rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec5022b80, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000021>
+1730805690.802906 execve("/usr/bin/id", ["/usr/bin/id", "-un"], 0x556ec5c3f710 /* 17 vars */) = 0 <0.000654>
+1730805690.803729 brk(NULL)             = 0x55802b3a3000 <0.000021>
+1730805690.803867 arch_prctl(0x3001 /* ARCH_??? */, 0x7ffde5bd2ca0) = -1 EINVAL (Invalid argument) <0.000024>
+1730805690.804031 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory) <0.000034>
+1730805690.804187 openat(AT_FDCWD</home/veldrane>, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache> <0.000036>
+1730805690.804387 fstat(3</etc/ld.so.cache>, {st_mode=S_IFREG|0644, st_size=29907, ...}) = 0 <0.000035>
+1730805690.804540 mmap(NULL, 29907, PROT_READ, MAP_PRIVATE, 3</etc/ld.so.cache>, 0) = 0x7fd9dc464000 <0.000033>
+1730805690.804687 close(3</etc/ld.so.cache>) = 0 <0.000034>
+1730805690.804838 openat(AT_FDCWD</home/veldrane>, "/lib64/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3</usr/lib64/libselinux.so.1> <0.000036>
+1730805690.805015 read(3</usr/lib64/libselinux.so.1>, "\x7f\x45\x4c\x46\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x3e\x00\x01\x00\x00\x00\x70\x70\x00\x00\x00\x00\x00\x00"..., 832) = 832 <0.000020>
+1730805690.805151 fstat(3</usr/lib64/libselinux.so.1>, {st_mode=S_IFREG|0755, st_size=175760, ...}) = 0 <0.000016>
+1730805690.805265 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fd9dc462000 <0.000024>
+1730805690.805358 mmap(NULL, 181896, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3</usr/lib64/libselinux.so.1>, 0) = 0x7fd9dc435000 <0.000027>
+1730805690.805470 mmap(0x7fd9dc43b000, 110592, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libselinux.so.1>, 0x6000) = 0x7fd9dc43b000 <0.000036>
+1730805690.805585 mmap(0x7fd9dc456000, 32768, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libselinux.so.1>, 0x21000) = 0x7fd9dc456000 <0.000030>
+1730805690.805695 mmap(0x7fd9dc45e000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libselinux.so.1>, 0x28000) = 0x7fd9dc45e000 <0.000029>
+1730805690.805805 mmap(0x7fd9dc460000, 5768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fd9dc460000 <0.000026>
+1730805690.805904 close(3</usr/lib64/libselinux.so.1>) = 0 <0.000018>
+1730805690.806001 openat(AT_FDCWD</home/veldrane>, "/lib64/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</usr/lib64/libc.so.6> <0.000029>
+1730805690.806117 read(3</usr/lib64/libc.so.6>, "\x7f\x45\x4c\x46\x02\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x3e\x00\x01\x00\x00\x00\x50\x97\x02\x00\x00\x00\x00\x00"..., 832) = 832 <0.000023>
+1730805690.806242 pread64(3</usr/lib64/libc.so.6>, "\x06\x00\x00\x00\x04\x00\x00\x00\x40\x00\x00\x00\x00\x00\x00\x00\x40\x00\x00\x00\x00\x00\x00\x00\x40\x00\x00\x00\x00\x00\x00\x00"..., 784, 64) = 784 <0.000016>
+1730805690.806332 pread64(3</usr/lib64/libc.so.6>, "\x04\x00\x00\x00\x20\x00\x00\x00\x05\x00\x00\x00\x47\x4e\x55\x00\x02\x00\x00\xc0\x04\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00"..., 48, 848) = 48 <0.000023>
+1730805690.806429 pread64(3</usr/lib64/libc.so.6>, "\x04\x00\x00\x00\x14\x00\x00\x00\x03\x00\x00\x00\x47\x4e\x55\x00\x54\xa7\xab\x01\xee\xf6\xe2\xdc\xa2\xc6\xb0\xda\xb8\xc6\x56\xa1"..., 68, 896) = 68 <0.000024>
+1730805690.806543 fstat(3</usr/lib64/libc.so.6>, {st_mode=S_IFREG|0755, st_size=2592552, ...}) = 0 <0.000016>
+1730805690.806637 pread64(3</usr/lib64/libc.so.6>, "\x06\x00\x00\x00\x04\x00\x00\x00\x40\x00\x00\x00\x00\x00\x00\x00\x40\x00\x00\x00\x00\x00\x00\x00\x40\x00\x00\x00\x00\x00\x00\x00"..., 784, 64) = 784 <0.000022>
+1730805690.806749 mmap(NULL, 2133936, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3</usr/lib64/libc.so.6>, 0) = 0x7fd9dc200000 <0.000027>
+1730805690.806849 mprotect(0x7fd9dc228000, 1892352, PROT_NONE) = 0 <0.000029>
+1730805690.806935 mmap(0x7fd9dc228000, 1527808, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libc.so.6>, 0x28000) = 0x7fd9dc228000 <0.000030>
+1730805690.807034 mmap(0x7fd9dc39d000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libc.so.6>, 0x19d000) = 0x7fd9dc39d000 <0.000024>
+1730805690.807133 mmap(0x7fd9dc3f6000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libc.so.6>, 0x1f5000) = 0x7fd9dc3f6000 <0.000026>
+1730805690.807244 mmap(0x7fd9dc3fc000, 53168, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fd9dc3fc000 <0.000026>
+1730805690.807348 close(3</usr/lib64/libc.so.6>) = 0 <0.000020>
+1730805690.807451 openat(AT_FDCWD</home/veldrane>, "/lib64/libpcre2-8.so.0", O_RDONLY|O_CLOEXEC) = 3</usr/lib64/libpcre2-8.so.0.11.0> <0.000033>
+1730805690.807592 read(3</usr/lib64/libpcre2-8.so.0.11.0>, "\x7f\x45\x4c\x46\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x3e\x00\x01\x00\x00\x00\x90\x24\x00\x00\x00\x00\x00\x00"..., 832) = 832 <0.000023>
+1730805690.807718 fstat(3</usr/lib64/libpcre2-8.so.0.11.0>, {st_mode=S_IFREG|0755, st_size=636848, ...}) = 0 <0.000017>
+1730805690.807818 mmap(NULL, 635440, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3</usr/lib64/libpcre2-8.so.0.11.0>, 0) = 0x7fd9dc164000 <0.000031>
+1730805690.807921 mmap(0x7fd9dc166000, 446464, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libpcre2-8.so.0.11.0>, 0x2000) = 0x7fd9dc166000 <0.000036>
+1730805690.808028 mmap(0x7fd9dc1d3000, 176128, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libpcre2-8.so.0.11.0>, 0x6f000) = 0x7fd9dc1d3000 <0.000030>
+1730805690.808133 mmap(0x7fd9dc1fe000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libpcre2-8.so.0.11.0>, 0x99000) = 0x7fd9dc1fe000 <0.000029>
+1730805690.808265 close(3</usr/lib64/libpcre2-8.so.0.11.0>) = 0 <0.000021>
+1730805690.808390 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fd9dc432000 <0.000026>
+1730805690.808510 arch_prctl(ARCH_SET_FS, 0x7fd9dc432800) = 0 <0.000020>
+1730805690.808595 set_tid_address(0x7fd9dc432ad0) = 2930 <0.000026>
+1730805690.808685 set_robust_list(0x7fd9dc432ae0, 24) = 0 <0.000027>
+1730805690.808770 rseq(0x7fd9dc4331a0, 0x20, 0, 0x53053053) = 0 <0.000026>
+1730805690.808963 mprotect(0x7fd9dc3f6000, 16384, PROT_READ) = 0 <0.000032>
+1730805690.809091 mprotect(0x7fd9dc1fe000, 4096, PROT_READ) = 0 <0.000029>
+1730805690.809237 mprotect(0x7fd9dc45e000, 4096, PROT_READ) = 0 <0.000030>
+1730805690.809356 mprotect(0x55802984e000, 4096, PROT_READ) = 0 <0.000032>
+1730805690.809474 mprotect(0x7fd9dc4a0000, 8192, PROT_READ) = 0 <0.000036>
+1730805690.809597 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0 <0.000020>
+1730805690.809726 munmap(0x7fd9dc464000, 29907) = 0 <0.000040>
+1730805690.809877 statfs("/sys/fs/selinux", {f_type=SELINUX_MAGIC, f_bsize=4096, f_blocks=0, f_bfree=0, f_bavail=0, f_files=0, f_ffree=0, f_fsid={val=[0, 0]}, f_namelen=255, f_frsize=4096, f_flags=ST_VALID|ST_NOSUID|ST_NOEXEC|ST_RELATIME}) = 0 <0.000208>
+1730805690.810196 statfs("/sys/fs/selinux", {f_type=SELINUX_MAGIC, f_bsize=4096, f_blocks=0, f_bfree=0, f_bavail=0, f_files=0, f_ffree=0, f_fsid={val=[0, 0]}, f_namelen=255, f_frsize=4096, f_flags=ST_VALID|ST_NOSUID|ST_NOEXEC|ST_RELATIME}) = 0 <0.000030>
+1730805690.810309 getrandom("\xa0\x2e\x1a\x6f\x58\xf6\xb4\x74", 8, GRND_NONBLOCK) = 8 <0.000022>
+1730805690.810398 brk(NULL)             = 0x55802b3a3000 <0.000015>
+1730805690.810482 brk(0x55802b3c4000)   = 0x55802b3c4000 <0.000029>
+1730805690.810595 access("/etc/selinux/config", F_OK) = 0 <0.000088>
+1730805690.810789 geteuid()             = 1096400003 <0.000022>
+1730805690.810885 socket(AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3<socket:[37025]> <0.000057>
+1730805690.811021 connect(3<socket:[37025]>, {sa_family=AF_UNIX, sun_path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory) <0.000055>
+1730805690.811166 close(3<socket:[37025]>) = 0 <0.000031>
+1730805690.811268 socket(AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3<socket:[37026]> <0.000033>
+1730805690.811380 connect(3<socket:[37026]>, {sa_family=AF_UNIX, sun_path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory) <0.000047>
+1730805690.811520 close(3<socket:[37026]>) = 0 <0.000030>
+1730805690.811633 newfstatat(AT_FDCWD</home/veldrane>, "/etc/nsswitch.conf", {st_mode=S_IFREG|0644, st_size=3002, ...}, 0) = 0 <0.000030>
+1730805690.811776 newfstatat(AT_FDCWD</home/veldrane>, "/", {st_mode=S_IFDIR|0555, st_size=4096, ...}, 0) = 0 <0.000022>
+1730805690.811916 openat(AT_FDCWD</home/veldrane>, "/etc/nsswitch.conf", O_RDONLY|O_CLOEXEC) = 3</etc/authselect/nsswitch.conf> <0.000032>
+1730805690.812049 fstat(3</etc/authselect/nsswitch.conf>, {st_mode=S_IFREG|0644, st_size=3002, ...}) = 0 <0.000016>
+1730805690.812160 read(3</etc/authselect/nsswitch.conf>, "# Generated by authselect on Mon"..., 4096) = 3002 <0.000021>
+1730805690.812297 read(3</etc/authselect/nsswitch.conf>, "", 4096) = 0 <0.000021>
+1730805690.812401 fstat(3</etc/authselect/nsswitch.conf>, {st_mode=S_IFREG|0644, st_size=3002, ...}) = 0 <0.000015>
+1730805690.812511 close(3</etc/authselect/nsswitch.conf>) = 0 <0.000023>
+1730805690.812630 openat(AT_FDCWD</home/veldrane>, "/etc/passwd", O_RDONLY|O_CLOEXEC) = 3</etc/passwd> <0.000032>
+1730805690.812776 fstat(3</etc/passwd>, {st_mode=S_IFREG|0644, st_size=1468, ...}) = 0 <0.000021>
+1730805690.812882 lseek(3</etc/passwd>, 0, SEEK_SET) = 0 <0.000014>
+1730805690.812970 read(3</etc/passwd>, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = 1468 <0.000023>
+1730805690.813082 read(3</etc/passwd>, "", 4096) = 0 <0.000022>
+1730805690.813179 close(3</etc/passwd>) = 0 <0.000023>
+1730805690.813288 openat(AT_FDCWD</home/veldrane>, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache> <0.000031>
+1730805690.813413 fstat(3</etc/ld.so.cache>, {st_mode=S_IFREG|0644, st_size=29907, ...}) = 0 <0.000027>
+1730805690.813521 mmap(NULL, 29907, PROT_READ, MAP_PRIVATE, 3</etc/ld.so.cache>, 0) = 0x7fd9dc464000 <0.000029>
+1730805690.813628 close(3</etc/ld.so.cache>) = 0 <0.000036>
+1730805690.813747 openat(AT_FDCWD</home/veldrane>, "/lib64/libnss_sss.so.2", O_RDONLY|O_CLOEXEC) = 3</usr/lib64/libnss_sss.so.2> <0.000031>
+1730805690.813879 read(3</usr/lib64/libnss_sss.so.2>, "\x7f\x45\x4c\x46\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x3e\x00\x01\x00\x00\x00\xb0\x25\x00\x00\x00\x00\x00\x00"..., 832) = 832 <0.000023>
+1730805690.813981 fstat(3</usr/lib64/libnss_sss.so.2>, {st_mode=S_IFREG|0755, st_size=53480, ...}) = 0 <0.000016>
+1730805690.814075 mmap(NULL, 53856, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3</usr/lib64/libnss_sss.so.2>, 0) = 0x7fd9dc424000 <0.000029>
+1730805690.814181 mmap(0x7fd9dc426000, 32768, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libnss_sss.so.2>, 0x2000) = 0x7fd9dc426000 <0.000037>
+1730805690.814324 mmap(0x7fd9dc42e000, 8192, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libnss_sss.so.2>, 0xa000) = 0x7fd9dc42e000 <0.000031>
+1730805690.814430 mmap(0x7fd9dc430000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libnss_sss.so.2>, 0xb000) = 0x7fd9dc430000 <0.000033>
+1730805690.814592 close(3</usr/lib64/libnss_sss.so.2>) = 0 <0.000021>
+1730805690.814739 mprotect(0x7fd9dc430000, 4096, PROT_READ) = 0 <0.000031>
+1730805690.814848 munmap(0x7fd9dc464000, 29907) = 0 <0.000042>
+1730805690.815005 openat(AT_FDCWD</home/veldrane>, "/var/lib/sss/mc/passwd", O_RDONLY|O_CLOEXEC) = 3</var/lib/sss/mc/passwd> <0.000036>
+1730805690.815142 fstat(3</var/lib/sss/mc/passwd>, {st_mode=S_IFREG|0664, st_size=9253600, ...}) = 0 <0.000023>
+1730805690.815245 mmap(NULL, 9253600, PROT_READ, MAP_SHARED, 3</var/lib/sss/mc/passwd>, 0) = 0x7fd9db800000 <0.000030>
+1730805690.815347 fstat(3</var/lib/sss/mc/passwd>, {st_mode=S_IFREG|0664, st_size=9253600, ...}) = 0 <0.000027>
+1730805690.815494 fstat(1<pipe:[35147]>, {st_mode=S_IFIFO|0600, st_size=0, ...}) = 0 <0.000022>
+1730805690.815624 write(1<pipe:[35147]>, "veldrane\n", 9) = 9 <0.000034>
+1730805690.815758 close(1<pipe:[35147]>) = 0 <0.000042>
+1730805690.815872 close(2</dev/pts/2>)  = 0 <0.000057>
+1730805690.816043 exit_group(0)         = ?

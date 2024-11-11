@@ -1,0 +1,40 @@
+1730805693.688564 set_robust_list(0x7f7e55150a20, 24) = 0 <0.000089>
+1730805693.688992 getpid()              = 2949 <0.000090>
+1730805693.689268 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000157>
+1730805693.689618 rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000111>
+1730805693.689917 rt_sigaction(SIGTTIN, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000102>
+1730805693.690164 rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000105>
+1730805693.690424 setpgid(2949, 2949)   = 0 <0.000094>
+1730805693.690705 rt_sigprocmask(SIG_BLOCK, [CHLD TSTP TTIN TTOU], [], 8) = 0 <0.000125>
+1730805693.690981 ioctl(255</dev/pts/2>, TIOCSPGRP, [2949]) = 0 <0.000096>
+1730805693.691258 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000109>
+1730805693.691569 close(5<pipe:[35157]>) = 0 <0.000132>
+1730805693.691881 read(4<pipe:[35157]>, "", 1) = 0 <0.000081>
+1730805693.692123 close(4<pipe:[35157]>) = 0 <0.000084>
+1730805693.692378 rt_sigaction(SIGHUP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000057>
+1730805693.692584 rt_sigaction(SIGILL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000098>
+1730805693.692826 rt_sigaction(SIGTRAP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000036>
+1730805693.692998 rt_sigaction(SIGABRT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000050>
+1730805693.693179 rt_sigaction(SIGFPE, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000080>
+1730805693.693934 rt_sigaction(SIGBUS, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000075>
+1730805693.694183 rt_sigaction(SIGSEGV, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000073>
+1730805693.694407 rt_sigaction(SIGSYS, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000052>
+1730805693.694620 rt_sigaction(SIGPIPE, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000049>
+1730805693.694843 rt_sigaction(SIGALRM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000052>
+1730805693.695030 rt_sigaction(SIGXCPU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000051>
+1730805693.695213 rt_sigaction(SIGXFSZ, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000035>
+1730805693.695380 rt_sigaction(SIGVTALRM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000082>
+1730805693.695602 rt_sigaction(SIGUSR1, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000047>
+1730805693.695813 rt_sigaction(SIGUSR2, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000051>
+1730805693.696034 rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec504e700, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000051>
+1730805693.696268 rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000048>
+1730805693.696504 rt_sigaction(SIGTERM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000054>
+1730805693.696782 rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec5022b80, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000051>
+1730805693.697254 openat(AT_FDCWD</home/veldrane>, "/usr/share/locale/en_US.UTF-8/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory) <0.000172>
+1730805693.697647 openat(AT_FDCWD</home/veldrane>, "/usr/share/locale/en_US.utf8/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory) <0.000070>
+1730805693.697934 openat(AT_FDCWD</home/veldrane>, "/usr/share/locale/en_US/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory) <0.000065>
+1730805693.698178 openat(AT_FDCWD</home/veldrane>, "/usr/share/locale/en.UTF-8/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory) <0.000062>
+1730805693.698422 openat(AT_FDCWD</home/veldrane>, "/usr/share/locale/en.utf8/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory) <0.000067>
+1730805693.698710 openat(AT_FDCWD</home/veldrane>, "/usr/share/locale/en/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory) <0.000069>
+1730805693.699074 write(2</dev/pts/2>, "-bash: i: command not found\n", 28) = 28 <0.000109>
+1730805693.699563 exit_group(127)       = ?

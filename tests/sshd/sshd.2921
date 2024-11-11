@@ -1,0 +1,212 @@
+1730805683.150254 set_robust_list(0x7f5a22c16060, 24) = 0 <0.000126>
+1730805683.150942 close(9<socket:[21191]>) = 0 <0.000079>
+1730805683.152064 newfstatat(AT_FDCWD</>, "/etc/nsswitch.conf", {st_mode=S_IFREG|0644, st_size=3002, ...}, 0) = 0 <0.000106>
+1730805683.152574 openat(AT_FDCWD</>, "/etc/passwd", O_RDONLY|O_CLOEXEC) = 9</etc/passwd> <0.000092>
+1730805683.152898 fstat(9</etc/passwd>, {st_mode=S_IFREG|0644, st_size=1468, ...}) = 0 <0.000097>
+1730805683.153210 lseek(9</etc/passwd>, 0, SEEK_SET) = 0 <0.000072>
+1730805683.153529 read(9</etc/passwd>, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = 1468 <0.000204>
+1730805683.153990 read(9</etc/passwd>, "", 4096) = 0 <0.000127>
+1730805683.154356 close(9</etc/passwd>) = 0 <0.000046>
+1730805683.154616 fstat(4</var/lib/sss/mc/passwd>, {st_mode=S_IFREG|0664, st_size=9253600, ...}) = 0 <0.000055>
+1730805683.154962 newfstatat(AT_FDCWD</>, "/etc/nsswitch.conf", {st_mode=S_IFREG|0644, st_size=3002, ...}, 0) = 0 <0.000067>
+1730805683.155213 openat(AT_FDCWD</>, "/etc/passwd", O_RDONLY|O_CLOEXEC) = 9</etc/passwd> <0.000057>
+1730805683.155448 fstat(9</etc/passwd>, {st_mode=S_IFREG|0644, st_size=1468, ...}) = 0 <0.000051>
+1730805683.155731 lseek(9</etc/passwd>, 0, SEEK_SET) = 0 <0.000063>
+1730805683.155941 read(9</etc/passwd>, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = 1468 <0.000057>
+1730805683.156163 read(9</etc/passwd>, "", 4096) = 0 <0.000039>
+1730805683.156340 close(9</etc/passwd>) = 0 <0.000037>
+1730805683.156543 fstat(4</var/lib/sss/mc/passwd>, {st_mode=S_IFREG|0664, st_size=9253600, ...}) = 0 <0.000038>
+1730805683.156776 fstat(4</var/lib/sss/mc/passwd>, {st_mode=S_IFREG|0664, st_size=9253600, ...}) = 0 <0.000037>
+1730805683.156968 newfstatat(AT_FDCWD</>, "/proc/self/", {st_mode=S_IFDIR|0555, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0 <0.000058>
+1730805683.157195 getpid()              = 2921 <0.000048>
+1730805683.157346 fstat(8<socket:[21188]>, {st_mode=S_IFSOCK|0777, st_size=0, ...}) = 0 <0.000070>
+1730805683.157584 close(8<socket:[21188]>) = 0 <0.000074>
+1730805683.157791 socket(AF_UNIX, SOCK_STREAM, 0) = 8<socket:[34570]> <0.000096>
+1730805683.158033 fcntl(8<socket:[34570]>, F_GETFL) = 0x2 (flags O_RDWR) <0.000051>
+1730805683.158217 fcntl(8<socket:[34570]>, F_SETFL, O_RDWR|O_NONBLOCK) = 0 <0.000050>
+1730805683.158393 fcntl(8<socket:[34570]>, F_GETFD) = 0 <0.000041>
+1730805683.158588 fcntl(8<socket:[34570]>, F_SETFD, FD_CLOEXEC) = 0 <0.000061>
+1730805683.158789 connect(8<socket:[34570]>, {sa_family=AF_UNIX, sun_path="/var/lib/sss/pipes/nss"}, 110) = 0 <0.000092>
+1730805683.159045 fstat(8<socket:[34570]>, {st_mode=S_IFSOCK|0777, st_size=0, ...}) = 0 <0.000031>
+1730805683.159220 poll([{fd=8<socket:[34570]>, events=POLLOUT}], 1, 300000) = 1 ([{fd=8, revents=POLLOUT}]) <0.000039>
+1730805683.159432 sendto(8<socket:[34570]>, "\x14\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 16, MSG_NOSIGNAL, NULL, 0) = 16 <0.000072>
+1730805683.159730 poll([{fd=8<socket:[34570]>, events=POLLOUT}], 1, 300000) = 1 ([{fd=8, revents=POLLOUT}]) <0.000030>
+1730805683.159927 sendto(8<socket:[34570]>, "\x01\x00\x00\x00", 4, MSG_NOSIGNAL, NULL, 0) = 4 <0.000057>
+1730805683.160150 poll([{fd=8<socket:[34570]>, events=POLLIN}], 1, 300000) = 1 ([{fd=8, revents=POLLIN}]) <0.000070>
+1730805683.160380 read(8<socket:[34570]>, "\x14\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 16) = 16 <0.000062>
+1730805683.160588 poll([{fd=8<socket:[34570]>, events=POLLIN}], 1, 300000) = 1 ([{fd=8, revents=POLLIN}]) <0.000039>
+1730805683.160813 read(8<socket:[34570]>, "\x01\x00\x00\x00", 4) = 4 <0.000068>
+1730805683.161024 poll([{fd=8<socket:[34570]>, events=POLLOUT}], 1, 300000) = 1 ([{fd=8, revents=POLLOUT}]) <0.000050>
+1730805683.161236 sendto(8<socket:[34570]>, "\x2b\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 16, MSG_NOSIGNAL, NULL, 0) = 16 <0.000070>
+1730805683.161481 poll([{fd=8<socket:[34570]>, events=POLLOUT}], 1, 300000) = 1 ([{fd=8, revents=POLLOUT}]) <0.000041>
+1730805683.161724 sendto(8<socket:[34570]>, "\x70\x61\x6d\x5f\x75\x73\x65\x72\x74\x79\x70\x65\x5f\x6e\x6f\x6e\x5f\x65\x78\x69\x73\x74\x65\x6e\x74\x3a\x00", 27, MSG_NOSIGNAL, NULL, 0) = 27 <0.000062>
+1730805683.162003 poll([{fd=8<socket:[34570]>, events=POLLIN}], 1, 300000) = 1 ([{fd=8, revents=POLLIN}]) <0.000097>
+1730805683.162276 read(8<socket:[34570]>, "\x18\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 16) = 16 <0.000042>
+1730805683.162481 poll([{fd=8<socket:[34570]>, events=POLLIN}], 1, 300000) = 1 ([{fd=8, revents=POLLIN}]) <0.000045>
+1730805683.162702 read(8<socket:[34570]>, "\x00\x00\x00\x00\x00\x00\x00\x00", 8) = 8 <0.000055>
+1730805683.162932 rt_sigprocmask(SIG_BLOCK, [HUP USR1 USR2 PIPE ALRM CHLD TSTP URG VTALRM PROF WINCH IO], [], 8) = 0 <0.000038>
+1730805683.163138 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000048>
+1730805683.163371 openat(AT_FDCWD</>, "/etc/login.defs", O_RDONLY|O_CLOEXEC) = 9</etc/login.defs> <0.000067>
+1730805683.163705 fstat(9</etc/login.defs>, {st_mode=S_IFREG|0644, st_size=7778, ...}) = 0 <0.000039>
+1730805683.163938 read(9</etc/login.defs>, "#\n# Please note that the paramet"..., 4096) = 4096 <0.000049>
+1730805683.164855 read(9</etc/login.defs>, " selection in useradd(8)\n#\nUID_M"..., 4096) = 3682 <0.000108>
+1730805683.165574 read(9</etc/login.defs>, "", 4096) = 0 <0.000088>
+1730805683.165955 close(9</etc/login.defs>) = 0 <0.000066>
+1730805683.166205 openat(AT_FDCWD</>, "/etc/login.defs.d", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = -1 ENOENT (No such file or directory) <0.000073>
+1730805683.166502 openat(AT_FDCWD</>, "/etc/login.defs", O_RDONLY|O_CLOEXEC) = 9</etc/login.defs> <0.000053>
+1730805683.166782 fstat(9</etc/login.defs>, {st_mode=S_IFREG|0644, st_size=7778, ...}) = 0 <0.000030>
+1730805683.166977 read(9</etc/login.defs>, "#\n# Please note that the paramet"..., 4096) = 4096 <0.000038>
+1730805683.167547 brk(0x55d8edab6000)   = 0x55d8edab6000 <0.000147>
+1730805683.167950 read(9</etc/login.defs>, " selection in useradd(8)\n#\nUID_M"..., 4096) = 3682 <0.000051>
+1730805683.168376 read(9</etc/login.defs>, "", 4096) = 0 <0.000054>
+1730805683.168606 close(9</etc/login.defs>) = 0 <0.000055>
+1730805683.168829 openat(AT_FDCWD</>, "/etc/login.defs.d", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = -1 ENOENT (No such file or directory) <0.000053>
+1730805683.169077 openat(AT_FDCWD</>, "/etc/passwd", O_RDONLY) = 9</etc/passwd> <0.000055>
+1730805683.169318 fstat(9</etc/passwd>, {st_mode=S_IFREG|0644, st_size=1468, ...}) = 0 <0.000028>
+1730805683.169524 read(9</etc/passwd>, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = 1468 <0.000039>
+1730805683.169755 read(9</etc/passwd>, "", 4096) = 0 <0.000036>
+1730805683.169921 close(9</etc/passwd>) = 0 <0.000038>
+1730805683.170103 newfstatat(AT_FDCWD</>, "/etc/nsswitch.conf", {st_mode=S_IFREG|0644, st_size=3002, ...}, 0) = 0 <0.000052>
+1730805683.170335 openat(AT_FDCWD</>, "/etc/passwd", O_RDONLY|O_CLOEXEC) = 9</etc/passwd> <0.000069>
+1730805683.170589 fstat(9</etc/passwd>, {st_mode=S_IFREG|0644, st_size=1468, ...}) = 0 <0.000069>
+1730805683.170807 lseek(9</etc/passwd>, 0, SEEK_SET) = 0 <0.000050>
+1730805683.170984 read(9</etc/passwd>, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = 1468 <0.000040>
+1730805683.171185 read(9</etc/passwd>, "", 4096) = 0 <0.000038>
+1730805683.171359 close(9</etc/passwd>) = 0 <0.000063>
+1730805683.171565 fstat(4</var/lib/sss/mc/passwd>, {st_mode=S_IFREG|0664, st_size=9253600, ...}) = 0 <0.000065>
+1730805683.171795 newfstatat(AT_FDCWD</>, "/etc/nsswitch.conf", {st_mode=S_IFREG|0644, st_size=3002, ...}, 0) = 0 <0.000045>
+1730805683.172016 openat(AT_FDCWD</>, "/etc/passwd", O_RDONLY|O_CLOEXEC) = 9</etc/passwd> <0.000047>
+1730805683.172234 fstat(9</etc/passwd>, {st_mode=S_IFREG|0644, st_size=1468, ...}) = 0 <0.000030>
+1730805683.172406 lseek(9</etc/passwd>, 0, SEEK_SET) = 0 <0.000041>
+1730805683.172606 read(9</etc/passwd>, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = 1468 <0.000072>
+1730805683.173234 read(9</etc/passwd>, "", 4096) = 0 <0.000101>
+1730805683.173521 close(9</etc/passwd>) = 0 <0.000062>
+1730805683.173749 fstat(4</var/lib/sss/mc/passwd>, {st_mode=S_IFREG|0664, st_size=9253600, ...}) = 0 <0.000032>
+1730805683.174005 fstat(4</var/lib/sss/mc/passwd>, {st_mode=S_IFREG|0664, st_size=9253600, ...}) = 0 <0.000040>
+1730805683.174196 newfstatat(AT_FDCWD</>, "/proc/self/", {st_mode=S_IFDIR|0555, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0 <0.000053>
+1730805683.174407 getpid()              = 2921 <0.000045>
+1730805683.174562 fstat(8<socket:[34570]>, {st_mode=S_IFSOCK|0777, st_size=0, ...}) = 0 <0.000030>
+1730805683.174774 poll([{fd=8<socket:[34570]>, events=POLLIN|POLLOUT}], 1, 300000) = 1 ([{fd=8, revents=POLLOUT}]) <0.000039>
+1730805683.174987 poll([{fd=8<socket:[34570]>, events=POLLOUT}], 1, 300000) = 1 ([{fd=8, revents=POLLOUT}]) <0.000038>
+1730805683.175182 sendto(8<socket:[34570]>, "\x2b\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 16, MSG_NOSIGNAL, NULL, 0) = 16 <0.000065>
+1730805683.175427 poll([{fd=8<socket:[34570]>, events=POLLOUT}], 1, 300000) = 1 ([{fd=8, revents=POLLOUT}]) <0.000042>
+1730805683.175663 sendto(8<socket:[34570]>, "\x70\x61\x6d\x5f\x75\x73\x65\x72\x74\x79\x70\x65\x5f\x6e\x6f\x6e\x5f\x65\x78\x69\x73\x74\x65\x6e\x74\x3a\x00", 27, MSG_NOSIGNAL, NULL, 0) = 27 <0.000060>
+1730805683.175921 poll([{fd=8<socket:[34570]>, events=POLLIN}], 1, 300000) = 1 ([{fd=8, revents=POLLIN}]) <0.000163>
+1730805683.176264 read(8<socket:[34570]>, "\x18\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 16) = 16 <0.000042>
+1730805683.176452 poll([{fd=8<socket:[34570]>, events=POLLIN}], 1, 300000) = 1 ([{fd=8, revents=POLLIN}]) <0.000099>
+1730805683.176853 read(8<socket:[34570]>, "\x00\x00\x00\x00\x00\x00\x00\x00", 8) = 8 <0.000072>
+1730805683.177119 rt_sigprocmask(SIG_BLOCK, [HUP USR1 USR2 PIPE ALRM CHLD TSTP URG VTALRM PROF WINCH IO], [], 8) = 0 <0.000060>
+1730805683.177329 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000049>
+1730805683.177539 openat(AT_FDCWD</>, "/etc/login.defs", O_RDONLY|O_CLOEXEC) = 9</etc/login.defs> <0.000107>
+1730805683.177852 fstat(9</etc/login.defs>, {st_mode=S_IFREG|0644, st_size=7778, ...}) = 0 <0.000030>
+1730805683.178026 read(9</etc/login.defs>, "#\n# Please note that the paramet"..., 4096) = 4096 <0.000042>
+1730805683.178535 read(9</etc/login.defs>, " selection in useradd(8)\n#\nUID_M"..., 4096) = 3682 <0.000076>
+1730805683.178979 read(9</etc/login.defs>, "", 4096) = 0 <0.000040>
+1730805683.179166 close(9</etc/login.defs>) = 0 <0.000041>
+1730805683.179346 openat(AT_FDCWD</>, "/etc/login.defs.d", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = -1 ENOENT (No such file or directory) <0.000079>
+1730805683.179607 openat(AT_FDCWD</>, "/etc/login.defs", O_RDONLY|O_CLOEXEC) = 9</etc/login.defs> <0.000057>
+1730805683.179901 fstat(9</etc/login.defs>, {st_mode=S_IFREG|0644, st_size=7778, ...}) = 0 <0.000049>
+1730805683.180099 read(9</etc/login.defs>, "#\n# Please note that the paramet"..., 4096) = 4096 <0.000037>
+1730805683.180569 read(9</etc/login.defs>, " selection in useradd(8)\n#\nUID_M"..., 4096) = 3682 <0.000063>
+1730805683.180974 read(9</etc/login.defs>, "", 4096) = 0 <0.000040>
+1730805683.181161 close(9</etc/login.defs>) = 0 <0.000039>
+1730805683.181340 openat(AT_FDCWD</>, "/etc/login.defs.d", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = -1 ENOENT (No such file or directory) <0.000078>
+1730805683.181649 getpid()              = 2921 <0.000040>
+1730805683.181850 openat(AT_FDCWD</>, "/proc/self/loginuid", O_RDONLY) = 9</proc/2921/loginuid> <0.000077>
+1730805683.182104 read(9</proc/2921/loginuid>, "1096400003", 12) = 10 <0.000037>
+1730805683.182289 close(9</proc/2921/loginuid>) = 0 <0.000039>
+1730805683.182480 newfstatat(AT_FDCWD</>, "/etc/nsswitch.conf", {st_mode=S_IFREG|0644, st_size=3002, ...}, 0) = 0 <0.000060>
+1730805683.182721 openat(AT_FDCWD</>, "/etc/passwd", O_RDONLY|O_CLOEXEC) = 9</etc/passwd> <0.000055>
+1730805683.182967 fstat(9</etc/passwd>, {st_mode=S_IFREG|0644, st_size=1468, ...}) = 0 <0.000038>
+1730805683.183169 lseek(9</etc/passwd>, 0, SEEK_SET) = 0 <0.000049>
+1730805683.183349 read(9</etc/passwd>, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = 1468 <0.000056>
+1730805683.183584 read(9</etc/passwd>, "", 4096) = 0 <0.000038>
+1730805683.183802 close(9</etc/passwd>) = 0 <0.000041>
+1730805683.184034 fstat(4</var/lib/sss/mc/passwd>, {st_mode=S_IFREG|0664, st_size=9253600, ...}) = 0 <0.000030>
+1730805683.184239 access("/var/lib/sss/pubconf/pam_preauth_available", F_OK) = 0 <0.000060>
+1730805683.184533 futex(0x7f5a226ac0f0, FUTEX_WAKE_PRIVATE, 2147483647) = 0 <0.000039>
+1730805683.184702 getuid()              = 0 <0.000049>
+1730805683.184857 newfstatat(AT_FDCWD</>, "/var/lib/sss/pipes/private/pam", {st_mode=S_IFSOCK|0600, st_size=0, ...}, 0) = 0 <0.000057>
+1730805683.185073 futex(0x7f5a226ac0f4, FUTEX_WAKE_PRIVATE, 2147483647) = 0 <0.000028>
+1730805683.185204 newfstatat(AT_FDCWD</>, "/proc/self/", {st_mode=S_IFDIR|0555, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0 <0.000055>
+1730805683.185413 getpid()              = 2921 <0.000064>
+1730805683.185597 fstat(-1, 0x7ffe9ff0dfc0) = -1 EBADF (Bad file descriptor) <0.000052>
+1730805683.185772 socket(AF_UNIX, SOCK_STREAM, 0) = 9<socket:[34572]> <0.000085>
+1730805683.186013 fcntl(9<socket:[34572]>, F_GETFL) = 0x2 (flags O_RDWR) <0.000051>
+1730805683.186197 fcntl(9<socket:[34572]>, F_SETFL, O_RDWR|O_NONBLOCK) = 0 <0.000050>
+1730805683.186377 fcntl(9<socket:[34572]>, F_GETFD) = 0 <0.000057>
+1730805683.186572 fcntl(9<socket:[34572]>, F_SETFD, FD_CLOEXEC) = 0 <0.000053>
+1730805683.186755 connect(9<socket:[34572]>, {sa_family=AF_UNIX, sun_path="/var/lib/sss/pipes/private/pam"}, 110) = 0 <0.000121>
+1730805683.187043 fstat(9<socket:[34572]>, {st_mode=S_IFSOCK|0777, st_size=0, ...}) = 0 <0.000051>
+1730805683.187242 poll([{fd=9<socket:[34572]>, events=POLLOUT}], 1, 300000) = 1 ([{fd=9, revents=POLLOUT}]) <0.000030>
+1730805683.187435 sendto(9<socket:[34572]>, "\x14\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 16, MSG_NOSIGNAL, NULL, 0) = 16 <0.000064>
+1730805683.187719 poll([{fd=9<socket:[34572]>, events=POLLOUT}], 1, 300000) = 1 ([{fd=9, revents=POLLOUT}]) <0.000032>
+1730805683.187915 sendto(9<socket:[34572]>, "\x03\x00\x00\x00", 4, MSG_NOSIGNAL, NULL, 0) = 4 <0.000053>
+1730805683.188132 poll([{fd=9<socket:[34572]>, events=POLLIN}], 1, 300000) = 1 ([{fd=9, revents=POLLIN}]) <0.000026>
+1730805683.188316 read(9<socket:[34572]>, "\x14\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 16) = 16 <0.000042>
+1730805683.188517 poll([{fd=9<socket:[34572]>, events=POLLIN}], 1, 300000) = 1 ([{fd=9, revents=POLLIN}]) <0.000038>
+1730805683.188764 read(9<socket:[34572]>, "\x03\x00\x00\x00", 4) = 4 <0.000054>
+1730805683.188962 getsockopt(9<socket:[34572]>, SOL_SOCKET, SO_PEERCRED, {pid=1044, uid=0, gid=0}, [12]) = 0 <0.000040>
+1730805683.189203 poll([{fd=9<socket:[34572]>, events=POLLOUT}], 1, 300000) = 1 ([{fd=9, revents=POLLOUT}]) <0.000027>
+1730805683.189388 sendto(9<socket:[34572]>, "\x6c\x00\x00\x00\xf9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 16, MSG_NOSIGNAL, NULL, 0) = 16 <0.000063>
+1730805683.189628 poll([{fd=9<socket:[34572]>, events=POLLOUT}], 1, 300000) = 1 ([{fd=9, revents=POLLOUT}]) <0.000040>
+1730805683.189877 sendto(9<socket:[34572]>, "\x49\x50\x41\x4d\x01\x00\x00\x00\x09\x00\x00\x00\x76\x65\x6c\x64\x72\x61\x6e\x65\x00\x02\x00\x00\x00\x05\x00\x00\x00\x73\x73\x68"..., 92, MSG_NOSIGNAL, NULL, 0) = 92 <0.000055>
+1730805683.190090 poll([{fd=9<socket:[34572]>, events=POLLIN}], 1, 300000) = 1 ([{fd=9, revents=POLLIN}]) <0.070788>
+1730805683.261208 read(9<socket:[34572]>, "\x3b\x00\x00\x00\xf9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 16) = 16 <0.001010>
+1730805683.262741 poll([{fd=9<socket:[34572]>, events=POLLIN}], 1, 300000) = 1 ([{fd=9, revents=POLLIN}]) <0.000120>
+1730805683.263140 read(9<socket:[34572]>, "\x00\x00\x00\x00\x02\x00\x00\x00\x02\x00\x00\x00\x13\x00\x00\x00\x6c\x61\x62\x2e\x73\x79\x73\x63\x61\x6c\x6c\x78\x38\x36\x2e\x63"..., 43) = 43 <0.000119>
+1730805683.263581 getpid()              = 2921 <0.000078>
+1730805683.263843 getpid()              = 2921 <0.000040>
+1730805683.264021 write(10<socket:[21192]>, "\x00\x00\x00\x0f\x01", 5) = 5 <0.000089>
+1730805683.264364 write(10<socket:[21192]>, "\x00\x00\x00\x0a\x50\x61\x73\x73\x77\x6f\x72\x64\x3a\x20", 14) = 14 <0.000139>
+1730805683.264770 getpid()              = 2921 <0.000084>
+1730805683.265040 read(10<socket:[21192]>, "\x00\x00\x00\x0f", 4) = 4 <2.186937>
+1730805685.452238 read(10<socket:[21192]>, "\x06\x00\x00\x00\x0a\x4e\x7a\x6e\x73\x6a\x74\x73\x74\x68\x38", 15) = 15 <0.000196>
+1730805685.452807 getuid()              = 0 <0.000184>
+1730805685.453213 newfstatat(AT_FDCWD</>, "/var/lib/sss/pipes/private/pam", {st_mode=S_IFSOCK|0600, st_size=0, ...}, 0) = 0 <0.000287>
+1730805685.453733 newfstatat(AT_FDCWD</>, "/proc/self/", {st_mode=S_IFDIR|0555, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0 <0.000125>
+1730805685.454071 getpid()              = 2921 <0.000077>
+1730805685.454317 fstat(9<socket:[34572]>, {st_mode=S_IFSOCK|0777, st_size=0, ...}) = 0 <0.000092>
+1730805685.454584 poll([{fd=9<socket:[34572]>, events=POLLIN|POLLOUT}], 1, 300000) = 1 ([{fd=9, revents=POLLOUT}]) <0.000122>
+1730805685.454942 getsockopt(9<socket:[34572]>, SOL_SOCKET, SO_PEERCRED, {pid=1044, uid=0, gid=0}, [12]) = 0 <0.000070>
+1730805685.455264 poll([{fd=9<socket:[34572]>, events=POLLOUT}], 1, 300000) = 1 ([{fd=9, revents=POLLOUT}]) <0.000088>
+1730805685.455727 sendto(9<socket:[34572]>, "\x82\x00\x00\x00\xf1\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 16, MSG_NOSIGNAL, NULL, 0) = 16 <0.000144>
+1730805685.456074 poll([{fd=9<socket:[34572]>, events=POLLOUT}], 1, 300000) = 1 ([{fd=9, revents=POLLOUT}]) <0.000131>
+1730805685.456407 sendto(9<socket:[34572]>, "\x49\x50\x41\x4d\x01\x00\x00\x00\x09\x00\x00\x00\x76\x65\x6c\x64\x72\x61\x6e\x65\x00\x02\x00\x00\x00\x05\x00\x00\x00\x73\x73\x68"..., 114, MSG_NOSIGNAL, NULL, 0) = 114 <0.000238>
+1730805685.456865 poll([{fd=9<socket:[34572]>, events=POLLIN}], 1, 300000) = 1 ([{fd=9, revents=POLLIN}]) <0.184782>
+1730805685.642049 read(9<socket:[34572]>, "\x33\x00\x00\x00\xf1\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 16) = 16 <0.000122>
+1730805685.642505 poll([{fd=9<socket:[34572]>, events=POLLIN}], 1, 300000) = 1 ([{fd=9, revents=POLLIN}]) <0.000134>
+1730805685.642892 read(9<socket:[34572]>, "\x07\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x13\x00\x00\x00\x6c\x61\x62\x2e\x73\x79\x73\x63\x61\x6c\x6c\x78\x38\x36\x2e\x63"..., 35) = 35 <0.000087>
+1730805685.643204 geteuid()             = 0 <0.000075>
+1730805685.643420 getuid()              = 0 <0.000086>
+1730805685.643947 openat(AT_FDCWD</>, "/etc/localtime", O_RDONLY|O_CLOEXEC) = 11</usr/share/zoneinfo/Europe/Prague> <0.000125>
+1730805685.644353 fstat(11</usr/share/zoneinfo/Europe/Prague>, {st_mode=S_IFREG|0644, st_size=2301, ...}) = 0 <0.000076>
+1730805685.644617 fstat(11</usr/share/zoneinfo/Europe/Prague>, {st_mode=S_IFREG|0644, st_size=2301, ...}) = 0 <0.000041>
+1730805685.644855 read(11</usr/share/zoneinfo/Europe/Prague>, "\x54\x5a\x69\x66\x32\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x08\x00\x00\x00\x08\x00\x00\x00\x00"..., 4096) = 2301 <0.000063>
+1730805685.645100 lseek(11</usr/share/zoneinfo/Europe/Prague>, -1461, SEEK_CUR) = 840 <0.000053>
+1730805685.645321 read(11</usr/share/zoneinfo/Europe/Prague>, "\x54\x5a\x69\x66\x32\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x09\x00\x00\x00\x09\x00\x00\x00\x00"..., 4096) = 1461 <0.000045>
+1730805685.645569 close(11</usr/share/zoneinfo/Europe/Prague>) = 0 <0.000087>
+1730805685.645853 socket(AF_UNIX, SOCK_DGRAM|SOCK_CLOEXEC, 0) = 11<socket:[34573]> <0.000963>
+1730805685.647098 connect(11<socket:[34573]>, {sa_family=AF_UNIX, sun_path="/dev/log"}, 110) = 0 <0.000559>
+1730805685.647945 sendto(11<socket:[34573]>, "<85>Nov  5 12:21:25 sshd: pam_ss"..., 144, MSG_NOSIGNAL, NULL, 0) = 144 <0.000117>
+1730805685.648391 sendto(11<socket:[34573]>, "<85>Nov  5 12:21:25 sshd: pam_ss"..., 100, MSG_NOSIGNAL, NULL, 0) = 100 <0.000086>
+1730805685.648819 socket(AF_NETLINK, SOCK_RAW, NETLINK_AUDIT) = 12<socket:[34574]> <0.000102>
+1730805685.649155 fcntl(12<socket:[34574]>, F_SETFD, FD_CLOEXEC) = 0 <0.000065>
+1730805685.649411 socket(AF_NETLINK, SOCK_RAW|SOCK_CLOEXEC, NETLINK_ROUTE) = 13<socket:[34575]> <0.000854>
+1730805685.650616 bind(13<socket:[34575]>, {sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, 12) = 0 <0.000078>
+1730805685.650940 getsockname(13<socket:[34575]>, {sa_family=AF_NETLINK, nl_pid=2921, nl_groups=00000000}, [12]) = 0 <0.000070>
+1730805685.651338 sendto(13<socket:[34575]>, [{nlmsg_len=20, nlmsg_type=RTM_GETADDR, nlmsg_flags=NLM_F_REQUEST|NLM_F_DUMP, nlmsg_seq=1730805685, nlmsg_pid=0}, {ifa_family=AF_UNSPEC, ...}], 20, 0, {sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, 12) = 20 <0.000122>
+1730805685.651988 recvmsg(13<socket:[34575]>, {msg_name={sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, msg_namelen=12, msg_iov=[{iov_base=[[{nlmsg_len=76, nlmsg_type=RTM_NEWADDR, nlmsg_flags=NLM_F_MULTI, nlmsg_seq=1730805685, nlmsg_pid=2921}, {ifa_family=AF_INET, ifa_prefixlen=8, ifa_flags=IFA_F_PERMANENT, ifa_scope=RT_SCOPE_HOST, ifa_index=if_nametoindex("lo")}, [[{nla_len=8, nla_type=IFA_ADDRESS}, inet_addr("127.0.0.1")], [{nla_len=8, nla_type=IFA_LOCAL}, inet_addr("127.0.0.1")], [{nla_len=7, nla_type=IFA_LABEL}, "\x6c\x6f\x00"...], [{nla_len=8, nla_type=IFA_FLAGS}, IFA_F_PERMANENT], [{nla_len=20, nla_type=IFA_CACHEINFO}, {ifa_prefered=4294967295, ifa_valid=4294967295, cstamp=175, tstamp=175}]]], [{nlmsg_len=88, nlmsg_type=RTM_NEWADDR, nlmsg_flags=NLM_F_MULTI, nlmsg_seq=1730805685, nlmsg_pid=2921}, {ifa_family=AF_INET, ifa_prefixlen=24, ifa_flags=IFA_F_PERMANENT, ifa_scope=RT_SCOPE_UNIVERSE, ifa_index=if_nametoindex("enp1s0")}, [[{nla_len=8, nla_type=IFA_ADDRESS}, inet_addr("10.1.8.52")], [{nla_len=8, nla_type=IFA_LOCAL}, inet_addr("10.1.8.52")], [{nla_len=8, nla_type=IFA_BROADCAST}, inet_addr("10.1.8.255")], [{nla_len=11, nla_type=IFA_LABEL}, "\x65\x6e\x70\x31\x73\x30\x00"...], [{nla_len=8, nla_type=IFA_FLAGS}, IFA_F_PERMANENT|IFA_F_NOPREFIXROUTE], [{nla_len=20, nla_type=IFA_CACHEINFO}, {ifa_prefered=4294967295, ifa_valid=4294967295, cstamp=1092, tstamp=1092}]]], [{nlmsg_len=88, nlmsg_type=RTM_NEWADDR, nlmsg_flags=NLM_F_MULTI, nlmsg_seq=1730805685, nlmsg_pid=2921}, {ifa_family=AF_INET, ifa_prefixlen=16, ifa_flags=IFA_F_PERMANENT, ifa_scope=RT_SCOPE_UNIVERSE, ifa_index=if_nametoindex("docker0")}, [[{nla_len=8, nla_type=IFA_ADDRESS}, inet_addr("172.17.0.1")], [{nla_len=8, nla_type=IFA_LOCAL}, inet_addr("172.17.0.1")], [{nla_len=8, nla_type=IFA_BROADCAST}, inet_addr("172.17.255.255")], [{nla_len=12, nla_type=IFA_LABEL}, "\x64\x6f\x63\x6b\x65\x72\x30\x00"...], [{nla_len=8, nla_type=IFA_FLAGS}, IFA_F_PERMANENT], [{nla_len=20, nla_type=IFA_CACHEINFO}, {ifa_prefered=4294967295, ifa_valid=4294967295, cstamp=1262, tstamp=1262}]]]], iov_len=4096}], msg_iovlen=1, msg_controllen=0, msg_flags=0}, 0) = 252 <0.000121>
+1730805685.652728 recvmsg(13<socket:[34575]>, {msg_name={sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, msg_namelen=12, msg_iov=[{iov_base=[[{nlmsg_len=72, nlmsg_type=RTM_NEWADDR, nlmsg_flags=NLM_F_MULTI, nlmsg_seq=1730805685, nlmsg_pid=2921}, {ifa_family=AF_INET6, ifa_prefixlen=128, ifa_flags=IFA_F_PERMANENT, ifa_scope=RT_SCOPE_HOST, ifa_index=if_nametoindex("lo")}, [[{nla_len=20, nla_type=IFA_ADDRESS}, inet_pton(AF_INET6, "::1")], [{nla_len=20, nla_type=IFA_CACHEINFO}, {ifa_prefered=4294967295, ifa_valid=4294967295, cstamp=175, tstamp=175}], [{nla_len=8, nla_type=IFA_FLAGS}, IFA_F_PERMANENT]]], [{nlmsg_len=72, nlmsg_type=RTM_NEWADDR, nlmsg_flags=NLM_F_MULTI, nlmsg_seq=1730805685, nlmsg_pid=2921}, {ifa_family=AF_INET6, ifa_prefixlen=64, ifa_flags=IFA_F_PERMANENT, ifa_scope=RT_SCOPE_LINK, ifa_index=if_nametoindex("enp1s0")}, [[{nla_len=20, nla_type=IFA_ADDRESS}, inet_pton(AF_INET6, "fe80::5054:ff:fe54:6ec3")], [{nla_len=20, nla_type=IFA_CACHEINFO}, {ifa_prefered=4294967295, ifa_valid=4294967295, cstamp=1091, tstamp=1091}], [{nla_len=8, nla_type=IFA_FLAGS}, IFA_F_PERMANENT]]]], iov_len=4096}], msg_iovlen=1, msg_controllen=0, msg_flags=0}, 0) = 144 <0.000080>
+1730805685.653207 recvmsg(13<socket:[34575]>, {msg_name={sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, msg_namelen=12, msg_iov=[{iov_base=[{nlmsg_len=20, nlmsg_type=NLMSG_DONE, nlmsg_flags=NLM_F_MULTI, nlmsg_seq=1730805685, nlmsg_pid=2921}, 0], iov_len=4096}], msg_iovlen=1, msg_controllen=0, msg_flags=0}, 0) = 20 <0.000067>
+1730805685.653567 close(13<socket:[34575]>) = 0 <0.000059>
+1730805685.654048 sendto(12<socket:[34574]>, [{nlmsg_len=144, nlmsg_type=0x44c /* NLMSG_??? */, nlmsg_flags=NLM_F_REQUEST|NLM_F_ACK, nlmsg_seq=4, nlmsg_pid=0}, "\x6f\x70\x3d\x50\x41\x4d\x3a\x61\x75\x74\x68\x65\x6e\x74\x69\x63\x61\x74\x69\x6f\x6e\x20\x67\x72\x61\x6e\x74\x6f\x72\x73\x3d\x3f"...], 144, 0, {sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, 12) = 144 <0.000460>
+1730805685.654954 poll([{fd=12<socket:[34574]>, events=POLLIN}], 1, 500) = 1 ([{fd=12, revents=POLLIN}]) <0.000066>
+1730805685.655241 recvfrom(12<socket:[34574]>, [{nlmsg_len=36, nlmsg_type=NLMSG_ERROR, nlmsg_flags=NLM_F_CAPPED, nlmsg_seq=4, nlmsg_pid=2921}, {error=0, msg={nlmsg_len=144, nlmsg_type=AUDIT_FIRST_USER_MSG, nlmsg_flags=NLM_F_REQUEST|NLM_F_ACK, nlmsg_seq=4, nlmsg_pid=0}}], 8988, MSG_PEEK|MSG_DONTWAIT, {sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, [12]) = 36 <0.000065>
+1730805685.655781 recvfrom(12<socket:[34574]>, [{nlmsg_len=36, nlmsg_type=NLMSG_ERROR, nlmsg_flags=NLM_F_CAPPED, nlmsg_seq=4, nlmsg_pid=2921}, {error=0, msg={nlmsg_len=144, nlmsg_type=AUDIT_FIRST_USER_MSG, nlmsg_flags=NLM_F_REQUEST|NLM_F_ACK, nlmsg_seq=4, nlmsg_pid=0}}], 8988, MSG_DONTWAIT, {sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, [12]) = 36 <0.000065>
+1730805685.656142 close(12<socket:[34574]>) = 0 <0.000075>
+1730805685.656366 pselect6(0, NULL, NULL, NULL, {tv_sec=1, tv_nsec=399699000}, NULL) = 0 (Timeout) <1.401379>
+1730805687.058244 getpid()              = 2921 <0.000083>
+1730805687.058573 write(10<socket:[21192]>, "\x00\x00\x00\x1b\x07", 5) = 5 <0.000158>
+1730805687.059142 write(10<socket:[21192]>, "\x00\x00\x00\x16\x41\x75\x74\x68\x65\x6e\x74\x69\x63\x61\x74\x69\x6f\x6e\x20\x66\x61\x69\x6c\x75\x72\x65", 26) = 26 <0.000111>
+1730805687.059546 exit_group(0)         = ?

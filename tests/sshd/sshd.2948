@@ -1,0 +1,183 @@
+1730805691.252539 set_robust_list(0x7f7e55150a20, 24) = 0 <0.000037>
+1730805691.252718 getpid()              = 2948 <0.000026>
+1730805691.252814 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000030>
+1730805691.252906 rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000048>
+1730805691.253027 rt_sigaction(SIGTTIN, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000041>
+1730805691.253138 rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000059>
+1730805691.253273 rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec504eaa0, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000019>
+1730805691.253368 rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000020>
+1730805691.253497 rt_sigaction(SIGTERM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000021>
+1730805691.253589 rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec5022b80, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000020>
+1730805691.253695 rt_sigaction(SIGCHLD, {sa_handler=0x556ec5022b80, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000021>
+1730805691.253798 rt_sigaction(SIGINT, {sa_handler=0x556ec504eaa0, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000020>
+1730805691.253938 dup2(5<pipe:[37027]>, 1<pipe:[35153]>) = 1<pipe:[37027]> <0.000019>
+1730805691.254066 close(5<pipe:[37027]>) = 0 <0.000020>
+1730805691.254148 close(4<pipe:[37027]>) = 0 <0.000020>
+1730805691.254331 rt_sigprocmask(SIG_BLOCK, NULL, [], 8) = 0 <0.000017>
+1730805691.254522 newfstatat(AT_FDCWD</home/veldrane>, ".", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0 <0.000030>
+1730805691.254659 newfstatat(AT_FDCWD</home/veldrane>, "/root/.local/bin/readlink", 0x7ffddb879e30, 0) = -1 EACCES (Permission denied) <0.000027>
+1730805691.254791 newfstatat(AT_FDCWD</home/veldrane>, "/root/bin/readlink", 0x7ffddb879e30, 0) = -1 EACCES (Permission denied) <0.000021>
+1730805691.254889 newfstatat(AT_FDCWD</home/veldrane>, "/usr/local/sbin/readlink", 0x7ffddb879e30, 0) = -1 ENOENT (No such file or directory) <0.000026>
+1730805691.254994 newfstatat(AT_FDCWD</home/veldrane>, "/usr/local/bin/readlink", 0x7ffddb879e30, 0) = -1 ENOENT (No such file or directory) <0.000027>
+1730805691.255099 newfstatat(AT_FDCWD</home/veldrane>, "/usr/sbin/readlink", 0x7ffddb879e30, 0) = -1 ENOENT (No such file or directory) <0.000028>
+1730805691.255204 newfstatat(AT_FDCWD</home/veldrane>, "/usr/bin/readlink", {st_mode=S_IFREG|0755, st_size=40576, ...}, 0) = 0 <0.000028>
+1730805691.255314 newfstatat(AT_FDCWD</home/veldrane>, "/usr/bin/readlink", {st_mode=S_IFREG|0755, st_size=40576, ...}, 0) = 0 <0.000022>
+1730805691.255417 geteuid()             = 1096400003 <0.000027>
+1730805691.255505 getegid()             = 1100 <0.000019>
+1730805691.255575 getuid()              = 1096400003 <0.000018>
+1730805691.255643 getgid()              = 1100 <0.000016>
+1730805691.255712 access("/usr/bin/readlink", X_OK) = 0 <0.000029>
+1730805691.255802 newfstatat(AT_FDCWD</home/veldrane>, "/usr/bin/readlink", {st_mode=S_IFREG|0755, st_size=40576, ...}, 0) = 0 <0.000023>
+1730805691.255918 geteuid()             = 1096400003 <0.000016>
+1730805691.255989 getegid()             = 1100 <0.000021>
+1730805691.256063 getuid()              = 1096400003 <0.000015>
+1730805691.256130 getgid()              = 1100 <0.000015>
+1730805691.256197 access("/usr/bin/readlink", R_OK) = 0 <0.000025>
+1730805691.256284 newfstatat(AT_FDCWD</home/veldrane>, "/usr/bin/readlink", {st_mode=S_IFREG|0755, st_size=40576, ...}, 0) = 0 <0.000022>
+1730805691.256390 newfstatat(AT_FDCWD</home/veldrane>, "/usr/bin/readlink", {st_mode=S_IFREG|0755, st_size=40576, ...}, 0) = 0 <0.000024>
+1730805691.256506 geteuid()             = 1096400003 <0.000016>
+1730805691.256577 getegid()             = 1100 <0.000015>
+1730805691.256646 getuid()              = 1096400003 <0.000023>
+1730805691.256744 getgid()              = 1100 <0.000019>
+1730805691.256816 access("/usr/bin/readlink", X_OK) = 0 <0.000030>
+1730805691.256945 newfstatat(AT_FDCWD</home/veldrane>, "/usr/bin/readlink", {st_mode=S_IFREG|0755, st_size=40576, ...}, 0) = 0 <0.000021>
+1730805691.257054 geteuid()             = 1096400003 <0.000020>
+1730805691.257126 getegid()             = 1100 <0.000019>
+1730805691.257196 getuid()              = 1096400003 <0.000019>
+1730805691.257265 getgid()              = 1100 <0.000019>
+1730805691.257334 access("/usr/bin/readlink", R_OK) = 0 <0.000028>
+1730805691.257510 rt_sigaction(SIGHUP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000020>
+1730805691.257603 rt_sigaction(SIGILL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000022>
+1730805691.257700 rt_sigaction(SIGTRAP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000023>
+1730805691.257786 rt_sigaction(SIGABRT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000022>
+1730805691.257867 rt_sigaction(SIGFPE, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000022>
+1730805691.257947 rt_sigaction(SIGBUS, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000021>
+1730805691.258028 rt_sigaction(SIGSEGV, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000020>
+1730805691.258111 rt_sigaction(SIGSYS, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000021>
+1730805691.258192 rt_sigaction(SIGPIPE, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000021>
+1730805691.258272 rt_sigaction(SIGALRM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000021>
+1730805691.258352 rt_sigaction(SIGXCPU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000021>
+1730805691.258432 rt_sigaction(SIGXFSZ, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000022>
+1730805691.258525 rt_sigaction(SIGVTALRM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000022>
+1730805691.258607 rt_sigaction(SIGUSR1, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000021>
+1730805691.258707 rt_sigaction(SIGUSR2, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000020>
+1730805691.258795 rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec504eaa0, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000022>
+1730805691.258885 rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000021>
+1730805691.258973 rt_sigaction(SIGTERM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000021>
+1730805691.259079 rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec5022b80, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000022>
+1730805691.259169 execve("/usr/bin/readlink", ["readlink", "/proc/2929/exe"], 0x556ec5c49f50 /* 25 vars */) = 0 <0.000319>
+1730805691.259613 brk(NULL)             = 0x5605ece54000 <0.000020>
+1730805691.259752 arch_prctl(0x3001 /* ARCH_??? */, 0x7ffdad6b89b0) = -1 EINVAL (Invalid argument) <0.000020>
+1730805691.259873 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory) <0.000028>
+1730805691.259985 openat(AT_FDCWD</home/veldrane>, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache> <0.000028>
+1730805691.260121 fstat(3</etc/ld.so.cache>, {st_mode=S_IFREG|0644, st_size=29907, ...}) = 0 <0.000020>
+1730805691.260224 mmap(NULL, 29907, PROT_READ, MAP_PRIVATE, 3</etc/ld.so.cache>, 0) = 0x7fb56b6ea000 <0.000027>
+1730805691.260318 close(3</etc/ld.so.cache>) = 0 <0.000025>
+1730805691.260415 openat(AT_FDCWD</home/veldrane>, "/lib64/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</usr/lib64/libc.so.6> <0.000040>
+1730805691.260543 read(3</usr/lib64/libc.so.6>, "\x7f\x45\x4c\x46\x02\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x3e\x00\x01\x00\x00\x00\x50\x97\x02\x00\x00\x00\x00\x00"..., 832) = 832 <0.000021>
+1730805691.260640 pread64(3</usr/lib64/libc.so.6>, "\x06\x00\x00\x00\x04\x00\x00\x00\x40\x00\x00\x00\x00\x00\x00\x00\x40\x00\x00\x00\x00\x00\x00\x00\x40\x00\x00\x00\x00\x00\x00\x00"..., 784, 64) = 784 <0.000021>
+1730805691.260747 pread64(3</usr/lib64/libc.so.6>, "\x04\x00\x00\x00\x20\x00\x00\x00\x05\x00\x00\x00\x47\x4e\x55\x00\x02\x00\x00\xc0\x04\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00"..., 48, 848) = 48 <0.000019>
+1730805691.260844 pread64(3</usr/lib64/libc.so.6>, "\x04\x00\x00\x00\x14\x00\x00\x00\x03\x00\x00\x00\x47\x4e\x55\x00\x54\xa7\xab\x01\xee\xf6\xe2\xdc\xa2\xc6\xb0\xda\xb8\xc6\x56\xa1"..., 68, 896) = 68 <0.000025>
+1730805691.260942 fstat(3</usr/lib64/libc.so.6>, {st_mode=S_IFREG|0755, st_size=2592552, ...}) = 0 <0.000015>
+1730805691.261028 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb56b6e8000 <0.000024>
+1730805691.261117 pread64(3</usr/lib64/libc.so.6>, "\x06\x00\x00\x00\x04\x00\x00\x00\x40\x00\x00\x00\x00\x00\x00\x00\x40\x00\x00\x00\x00\x00\x00\x00\x40\x00\x00\x00\x00\x00\x00\x00"..., 784, 64) = 784 <0.000021>
+1730805691.261210 mmap(NULL, 2133936, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3</usr/lib64/libc.so.6>, 0) = 0x7fb56b400000 <0.000021>
+1730805691.261295 mprotect(0x7fb56b428000, 1892352, PROT_NONE) = 0 <0.000027>
+1730805691.261375 mmap(0x7fb56b428000, 1527808, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libc.so.6>, 0x28000) = 0x7fb56b428000 <0.000029>
+1730805691.261480 mmap(0x7fb56b59d000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libc.so.6>, 0x19d000) = 0x7fb56b59d000 <0.000028>
+1730805691.261576 mmap(0x7fb56b5f6000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib64/libc.so.6>, 0x1f5000) = 0x7fb56b5f6000 <0.000027>
+1730805691.261694 mmap(0x7fb56b5fc000, 53168, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fb56b5fc000 <0.000027>
+1730805691.261796 close(3</usr/lib64/libc.so.6>) = 0 <0.000019>
+1730805691.261898 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fb56b6e5000 <0.000020>
+1730805691.261982 arch_prctl(ARCH_SET_FS, 0x7fb56b6e5740) = 0 <0.000024>
+1730805691.262053 set_tid_address(0x7fb56b6e5a10) = 2948 <0.000023>
+1730805691.262127 set_robust_list(0x7fb56b6e5a20, 24) = 0 <0.000023>
+1730805691.262201 rseq(0x7fb56b6e60e0, 0x20, 0, 0x53053053) = 0 <0.000023>
+1730805691.262348 mprotect(0x7fb56b5f6000, 16384, PROT_READ) = 0 <0.000029>
+1730805691.262476 mprotect(0x5605ec057000, 4096, PROT_READ) = 0 <0.000028>
+1730805691.262586 mprotect(0x7fb56b726000, 8192, PROT_READ) = 0 <0.000027>
+1730805691.262704 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0 <0.000018>
+1730805691.262805 munmap(0x7fb56b6ea000, 29907) = 0 <0.000033>
+1730805691.262929 getrandom("\x29\x88\x5e\xee\xdc\xdf\x3b\x20", 8, GRND_NONBLOCK) = 8 <0.000018>
+1730805691.263014 brk(NULL)             = 0x5605ece54000 <0.000024>
+1730805691.263090 brk(0x5605ece75000)   = 0x5605ece75000 <0.000020>
+1730805691.263173 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory) <0.000033>
+1730805691.263301 openat(AT_FDCWD</home/veldrane>, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3</usr/share/locale/locale.alias> <0.000028>
+1730805691.263428 fstat(3</usr/share/locale/locale.alias>, {st_mode=S_IFREG|0644, st_size=2998, ...}) = 0 <0.000020>
+1730805691.263549 read(3</usr/share/locale/locale.alias>, "# Locale name alias data base.\n#"..., 4096) = 2998 <0.000025>
+1730805691.263682 read(3</usr/share/locale/locale.alias>, "", 4096) = 0 <0.000020>
+1730805691.263772 close(3</usr/share/locale/locale.alias>) = 0 <0.000021>
+1730805691.263874 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory) <0.000030>
+1730805691.263984 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.utf8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/en_US.utf8/LC_IDENTIFICATION> <0.000028>
+1730805691.264102 fstat(3</usr/lib/locale/en_US.utf8/LC_IDENTIFICATION>, {st_mode=S_IFREG|0644, st_size=369, ...}) = 0 <0.000014>
+1730805691.264190 mmap(NULL, 369, PROT_READ, MAP_PRIVATE, 3</usr/lib/locale/en_US.utf8/LC_IDENTIFICATION>, 0) = 0x7fb56b725000 <0.000026>
+1730805691.264284 close(3</usr/lib/locale/en_US.utf8/LC_IDENTIFICATION>) = 0 <0.000016>
+1730805691.264371 openat(AT_FDCWD</home/veldrane>, "/usr/lib64/gconv/gconv-modules.cache", O_RDONLY) = 3</usr/lib64/gconv/gconv-modules.cache> <0.000027>
+1730805691.264499 fstat(3</usr/lib64/gconv/gconv-modules.cache>, {st_mode=S_IFREG|0644, st_size=26988, ...}) = 0 <0.000023>
+1730805691.264619 mmap(NULL, 26988, PROT_READ, MAP_SHARED, 3</usr/lib64/gconv/gconv-modules.cache>, 0) = 0x7fb56b6eb000 <0.000036>
+1730805691.264789 close(3</usr/lib64/gconv/gconv-modules.cache>) = 0 <0.000025>
+1730805691.264897 futex(0x7fb56b5fba6c, FUTEX_WAKE_PRIVATE, 2147483647) = 0 <0.000014>
+1730805691.264977 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory) <0.000027>
+1730805691.265088 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.utf8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/en_US.utf8/LC_MEASUREMENT> <0.000027>
+1730805691.265205 fstat(3</usr/lib/locale/en_US.utf8/LC_MEASUREMENT>, {st_mode=S_IFREG|0644, st_size=23, ...}) = 0 <0.000014>
+1730805691.265285 mmap(NULL, 23, PROT_READ, MAP_PRIVATE, 3</usr/lib/locale/en_US.utf8/LC_MEASUREMENT>, 0) = 0x7fb56b6ea000 <0.000022>
+1730805691.265371 close(3</usr/lib/locale/en_US.utf8/LC_MEASUREMENT>) = 0 <0.000025>
+1730805691.265484 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory) <0.000027>
+1730805691.265593 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.utf8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/en_US.utf8/LC_TELEPHONE> <0.000029>
+1730805691.265727 fstat(3</usr/lib/locale/en_US.utf8/LC_TELEPHONE>, {st_mode=S_IFREG|0644, st_size=59, ...}) = 0 <0.000015>
+1730805691.265814 mmap(NULL, 59, PROT_READ, MAP_PRIVATE, 3</usr/lib/locale/en_US.utf8/LC_TELEPHONE>, 0) = 0x7fb56b6e4000 <0.000025>
+1730805691.265910 close(3</usr/lib/locale/en_US.utf8/LC_TELEPHONE>) = 0 <0.000023>
+1730805691.266015 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory) <0.000026>
+1730805691.266122 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.utf8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/en_US.utf8/LC_ADDRESS> <0.000029>
+1730805691.266249 fstat(3</usr/lib/locale/en_US.utf8/LC_ADDRESS>, {st_mode=S_IFREG|0644, st_size=167, ...}) = 0 <0.000014>
+1730805691.266336 mmap(NULL, 167, PROT_READ, MAP_PRIVATE, 3</usr/lib/locale/en_US.utf8/LC_ADDRESS>, 0) = 0x7fb56b6e3000 <0.000030>
+1730805691.266437 close(3</usr/lib/locale/en_US.utf8/LC_ADDRESS>) = 0 <0.000022>
+1730805691.266551 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory) <0.000027>
+1730805691.266660 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.utf8/LC_NAME", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/en_US.utf8/LC_NAME> <0.000030>
+1730805691.266791 fstat(3</usr/lib/locale/en_US.utf8/LC_NAME>, {st_mode=S_IFREG|0644, st_size=77, ...}) = 0 <0.000015>
+1730805691.266879 mmap(NULL, 77, PROT_READ, MAP_PRIVATE, 3</usr/lib/locale/en_US.utf8/LC_NAME>, 0) = 0x7fb56b6e2000 <0.000027>
+1730805691.266972 close(3</usr/lib/locale/en_US.utf8/LC_NAME>) = 0 <0.000012>
+1730805691.267064 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory) <0.000026>
+1730805691.267171 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.utf8/LC_PAPER", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/en_US.utf8/LC_PAPER> <0.000023>
+1730805691.267278 fstat(3</usr/lib/locale/en_US.utf8/LC_PAPER>, {st_mode=S_IFREG|0644, st_size=34, ...}) = 0 <0.000025>
+1730805691.267377 mmap(NULL, 34, PROT_READ, MAP_PRIVATE, 3</usr/lib/locale/en_US.utf8/LC_PAPER>, 0) = 0x7fb56b6e1000 <0.000022>
+1730805691.267472 close(3</usr/lib/locale/en_US.utf8/LC_PAPER>) = 0 <0.000022>
+1730805691.267576 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory) <0.000027>
+1730805691.267697 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.utf8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/en_US.utf8/LC_MESSAGES> <0.000029>
+1730805691.267833 fstat(3</usr/lib/locale/en_US.utf8/LC_MESSAGES>, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0 <0.000035>
+1730805691.267981 close(3</usr/lib/locale/en_US.utf8/LC_MESSAGES>) = 0 <0.000021>
+1730805691.268068 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.utf8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/en_US.utf8/LC_MESSAGES/SYS_LC_MESSAGES> <0.000027>
+1730805691.268188 fstat(3</usr/lib/locale/en_US.utf8/LC_MESSAGES/SYS_LC_MESSAGES>, {st_mode=S_IFREG|0644, st_size=57, ...}) = 0 <0.000025>
+1730805691.268287 mmap(NULL, 57, PROT_READ, MAP_PRIVATE, 3</usr/lib/locale/en_US.utf8/LC_MESSAGES/SYS_LC_MESSAGES>, 0) = 0x7fb56b6e0000 <0.000027>
+1730805691.268381 close(3</usr/lib/locale/en_US.utf8/LC_MESSAGES/SYS_LC_MESSAGES>) = 0 <0.000025>
+1730805691.268498 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory) <0.000027>
+1730805691.268608 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.utf8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/en_US.utf8/LC_MONETARY> <0.000031>
+1730805691.268732 fstat(3</usr/lib/locale/en_US.utf8/LC_MONETARY>, {st_mode=S_IFREG|0644, st_size=286, ...}) = 0 <0.000014>
+1730805691.268819 mmap(NULL, 286, PROT_READ, MAP_PRIVATE, 3</usr/lib/locale/en_US.utf8/LC_MONETARY>, 0) = 0x7fb56b6df000 <0.000039>
+1730805691.268936 close(3</usr/lib/locale/en_US.utf8/LC_MONETARY>) = 0 <0.000027>
+1730805691.269059 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory) <0.000037>
+1730805691.269195 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.utf8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/en_US.utf8/LC_COLLATE> <0.000040>
+1730805691.269341 fstat(3</usr/lib/locale/en_US.utf8/LC_COLLATE>, {st_mode=S_IFREG|0644, st_size=2586930, ...}) = 0 <0.000025>
+1730805691.269456 mmap(NULL, 2586930, PROT_READ, MAP_PRIVATE, 3</usr/lib/locale/en_US.utf8/LC_COLLATE>, 0) = 0x7fb56b000000 <0.000035>
+1730805691.269584 close(3</usr/lib/locale/en_US.utf8/LC_COLLATE>) = 0 <0.000026>
+1730805691.269732 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory) <0.000028>
+1730805691.269843 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.utf8/LC_TIME", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/en_US.utf8/LC_TIME> <0.000028>
+1730805691.269960 fstat(3</usr/lib/locale/en_US.utf8/LC_TIME>, {st_mode=S_IFREG|0644, st_size=3284, ...}) = 0 <0.000014>
+1730805691.270048 mmap(NULL, 3284, PROT_READ, MAP_PRIVATE, 3</usr/lib/locale/en_US.utf8/LC_TIME>, 0) = 0x7fb56b6de000 <0.000026>
+1730805691.270141 close(3</usr/lib/locale/en_US.utf8/LC_TIME>) = 0 <0.000012>
+1730805691.270235 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory) <0.000026>
+1730805691.270341 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.utf8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/en_US.utf8/LC_NUMERIC> <0.000023>
+1730805691.270449 fstat(3</usr/lib/locale/en_US.utf8/LC_NUMERIC>, {st_mode=S_IFREG|0644, st_size=54, ...}) = 0 <0.000022>
+1730805691.270556 mmap(NULL, 54, PROT_READ, MAP_PRIVATE, 3</usr/lib/locale/en_US.utf8/LC_NUMERIC>, 0) = 0x7fb56b6dd000 <0.000031>
+1730805691.270659 close(3</usr/lib/locale/en_US.utf8/LC_NUMERIC>) = 0 <0.000026>
+1730805691.270779 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory) <0.000026>
+1730805691.270886 openat(AT_FDCWD</home/veldrane>, "/usr/lib/locale/en_US.utf8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/C.utf8/LC_CTYPE> <0.000031>
+1730805691.271007 fstat(3</usr/lib/locale/C.utf8/LC_CTYPE>, {st_mode=S_IFREG|0644, st_size=346132, ...}) = 0 <0.000015>
+1730805691.271087 mmap(NULL, 346132, PROT_READ, MAP_PRIVATE, 3</usr/lib/locale/C.utf8/LC_CTYPE>, 0) = 0x7fb56b688000 <0.000022>
+1730805691.271173 close(3</usr/lib/locale/C.utf8/LC_CTYPE>) = 0 <0.000025>
+1730805691.271278 readlink("/proc/2929/exe", "/usr/bin/bash", 64) = 13 <0.000636>
+1730805691.272017 fstat(1<pipe:[37027]>, {st_mode=S_IFIFO|0600, st_size=0, ...}) = 0 <0.000023>
+1730805691.272153 write(1<pipe:[37027]>, "/usr/bin/bash\n", 14) = 14 <0.000031>
+1730805691.272267 close(1<pipe:[37027]>) = 0 <0.000038>
+1730805691.272371 close(2</dev/pts/2>)  = 0 <0.000054>
+1730805691.272508 exit_group(0)         = ?

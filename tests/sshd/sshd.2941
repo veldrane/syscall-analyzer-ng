@@ -1,0 +1,82 @@
+1730805691.065700 set_robust_list(0x7f7e55150a20, 24) = 0 <0.000068>
+1730805691.065950 getpid()              = 2941 <0.000058>
+1730805691.066101 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000061>
+1730805691.066242 rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000065>
+1730805691.066402 rt_sigaction(SIGTTIN, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000034>
+1730805691.066545 rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000039>
+1730805691.066712 rt_sigaction(SIGHUP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000040>
+1730805691.066853 rt_sigaction(SIGILL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000043>
+1730805691.067013 rt_sigaction(SIGTRAP, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000038>
+1730805691.067129 rt_sigaction(SIGABRT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000025>
+1730805691.067233 rt_sigaction(SIGFPE, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000017>
+1730805691.067404 rt_sigaction(SIGBUS, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000097>
+1730805691.067629 rt_sigaction(SIGSEGV, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000028>
+1730805691.067784 rt_sigaction(SIGSYS, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000069>
+1730805691.068400 rt_sigaction(SIGPIPE, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000114>
+1730805691.068624 rt_sigaction(SIGALRM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000110>
+1730805691.068824 rt_sigaction(SIGXCPU, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000081>
+1730805691.068999 rt_sigaction(SIGXFSZ, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000050>
+1730805691.069149 rt_sigaction(SIGVTALRM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000083>
+1730805691.069332 rt_sigaction(SIGUSR1, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000059>
+1730805691.069443 rt_sigaction(SIGUSR2, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, NULL, 8) = 0 <0.000040>
+1730805691.069549 rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec504eaa0, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000038>
+1730805691.069645 rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000041>
+1730805691.069758 rt_sigaction(SIGTERM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000037>
+1730805691.069854 rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec5022b80, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000037>
+1730805691.069950 rt_sigaction(SIGINT, {sa_handler=0x556ec504eaa0, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000043>
+1730805691.070071 rt_sigaction(SIGCHLD, {sa_handler=0x556ec5022b80, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000037>
+1730805691.070168 rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0 <0.000037>
+1730805691.070261 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000037>
+1730805691.070355 close(4<pipe:[16191]>) = 0 <0.000042>
+1730805691.070483 dup2(5<pipe:[16191]>, 1<pipe:[35150]>) = 1<pipe:[16191]> <0.000041>
+1730805691.070617 close(5<pipe:[16191]>) = 0 <0.000052>
+1730805691.070907 write(1<pipe:[16191]>, "/home/veldrane/.local/share/flat"..., 36) = 36 <0.000039>
+1730805691.071064 newfstatat(AT_FDCWD</home/veldrane>, ".", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0 <0.000023>
+1730805691.071182 newfstatat(AT_FDCWD</home/veldrane>, "/root/.local/bin/flatpak", 0x7ffddb879d50, 0) = -1 EACCES (Permission denied) <0.000027>
+1730805691.071293 newfstatat(AT_FDCWD</home/veldrane>, "/root/bin/flatpak", 0x7ffddb879d50, 0) = -1 EACCES (Permission denied) <0.000022>
+1730805691.071423 newfstatat(AT_FDCWD</home/veldrane>, "/usr/local/sbin/flatpak", 0x7ffddb879d50, 0) = -1 ENOENT (No such file or directory) <0.000046>
+1730805691.071557 newfstatat(AT_FDCWD</home/veldrane>, "/usr/local/bin/flatpak", 0x7ffddb879d50, 0) = -1 ENOENT (No such file or directory) <0.000022>
+1730805691.071637 newfstatat(AT_FDCWD</home/veldrane>, "/usr/sbin/flatpak", 0x7ffddb879d50, 0) = -1 ENOENT (No such file or directory) <0.000021>
+1730805691.071785 newfstatat(AT_FDCWD</home/veldrane>, "/usr/bin/flatpak", {st_mode=S_IFREG|0755, st_size=1834560, ...}, 0) = 0 <0.000027>
+1730805691.071905 newfstatat(AT_FDCWD</home/veldrane>, "/usr/bin/flatpak", {st_mode=S_IFREG|0755, st_size=1834560, ...}, 0) = 0 <0.000025>
+1730805691.072019 geteuid()             = 1096400003 <0.000027>
+1730805691.072113 getegid()             = 1100 <0.000026>
+1730805691.072205 getuid()              = 1096400003 <0.000026>
+1730805691.072297 getgid()              = 1100 <0.000026>
+1730805691.072389 access("/usr/bin/flatpak", X_OK) = 0 <0.000026>
+1730805691.072500 newfstatat(AT_FDCWD</home/veldrane>, "/usr/bin/flatpak", {st_mode=S_IFREG|0755, st_size=1834560, ...}, 0) = 0 <0.000027>
+1730805691.072615 geteuid()             = 1096400003 <0.000027>
+1730805691.072725 getegid()             = 1100 <0.000027>
+1730805691.072819 getuid()              = 1096400003 <0.000026>
+1730805691.072911 getgid()              = 1100 <0.000026>
+1730805691.073003 access("/usr/bin/flatpak", R_OK) = 0 <0.000026>
+1730805691.073102 newfstatat(AT_FDCWD</home/veldrane>, "/usr/bin/flatpak", {st_mode=S_IFREG|0755, st_size=1834560, ...}, 0) = 0 <0.000027>
+1730805691.073216 newfstatat(AT_FDCWD</home/veldrane>, "/usr/bin/flatpak", {st_mode=S_IFREG|0755, st_size=1834560, ...}, 0) = 0 <0.000027>
+1730805691.073329 geteuid()             = 1096400003 <0.000026>
+1730805691.073421 getegid()             = 1100 <0.000035>
+1730805691.073525 getuid()              = 1096400003 <0.000027>
+1730805691.073618 getgid()              = 1100 <0.000026>
+1730805691.073725 access("/usr/bin/flatpak", X_OK) = 0 <0.000027>
+1730805691.073827 newfstatat(AT_FDCWD</home/veldrane>, "/usr/bin/flatpak", {st_mode=S_IFREG|0755, st_size=1834560, ...}, 0) = 0 <0.000027>
+1730805691.073941 geteuid()             = 1096400003 <0.000027>
+1730805691.074034 getegid()             = 1100 <0.000026>
+1730805691.074126 getuid()              = 1096400003 <0.000026>
+1730805691.074217 getgid()              = 1100 <0.000026>
+1730805691.074309 access("/usr/bin/flatpak", R_OK) = 0 <0.000026>
+1730805691.074442 rt_sigprocmask(SIG_BLOCK, NULL, [], 8) = 0 <0.000044>
+1730805691.074556 rt_sigprocmask(SIG_BLOCK, [INT TERM CHLD], [], 8) = 0 <0.000042>
+1730805691.074661 rt_sigaction(SIGTERM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000043>
+1730805691.074804 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7e55150a10) = 2943 <0.000200>
+1730805691.075111 rt_sigaction(SIGTERM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000105>
+1730805691.075370 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000027>
+1730805691.075606 rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0 <0.000054>
+1730805691.075800 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000074>
+1730805691.075943 rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0 <0.000093>
+1730805691.076146 rt_sigaction(SIGINT, {sa_handler=0x556ec5024fe0, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec504eaa0, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000093>
+1730805691.076349 wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 2943 <0.110229>
+1730805691.186663 rt_sigaction(SIGINT, {sa_handler=0x556ec504eaa0, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, {sa_handler=0x556ec5024fe0, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7f7e54e3e6f0}, 8) = 0 <0.000030>
+1730805691.186791 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0 <0.000027>
+1730805691.186870 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=2943, si_uid=1096400003, si_status=0, si_utime=1, si_stime=2} ---
+1730805691.186917 wait4(-1, 0x7ffddb879810, WNOHANG, NULL) = -1 ECHILD (No child processes) <0.000046>
+1730805691.187022 rt_sigreturn({mask=[]}) = 0 <0.000046>
+1730805691.187216 exit_group(0)         = ?
