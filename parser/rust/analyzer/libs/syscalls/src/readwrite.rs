@@ -2,7 +2,7 @@ use std::result::Result;
 
 use regex::Regex;
 
-use crate::general::{Argumetable, General, Syscall, SyscallKey, ArgumentsError};
+use crate::general::{Parser, General, Syscall, SyscallKey, ArgumentsError};
 
 // 	"read" :        '(?P<fd>\d+)\<(?P<objectname>.*)\>\,\s(?P<data>.*)\,\s(?P<size>\d+)',
 //"pread64" :     '(?P<fd>\d+)\<(?P<objectname>.*)\>\,\s(?P<data>.*)\,\s(?P<size>\d+),\s(?P<offset>\d+)',
@@ -73,7 +73,7 @@ impl ReadWrite {
     }
 }
 
-impl Argumetable for ReadWrite {
+impl Parser for ReadWrite {
     fn get_arguments(&self, syscall: &mut Syscall) -> Result<(), ArgumentsError> {
         syscall.insert("fd".to_string(), SyscallKey::Int(self.fd));
         syscall.insert("filename".to_string(), SyscallKey::Str(self.filename.clone()));

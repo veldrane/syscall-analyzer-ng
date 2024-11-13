@@ -2,7 +2,7 @@ use std::result::Result;
 
 use regex::Regex;
 
-use crate::general::{Argumetable, General, Syscall, SyscallKey, ArgumentsError};
+use crate::general::{Parser, General, Syscall, SyscallKey, ArgumentsError};
 
 
 //const ARGUMENTS: &str = r"(?P<addr>.*)\,\s(?P<size>\d+)\,\s(?P<protection>.*)\,\s(?P<flags>.*)\,\s*(?P<object>\d+(?:<[^>]+>)?),\s*(?P<offset>.*)";
@@ -78,7 +78,7 @@ impl Mmap {
     }
 }
 
-impl Argumetable for Mmap {
+impl Parser for Mmap {
     fn get_arguments(&self, syscall: &mut Syscall) -> Result<(), ArgumentsError> {
         syscall.insert("addr".to_string(), SyscallKey::Str(self.addr.clone()));
         syscall.insert("size".to_string(), SyscallKey::Int(self.size));

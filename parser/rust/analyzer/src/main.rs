@@ -3,7 +3,7 @@ use std::collections::HashMap;
 //use general::SyscallKey;
 
 use serde_json;
-use syscalls::general::{General, Syscall, SyscallKey,Argumetable};
+use syscalls::general::{General, Syscall, SyscallKey,Parser};
 use syscalls::open::*;
 use syscalls::mmap::*;
 use syscalls::readwrite::*;
@@ -27,7 +27,7 @@ fn main() {
 
     match general.syscall.as_str() {
         "openat" => {
-            Openat::new(&general).unwrap().get_arguments(&mut syscall).ok();
+            Open::new(&general).unwrap().get_arguments(&mut syscall).ok();
             },
         "mmap" => {
             Mmap::new(&general).unwrap().get_arguments(&mut syscall).ok();

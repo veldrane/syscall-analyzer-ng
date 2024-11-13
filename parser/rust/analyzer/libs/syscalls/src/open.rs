@@ -2,13 +2,13 @@ use std::result::Result;
 
 use regex::Regex;
 
-use crate::general::{Argumetable, General, Syscall, SyscallKey, ArgumentsError};
+use crate::general::{Parser, General, Syscall, SyscallKey, ArgumentsError};
 
 
 const ARGUMENTS: &str = "(?P<dirfd>.*), \"(?P<object>.*)\", (?P<mode>.*)";
 const RESULTS: &str = r"(?P<fd>\d+)<(?P<result_object>.*)> <(?P<duration>\d+\.\d+)>";
 
-pub struct Openat {
+pub struct Open {
     dirfd: String,
     object: String,
     mode: String,
@@ -17,10 +17,10 @@ pub struct Openat {
 }
 
 
-impl Openat {
-    pub fn new(general: &General) -> Option<Openat> {
+impl Open {
+    pub fn new(general: &General) -> Option<Open> {
 
-        let mut syscall: Openat = Openat {
+        let mut syscall: Open = Open {
             dirfd: "".to_string(),
             object: "".to_string(),
             mode: "".to_string(),
@@ -60,7 +60,7 @@ impl Openat {
     }
 }
 
-impl Argumetable for Openat {
+impl Parser for Open {
     fn get_arguments(&self, syscall: &mut Syscall) -> Result<(), ArgumentsError> {
         syscall.insert("dirfd".to_string(), SyscallKey::Str(self.dirfd.clone()));
         syscall.insert("object".to_string(), SyscallKey::Str(self.object.clone()));

@@ -6,7 +6,7 @@ use std::result::Result;
 
 const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<arguments>.*)\)\s+\=\s(?P<results>.*<(?P<duration>\d+\.\d+)>)";
 
-pub trait Argumetable {
+pub trait Parser {
     fn get_arguments(&self, syscall: &mut Syscall) -> Result<(), ArgumentsError>;
 }
 
@@ -60,7 +60,7 @@ impl General {
 }
 
 
-impl Argumetable for General {
+impl Parser for General {
     fn get_arguments(&self, syscall: &mut Syscall) -> Result<(), ArgumentsError> {
         syscall.insert("timestamp".to_string(), SyscallKey::Str(self.timestamp.clone()));
         syscall.insert("syscall".to_string(), SyscallKey::Str(self.syscall.clone()));
