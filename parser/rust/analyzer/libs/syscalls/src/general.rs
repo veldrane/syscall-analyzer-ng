@@ -13,6 +13,7 @@ pub trait Parser {
 #[derive(Debug, Clone)]
 pub enum SyscallKey {
     Int(i32),
+    Unt(u32),
     Float(f64),
     Str(String),
 }
@@ -78,6 +79,7 @@ impl Serialize for SyscallKey {
     {
         match self {
             SyscallKey::Int(val) => serializer.serialize_i32(*val),
+            SyscallKey::Unt(val) => serializer.serialize_u32(*val),
             SyscallKey::Float(val) => serializer.serialize_f64(*val),
             SyscallKey::Str(val) => serializer.serialize_str(val),
         }

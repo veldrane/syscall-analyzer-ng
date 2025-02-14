@@ -46,7 +46,7 @@ impl ReadWrite {
         }
 
         if arguments[0].contains('<') {
-            let fd_filename: Vec<String> = arguments[4].split('<')
+            let fd_filename: Vec<String> = arguments[0].split('<')
                                   .map(|s| s.trim().to_string())
                                   .collect();
             
@@ -59,13 +59,15 @@ impl ReadWrite {
 
         syscall.data = arguments[1].to_string();
         syscall.size = arguments[2].parse().unwrap();
-        syscall.offset = arguments[3].to_string();
+  //      syscall.offset = arguments[3].to_string();
 
         match re_results.captures(&general.results) {
             Some(results) => {
                 syscall.result_size = results["result_size"].parse().unwrap();
             },
-            None => return None
+            None => {
+                println!("Result not found!");
+            }
         };
 
         Some(syscall)

@@ -143,13 +143,11 @@ impl Parser for Network {
             Some(SocketAddress::AfInet(af_inet)) => {
                 syscall.insert("in_port".to_string(), SyscallKey::Str((af_inet.in_port).to_string()));
                 syscall.insert("in_address".to_string(), SyscallKey::Str(af_inet.in_address.clone()));
-                0
             },
             Some(SocketAddress::AfUnix(af_unix)) => {
                 syscall.insert("path".to_string(), SyscallKey::Str(af_unix.path.clone()));
-                0
             },
-            _ => 1,
+            _ => println!("Socket address not found.")
         };
 
         syscall.insert("fd".to_string(), SyscallKey::Int(self.fd));

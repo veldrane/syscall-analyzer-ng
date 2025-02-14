@@ -11,7 +11,7 @@ use syscalls::readwrite::*;
 
 pub mod examples;
 
-const strace_output: &str = "../../../tests/sshd/sshd.2845";
+const strace_output: &str = "../../../tests/curl/curl.108960";
 
 fn main() {
     // let general = General::new(&BIND).unwrap();
@@ -22,7 +22,10 @@ fn main() {
     for line in read_to_string(strace_output).unwrap().lines() {
 
         println!("{}", line);
-        let general = General::new(&line).unwrap();
+        let general = match General::new(&line) {
+            Some(g) => g,
+            None => continue,
+        };
 
         general.get_arguments(&mut syscall).ok();
 
