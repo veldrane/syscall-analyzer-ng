@@ -1,15 +1,17 @@
-use crate::registry::SyscallArguments;
+use crate::{helpers::split_fd_parts, registry::SyscallArguments};
+use regex::Regex;
+
 
 #[derive(Debug)]
-pub struct OpenArguments {
-    dirfd: String,
-    object: String,
-    mode: String,
+pub struct ListenArgs {
+    sockfd: String,
+    sock_name: String,
+    backlog: String,
 }
 
-impl SyscallArguments for OpenArguments {
+impl SyscallArguments for ListenArgs {
     fn parse(input: &str) -> Result<Self, String> {
-        
+
         let parts: Vec<String> = input
                                     .chars()
                                     .filter(|&c| !r#""\"? "#.contains(c))
@@ -17,13 +19,16 @@ impl SyscallArguments for OpenArguments {
                                     .split(',')
                                     .map(str::to_string)
                                     .collect::<Vec<String>>();
-        if parts.len() != 3 {
+
+        if parts.len() != 2 {
             return Err("Invalid number of arguments".into());
         }
-        Ok(OpenArguments {
-            dirfd: parts[0].to_string(),
-            object: parts[1].to_string(),
-            mode: parts[2].to_string()
+        let (sockfd, sock_name ) = split_fd_parts(&parts[0]);
+
+        Ok(ListenArgs {
+            sockfd: sockfd.to_string(),
+            sock_name: sock_name,
+            backlog: parts[1].to_string(),
         })
-    }
+    }   
 }

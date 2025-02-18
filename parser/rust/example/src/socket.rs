@@ -1,13 +1,13 @@
 use crate::registry::SyscallArguments;
 
 #[derive(Debug)]
-pub struct OpenArguments {
-    dirfd: String,
-    object: String,
-    mode: String,
+pub struct SocketArgs {
+    domain: String,
+    socket_type: String,
+    protocol: String,
 }
 
-impl SyscallArguments for OpenArguments {
+impl SyscallArguments for SocketArgs {
     fn parse(input: &str) -> Result<Self, String> {
         
         let parts: Vec<String> = input
@@ -20,10 +20,10 @@ impl SyscallArguments for OpenArguments {
         if parts.len() != 3 {
             return Err("Invalid number of arguments".into());
         }
-        Ok(OpenArguments {
-            dirfd: parts[0].to_string(),
-            object: parts[1].to_string(),
-            mode: parts[2].to_string()
+        Ok(SocketArgs {
+            domain: parts[0].to_string(),
+            socket_type: parts[1].to_string(),
+            protocol: parts[2].to_string()
         })
-    }
+    }   
 }

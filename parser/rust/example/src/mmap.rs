@@ -1,4 +1,5 @@
 use crate::registry::SyscallArguments;
+use crate::helpers::split_fd_parts;
 
 #[derive(Debug)]
 pub struct MmapArguments {
@@ -31,15 +32,7 @@ impl SyscallArguments for MmapArguments {
         }
 
         if !parts[4].contains("-1") {
-            let fd_parts: Vec<String> = parts[4]
-            .chars()
-            .filter(|&c| !r#""\">? "#.contains(c))
-            .collect::<String>()
-            .split('<')
-            .map(str::to_string)
-            .collect::<Vec<String>>();
-            fd = fd_parts[0].parse::<i32>().unwrap();
-            filename = fd_parts[1].to_string();
+            (fd, filename) = split_fd_parts(&parts[4]);
         }
 
         Ok(MmapArguments {
