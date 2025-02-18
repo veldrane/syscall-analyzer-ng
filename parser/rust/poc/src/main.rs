@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use examples::examples::BIND;
+
 use serde_json;
 use std::fs::read_to_string;
 use syscalls::general::{General, Parser, Syscall, SyscallKey};
