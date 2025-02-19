@@ -1,8 +1,11 @@
-pub mod examples {
+
 pub const MMAP_ANONYMOUS: &str = "1730805691.281081 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f1f1cf41000 <0.000021>";
 pub const OPENAT: &str = "1730805691.259985 openat(AT_FDCWD</home/veldrane>, \"/etc/ld.so.cache\", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache> <0.000028>>";
-pub const ACCEPT: &str = "1730805682.451869 accept(3<socket:[21159]>, {sa_family=AF_INET, sin_port=htons(45986), sin_addr=inet_addr(\"10.1.8.52\")}, [128 => 16]) = 5<socket:[21170]> <0.000121>";
-pub const CONNECT: &str = "1730805604.253901 connect(4<socket:[21152]>, {sa_family=AF_UNIX, sun_path=\"/var/run/nscd/socket\"}, 110) = -1 ENOENT (No such file or directory) <0.000135>";
-pub const BIND: &str = "1730805604.315960 bind(3<socket:[21159]>, {sa_family=AF_INET, sin_port=htons(10022), sin_addr=inet_addr(\"0.0.0.0\")}, 16) = 0 <0.000072>";
-pub const MMAP_FILE: &str = "1708596064.182267 mmap(0x7f0bcf06b000, 204800, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3</usr/lib/x86_64-linux-gnu/libcrypto.so.1.1>, 0x2b5000) = 0x7f0bcf06b000 <0.000017>";
-}
+pub const ACCEPT: &str = r#"1739968120.559557 accept4(6<\x73\x6f\x63\x6b\x65\x74\x3a\x5b\x32\x37\x39\x39\x37\x33\x5d>, {sa_family=AF_INET6, sin6_port=htons(59864), sin6_flowinfo=htonl(0), inet_pton(AF_INET6, "\x3a\x3a\x31", &sin6_addr), sin6_scope_id=0}, [112 => 28], SOCK_NONBLOCK) = 17<\x73\x6f\x63\x6b\x65\x74\x3a\x5b\x32\x38\x30\x30\x30\x35\x5d> <0.000087>"#;
+pub const CONNECT: &str = r#"1739968096.240552 connect(4<\x73\x6f\x63\x6b\x65\x74\x3a\x5b\x32\x37\x39\x39\x37\x31\x5d>, {sa_family=AF_UNIX, sun_path="\x2f\x76\x61\x72\x2f\x72\x75\x6e\x2f\x6e\x73\x63\x64\x2f\x73\x6f\x63\x6b\x65\x74"}, 110) = -1 ENOENT (No such file or directory) <0.000008>"#;
+pub const BIND: &str = r#"1739968096.242027 bind(5<\x73\x6f\x63\x6b\x65\x74\x3a\x5b\x32\x37\x39\x39\x37\x32\x5d>, {sa_family=AF_INET, sin_port=htons(80), sin_addr=inet_addr("\x30\x2e\x30\x2e\x30\x2e\x30")}, 16) = 0 <0.000009>"#;
+pub const MMAP_FILE: &str = "1739968096.237022 mmap(0x73e29b7ff000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3<\x2f\x75\x73\x72\x2f\x6c\x69\x62\x2f\x78\x38\x36\x5f\x36\x34\x2d\x6c\x69\x6e\x75\x78\x2d\x67\x6e\x75\x2f\x6c\x69\x62\x63\x2e\x73\x6f\x2e\x36>, 0x1fe000) = 0x73e29b7ff000 <0.000007>
+";
+pub const SOCKET_UNIX: &str = "1732700675.480130 socket(AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 7<\x73\x6f\x63\x6b\x65\x74\x3a\x5b\x36\x31\x39\x35\x36\x39\x5d> <0.000007>";
+pub const SOCKET_INET: &str = "1732700675.481687 socket(AF_INET, SOCK_DGRAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_IP) = 7<\x73\x6f\x63\x6b\x65\x74\x3a\x5b\x36\x31\x39\x35\x37\x30\x5d> <0.000009>";
+pub const LISTEN: &str = "1739968096.242055 listen(5<\x73\x6f\x63\x6b\x65\x74\x3a\x5b\x32\x37\x39\x39\x37\x32\x5d>, 511) = 0 <0.000007>";

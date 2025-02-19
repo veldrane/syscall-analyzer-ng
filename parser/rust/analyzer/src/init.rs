@@ -15,6 +15,7 @@ pub fn init_registry() -> Registry {
     open::OpenArguments::register(&mut registry, "openat");
     socket::SocketArgs::register(&mut registry, "socket");
     accept::AcceptArgs::register(&mut registry, "accept");
+    accept::AcceptArgs::register(&mut registry, "accept4");
     accept::AcceptArgs::register(&mut registry, "connect");
     accept::AcceptArgs::register(&mut registry, "bind");
     listen::ListenArgs::register(&mut registry, "listen");

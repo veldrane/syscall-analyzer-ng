@@ -1,111 +1,67 @@
-use std::collections::HashMap;
 use std::fmt::Debug;
+use std::fs::read_to_string;
+use crate::registry::SyscallArguments;
+use regex::Regex;
 
-type ParserFn = Box<dyn Fn(&str) -> Result<Box<dyn SyscallArgs>, String> + Send + Sync>;
+pub mod examples;
+pub mod helpers;
+pub mod registry;
+pub mod init;
+pub mod default;
+pub mod mmap;
+pub mod open;
+pub mod socket;
+pub mod accept;
+pub mod listen;
 
-trait SyscallArgs: 'static + Debug {
-    fn parse(input: &str) -> Result<Self, String>
-    where
-        Self: Sized;
 
-    fn register(registry: &mut HashMap<String, ParserFn>, name: &'static str)
-    where
-        Self: Sized,
-    {
-        registry.insert(
-            name.to_string(),
-            Box::new(|input: &str| {
-                Self::parse(input)
-                    .map(|parsed| Box::new(parsed) as Box<dyn SyscallArgs>)
-            }),
-        );
-    }
-}
+const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<arguments>.*)\)\s*\=\s*(?P<results>.*<(?P<duration>\d+\.\d+)>)";
 
-#[derive(Debug)]
-struct DefaultSyscallArgs {
-    raw: String,
-}
 
 #[derive(Debug)]
 struct Syscall {
-    time: String,
+    timestamp: String,
     name: String,
-    args: Option<Box<dyn SyscallArgs>>,
+    args: Option<Box<dyn SyscallArguments>>,
 }
 
 
-impl SyscallArgs for DefaultSyscallArgs {
-    fn parse(input: &str) -> Result<Self, String> {
-        Ok(DefaultSyscallArgs {
-            raw: input.to_string(),
-        })
-    }
-}
+/* Strace parameters for the parser
+strace -y -T -ttt -ff -xx -qq -o curl $CMD
+*/
 
-#[derive(Debug)]
-struct MmapArgs {
-    // Zde můžete mít specifická pole, například adresa, velikost atd.
-    file_name: String,
-    fd: i32,
-}
-
-#[derive(Debug)]
-struct OpenArgs {
-    flags: i32,
-}
-
-
-impl SyscallArgs for OpenArgs {
-    fn parse(input: &str) -> Result<Self, String> {
-        Ok(OpenArgs { flags: 123 })
-    }
-    
-}
-
-impl SyscallArgs for MmapArgs {
-    fn parse(input: &str) -> Result<Self, String> {
-        // Například zde ještě nedokončená implementace.
-        Ok(MmapArgs {
-            file_name: "test.txt".to_string(),
-            fd: 123,
-        })
-        //Err("Parsing pro mmap není implementován.".into())
-    }
-}
+const strace_output: &str = "../../../tests/all.out";
 
 fn main() {
-    let mut registry: HashMap<String, ParserFn> = HashMap::new();
+    let registry = init::init_registry();
 
-    // Registrace parseru pro "mmap" s explicitním jménem
-    MmapArgs::register(&mut registry, "mmap");
-    OpenArgs::register(&mut registry, "open");
+    //let line = examples::MMAP_FILE;
 
-    let line = "123.456 open arg1, arg2, arg3";
-    let parts: Vec<&str> = line.splitn(2, " ").collect();
-    let mut syscall: Syscall = Syscall {
-        time: parts[0].to_string(),
-        name: parts[1].split_whitespace().next().unwrap().to_string(),
-        args: None,
-    };
-    let args = parts[1].trim_start_matches(syscall.name.as_str()).trim();
+    for line in read_to_string(strace_output).unwrap().lines() {
 
-    let result = if let Some(parser) = registry.get(syscall.name.as_str()) {
-        parser(args)
-    } else {
-        DefaultSyscallArgs::parse(args)
-            .map(|v| Box::new(v) as Box<dyn SyscallArgs>)
-    };
+        let re = Regex::new(BASIC_SYSCALL).unwrap();
 
-    match result {
-        Ok(parsed_args) => {
-            println!("Syscall {} byl úspěšně parsován.", syscall.name.as_str());
-            // Výpis detailů pomocí formátování Debug
-            syscall.args = Some(parsed_args);
-            println!("Parsed syscall (debug): {:?}", syscall);
-        },
-        Err(e) => {
-            eprintln!("Chyba při parsování syscallu {}: {}", syscall.name.as_str(), e);
-        },
-    }
+        let fields = if let Some(captures) = re.captures(line) {
+            captures
+        } else {
+            println!("Řádek neodpovídá formátu: {}", line);
+            return;
+        };
+        let result = if let Some(parser) = registry.get(&fields["syscall"]) {
+            parser(fields["arguments"].as_ref())
+        } else {
+            default::DefaultArgs::parse(fields["arguments"].as_ref())
+                .map(|v| Box::new(v) as Box<dyn SyscallArguments>)
+        };
+
+        match result {
+            Ok(parsed_args) => {
+                println!("Parsed syscall args: {:?}", &parsed_args);
+            },
+            Err(e) => {
+                println!("Chyba při parsování syscallu {}: {}", &fields["syscall"], e);
+            },
+        }
+
+}
 }
