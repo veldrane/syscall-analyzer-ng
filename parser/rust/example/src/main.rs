@@ -25,7 +25,9 @@ struct Syscall {
 }
 
 
-
+/* Strace parameters for the parser
+strace -y -T -ttt -ff -xx -qq -o curl $CMD
+*/
 
 
 fn main() {
