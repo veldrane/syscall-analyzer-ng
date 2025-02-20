@@ -1,12 +1,15 @@
+use serde::{Serialize,Deserialize};
+
 use crate::registry::SyscallArguments;
 
-#[derive(Debug)]
+#[derive(Debug, Serialize,Deserialize)]
 pub struct SocketArgs {
     domain: String,
     socket_type: String,
     protocol: String,
 }
 
+#[typetag::serde]
 impl SyscallArguments for SocketArgs {
     fn parse(input: &str) -> Result<Self, String> {
         

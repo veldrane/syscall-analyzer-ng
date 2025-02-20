@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use std::fmt::Debug;
+use serde::{Serialize};
 
 pub type ParserFn = Box<dyn Fn(&str) -> Result<Box<dyn SyscallArguments>, String> + Send + Sync>;
 
@@ -9,6 +10,7 @@ pub trait RegistryBuilder {
     fn new() -> Self;
 }
 
+#[typetag::serde]
 pub trait SyscallArguments: 'static + Debug {
     fn parse(input: &str) -> Result<Self, String>
     where

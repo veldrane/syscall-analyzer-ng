@@ -1,14 +1,20 @@
 use crate::{helpers::split_fd_parts, registry::SyscallArguments};
 use regex::Regex;
+use serde::{Deserialize, Serialize};
 
 
-#[derive(Debug)]
+#[derive(Debug, Serialize,Deserialize)]
 pub struct ListenArgs {
     sockfd: String,
     sock_name: String,
     backlog: String,
 }
 
+#[derive(Debug, Serialize,Deserialize)]
+#[serde(transparent)]
+pub struct ListenArgsWrapper(ListenArgs);
+
+#[typetag::serde]
 impl SyscallArguments for ListenArgs {
     fn parse(input: &str) -> Result<Self, String> {
 

@@ -1,7 +1,9 @@
+use serde::{Deserialize, Serialize};
+
 use crate::registry::SyscallArguments;
 use crate::helpers::split_fd_parts;
 
-#[derive(Debug)]
+#[derive(Debug, Serialize,Deserialize)]
 pub struct MmapArguments {
     addr: String,
     size: i32,
@@ -13,6 +15,7 @@ pub struct MmapArguments {
 }
 
 
+#[typetag::serde]
 impl SyscallArguments for MmapArguments {
     fn parse(input: &str) -> Result<Self, String> {
 
