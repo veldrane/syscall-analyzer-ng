@@ -1,8 +1,7 @@
-use std::ops::Deref;
-
 use crate::{helpers::split_fd_parts, registry::SyscallArguments};
 use regex::Regex;
 use serde::{Deserialize, Serialize};
+
 
 
 //const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>\w+)\,\s\{(?P<sock_addr>\w+)\}\,\s(?P<sock_len>.*)\)";

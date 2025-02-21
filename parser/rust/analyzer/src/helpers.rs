@@ -1,6 +1,6 @@
 use std::str::FromStr;
 use std::ops::Deref;
-struct HexString(String);
+pub struct HexString(String);
 
 
 pub fn split_fd_parts(parts: &str) -> (i32, String) {
@@ -20,6 +20,23 @@ pub fn split_fd_parts(parts: &str) -> (i32, String) {
 }
 
 
+pub fn split_fd_parts_to_strings(parts: &str) -> (String, String) {
+
+    let fd_parts: Vec<String> = parts
+    .chars()
+    .filter(|&c| !r#""\">? "#.contains(c))
+    .collect::<String>()
+    .split('<')
+    .map(str::to_string)
+    .collect::<Vec<String>>();
+
+    let fd = fd_parts[0].parse::<String>().unwrap();
+    let filename = HexString::from_str(&fd_parts[1]).unwrap().to_string();
+    //let filename = HexString::fd_parts[1].clone(from_str().unwrap();
+    (fd, filename)
+}
+
+
 impl FromStr for HexString {
     type Err = std::num::ParseIntError;
 
@@ -31,9 +48,7 @@ impl FromStr for HexString {
             .collect::<Result<_, _>>()?;
         Ok(HexString(String::from_utf8_lossy(&bytes).to_string()))
     }
-
 }
-
 
 
 impl Deref for HexString {

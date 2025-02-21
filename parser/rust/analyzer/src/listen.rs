@@ -1,5 +1,4 @@
 use crate::{helpers::split_fd_parts, registry::SyscallArguments};
-use regex::Regex;
 use serde::{Deserialize, Serialize};
 
 
