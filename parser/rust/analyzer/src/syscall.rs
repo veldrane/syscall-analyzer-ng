@@ -9,6 +9,8 @@ pub struct Syscall {
     pub timestamp: String,
     pub name: String,
     pub args: Box<dyn SyscallArguments>,
+    pub result: String,
+    pub duration: String,
 }
 
 
@@ -48,6 +50,9 @@ impl Serialize for Syscall {
                 }
             }
         }
+
+        map.insert("result".to_string(), Value::String(self.result.clone()));
+        map.insert("duration".to_string(), Value::String(self.duration.clone()));
 
         // Serializace výsledné mapy
         map.serialize(serializer)

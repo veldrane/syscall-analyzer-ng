@@ -1,12 +1,13 @@
 
 use std::fs::read_to_string;
+use std::process::exit;
 use modules::syscall::Syscall;
 use modules::registry::SyscallArguments;
 use modules::init;
 use modules::default;
 use regex::Regex;
 
-const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<arguments>.*)\)\s*\=\s*(?P<results>.*<(?P<duration>\d+\.\d+)>)";
+const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<arguments>.*)\)\s*\=\s(?P<result>.*)\s<(?P<duration>\d+\.\d+)>";
 
 
 /* Strace parameters for the parser
@@ -44,12 +45,19 @@ fn main() {
                     timestamp: fields["timestamp"].to_string(),
                     name: fields["syscall"].to_string(),
                     args: parsed_args,
+                    result: fields["result"].to_string(),
+                    duration: fields["duration"].to_string(),
                 };
-                println! ("{}",serde_json::to_string(&syscall).unwrap());
+                match serde_json::to_string(&syscall) {
+                    Ok(json) => println!("{}", json),
+                    Err(e) => eprintln!("Chyba při serializaci syscallu {}: {}", &fields["syscall"], e),
+                }
             },
             Err(e) => {
                 eprintln!("Chyba při parsování syscallu {}: {}\n line: {}", &fields["syscall"], e, line);
             },
         }
     }
+
+    exit(0);
 }
