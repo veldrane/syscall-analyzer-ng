@@ -1,24 +1,12 @@
 
 use std::fs::read_to_string;
-use crate::registry::SyscallArguments;
-use crate::syscall::Syscall;
+use modules::syscall::Syscall;
+use modules::registry::SyscallArguments;
+use modules::init;
+use modules::default;
 use regex::Regex;
 
-pub mod syscall;
-pub mod examples;
-pub mod helpers;
-pub mod registry;
-pub mod init;
-pub mod default;
-pub mod mmap;
-pub mod openat;
-pub mod socket;
-pub mod accept;
-pub mod listen;
-
-
 const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<arguments>.*)\)\s*\=\s*(?P<results>.*<(?P<duration>\d+\.\d+)>)";
-
 
 
 /* Strace parameters for the parser
@@ -27,17 +15,14 @@ strace -y -T -ttt -ff -xx -qq -o curl $CMD
 
 // const strace_output: &str = "../../../tests/all.out";
 
-const STRACE_OUTPUT: &str = "../../../tests/syscalls/openat.out";
+const STRACE_OUTPUT: &str = "../../../tests/syscalls/nginx-all.out";
 
 fn main() {
+    let re = Regex::new(BASIC_SYSCALL).unwrap();
     let registry = init::init_registry();
 
-    //let line = examples::MMAP_FILE;
 
     for line in read_to_string(STRACE_OUTPUT).unwrap().lines() {
-
-
-        let re = Regex::new(BASIC_SYSCALL).unwrap();
 
         let fields = if let Some(captures) = re.captures(line) {
             captures
@@ -45,6 +30,7 @@ fn main() {
             println!("Řádek neodpovídá formátu: {}", line);
             return;
         };
+
         let result = if let Some(parser) = registry.get(&fields["syscall"]) {
             parser(fields["arguments"].as_ref())
         } else {
@@ -54,8 +40,6 @@ fn main() {
 
         match result {
             Ok(parsed_args) => {
-                //println!("Parsed syscall args: {:?}", &parsed_args);
-
                 let syscall = Syscall {
                     timestamp: fields["timestamp"].to_string(),
                     name: fields["syscall"].to_string(),
@@ -64,7 +48,7 @@ fn main() {
                 println! ("{}",serde_json::to_string(&syscall).unwrap());
             },
             Err(e) => {
-                println!("Chyba při parsování syscallu {}: {}\n line: {}", &fields["syscall"], e, line);
+                eprintln!("Chyba při parsování syscallu {}: {}\n line: {}", &fields["syscall"], e, line);
             },
         }
     }

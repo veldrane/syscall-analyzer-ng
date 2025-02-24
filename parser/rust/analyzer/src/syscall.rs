@@ -30,6 +30,15 @@ impl Serialize for Syscall {
                 match value {
                     Value::Object(s) => {
                         for (k, v) in s {
+                            match &v {
+                                Value::String(x) => {
+                                    if x == "" {
+                                        continue;
+                                    }
+                                },
+                                _ => {   
+                                }
+                            }
                             map.insert(k, v);
                         }
                     },
