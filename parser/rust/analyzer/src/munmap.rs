@@ -1,7 +1,6 @@
 use serde::{Deserialize, Serialize};
 
 use crate::registry::SyscallArguments;
-use crate::helpers::split_fd_parts;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct MunmapArguments {

@@ -14,8 +14,6 @@ const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<argu
 strace -y -T -ttt -ff -xx -qq -o curl $CMD
 */
 
-// const strace_output: &str = "../../../tests/all.out";
-
 const STRACE_OUTPUT: &str = "../../../tests/syscalls/nginx-all.out";
 
 fn main() {
