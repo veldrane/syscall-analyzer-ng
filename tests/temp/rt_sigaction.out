@@ -1,0 +1,12 @@
+1739968096.242297 rt_sigaction(SIGHUP, {sa_handler=0x577de79db940, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x73e29b645330}, NULL, 8) = 0 <0.000006>
+1739968096.242321 rt_sigaction(SIGUSR1, {sa_handler=0x577de79db940, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x73e29b645330}, NULL, 8) = 0 <0.000005>
+1739968096.242339 rt_sigaction(SIGWINCH, {sa_handler=0x577de79db940, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x73e29b645330}, NULL, 8) = 0 <0.000005>
+1739968096.242356 rt_sigaction(SIGTERM, {sa_handler=0x577de79db940, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x73e29b645330}, NULL, 8) = 0 <0.000005>
+1739968096.242374 rt_sigaction(SIGQUIT, {sa_handler=0x577de79db940, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x73e29b645330}, NULL, 8) = 0 <0.000006>
+1739968096.242393 rt_sigaction(SIGUSR2, {sa_handler=0x577de79db940, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x73e29b645330}, NULL, 8) = 0 <0.000005>
+1739968096.242417 rt_sigaction(SIGALRM, {sa_handler=0x577de79db940, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x73e29b645330}, NULL, 8) = 0 <0.000005>
+1739968096.242435 rt_sigaction(SIGINT, {sa_handler=0x577de79db940, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x73e29b645330}, NULL, 8) = 0 <0.000005>
+1739968096.242452 rt_sigaction(SIGIO, {sa_handler=0x577de79db940, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x73e29b645330}, NULL, 8) = 0 <0.000005>
+1739968096.242470 rt_sigaction(SIGCHLD, {sa_handler=0x577de79db940, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x73e29b645330}, NULL, 8) = 0 <0.000005>
+1739968096.242487 rt_sigaction(SIGSYS, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x73e29b645330}, NULL, 8) = 0 <0.000005>
+1739968096.242505 rt_sigaction(SIGPIPE, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x73e29b645330}, NULL, 8) = 0 <0.000005>

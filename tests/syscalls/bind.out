@@ -1,0 +1,2 @@
+1739968096.242027 bind(5<\x73\x6f\x63\x6b\x65\x74\x3a\x5b\x32\x37\x39\x39\x37\x32\x5d>, {sa_family=AF_INET, sin_port=htons(80), sin_addr=inet_addr("\x30\x2e\x30\x2e\x30\x2e\x30")}, 16) = 0 <0.000009>
+1739968096.242156 bind(6<\x73\x6f\x63\x6b\x65\x74\x3a\x5b\x32\x37\x39\x39\x37\x33\x5d>, {sa_family=AF_INET6, sin6_port=htons(80), sin6_flowinfo=htonl(0), inet_pton(AF_INET6, "\x3a\x3a", &sin6_addr), sin6_scope_id=0}, 28) = 0 <0.000008>

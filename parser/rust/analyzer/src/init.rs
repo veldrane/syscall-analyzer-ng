@@ -1,6 +1,5 @@
-use crate::registry::{SyscallArguments, Registry};
-use crate::{accept, clone, close, epoll_create, fcntl, listen, mmap, munmap, openat, pread64, sendmsg, sendto, socket};
-
+use registry::registry::{Registry, SyscallArguments};
+use parsers::{mmap, munmap, openat, socket, accept, listen, fcntl, pread64, sendto, clone, close, sendmsg, epoll_create};
 
 pub fn init_registry() -> Registry {
 
@@ -28,8 +27,9 @@ pub fn init_registry() -> Registry {
     sendmsg::SendmsgArgs::register(&mut registry, "recvmsg");
     epoll_create::EpollCreateArgs::register(&mut registry, "epoll_create");
     epoll_create::EpollCreate1Args::register(&mut registry, "epoll_create1");
-    
+
     return registry;
+    
     //OpenArguments::register(&mut registry, "open");
 
 }

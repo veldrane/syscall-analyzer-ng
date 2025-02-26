@@ -1,10 +1,11 @@
 
 use std::fs::read_to_string;
 use std::process::exit;
-use modules::syscall::Syscall;
-use modules::registry::SyscallArguments;
+use parsers::syscall::Syscall;
+use registry::registry::SyscallArguments;
+use parsers::default;
+
 use modules::init;
-use modules::default;
 use regex::Regex;
 
 const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<arguments>.*)\)\s*\=\s(?P<result>.*)\s<(?P<duration>\d+\.\d+)>";
