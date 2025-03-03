@@ -5,6 +5,7 @@ use registry::registry::SyscallArguments;
 
 #[derive(Debug)]
 pub struct Syscall {
+    pub id: i32,
     pub timestamp: String,
     pub name: String,
     pub args: Box<dyn SyscallArguments>,

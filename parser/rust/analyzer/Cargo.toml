@@ -17,3 +17,6 @@ indexmap = { version = "2.7.1", features = ["serde"] }
 parsers = { path = "libs/parsers" }
 helpers = { path = "libs/helpers" }
 registry = { path = "libs/registry"}
+tokio = { version = "*", features = ["full"] }
+elasticsearch = "8.17.0-alpha.1"
+url = "2.5.4"
