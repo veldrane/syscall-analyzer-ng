@@ -17,5 +17,10 @@ pub struct Config {
     /// The connection URL for the Postgres database this application should use.
     #[clap(long, env)]
     pub elastic_url: String,
-
+    #[clap(long, env)]
+    pub username: String,
+    #[clap(long, env)]
+    pub password: String,
+    #[clap(long, env)]
+    pub index: String,
 }

@@ -1,9 +1,11 @@
 use crate::config::Config;
 use anyhow::Context;
-use axum::{extract::Extension, Router, routing::get};
+use axum::{extract::Extension, routing::get, Json, Router};
+use elasticsearch::Elasticsearch;
 use std::sync::Arc;
 use tower::ServiceBuilder;
 use std::net::SocketAddr;
+use serde_json::json;
 
 // Utility modules.
 
@@ -40,9 +42,10 @@ use tower_http::trace::TraceLayer;
 #[derive(Clone)]
 struct ApiContext {
     config: Arc<Config>,
+    elastic: Elasticsearch,
 }
 
-pub async fn serve(config: Config) -> anyhow::Result<()> {
+pub async fn serve(config: Config, elastic: Elasticsearch) -> anyhow::Result<()> {
     // Bootstrapping an API is both more intuitive with Axum than Actix-web but also
     // a bit more confusing at the same time.
     //
@@ -60,6 +63,7 @@ pub async fn serve(config: Config) -> anyhow::Result<()> {
             // It seems very logically named, but that makes it a bit annoying to type over and over.
             .layer(Extension(ApiContext {
                 config: Arc::new(config),
+                elastic,
             }))
             // Enables logging. Use `RUST_LOG=tower_http=debug`
             .layer(TraceLayer::new_for_http()),
@@ -83,5 +87,11 @@ fn api_router() -> Router {
     //users::router()
       //  .merge(profiles::router())
         //.merge(articles::router())
-    unimplemented!()
+    return  Router::new().route("/",get(|| async {
+        let value = json!({
+            "status": "Server is UP!"
+        });
+
+        Json(value)
+     }));
 }

@@ -7,9 +7,16 @@
 // upsides and their downsides. Your input is welcome!
 
 use anyhow::Context;
+use url::Url;
 use clap::Parser;
 use analyzer_be::config::Config; // Add this line to import the Config type
 use analyzer_be::http;
+
+use elasticsearch::{
+    auth::Credentials, http::transport::{SingleNodeConnectionPool, TransportBuilder}, Elasticsearch, cat::CatIndicesParts
+};
+
+use serde_json::Value;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -24,11 +31,37 @@ async fn main() -> anyhow::Result<()> {
     // This will exit with a help message if something is wrong.
     let config = Config::parse();
 
+    let elastic = get_elastic_connection(&config).await.context("could not connect to elastic")?;
+
+    // println!("{:?}", response_body);
+
+
     // We create a single connection pool for SQLx that's shared across the whole application.
     // This saves us from opening a new connection for every API call, which is wasteful.
 
     // Finally, we spin up our API.
-    http::serve(config).await?;
+    http::serve(config, elastic).await?;
 
     Ok(())
+}
+
+async fn get_elastic_connection(config: &Config) -> anyhow::Result<Elasticsearch> {
+    
+    let url = Url::parse(&config.elastic_url)?;
+    let client = Elasticsearch::new(TransportBuilder::new(SingleNodeConnectionPool::new(url))
+        .auth(Credentials::
+            Basic(config.username.to_string(), config.password.to_string()))
+        .build()?);
+
+    // Test connect to elastic, if failes, return error
+    let response = client
+    .cat()
+    .indices(CatIndicesParts::Index(&["*"]))
+    .format("json")
+    .send()
+    .await?;
+
+    response.json::<Value>().await?;
+
+    Ok(client)
 }
