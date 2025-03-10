@@ -12,8 +12,10 @@ pub struct EpollCreateArgs {
 impl SyscallArguments for EpollCreateArgs {
     fn parse(input: &str) -> Result<Self, String> {
 
+        let size = input.parse::<i32>().map_err(|e| e.to_string())?;
+
         Ok(EpollCreateArgs {
-            size: input.parse::<i32>().unwrap(),
+            size: size,
         })
     }   
 }
