@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use registry::registry::{SyscallArguments, SyscallReturns};
+use registry::registry::{SyscallArguments, SyscallResults};
 use serde::{Deserialize, Serialize};
 
 
@@ -11,7 +11,7 @@ pub struct CloneArgs {
 }
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct CloneReturns {
+pub struct CloneResults {
     pub cloned_pid: i32,
 }
 
@@ -39,12 +39,12 @@ impl SyscallArguments for CloneArgs {
 }
 
 #[typetag::serde]
-impl SyscallReturns for CloneReturns {
+impl SyscallResults for CloneResults {
     fn parse(input: &str) -> Result<Self, String> {
 
         let cloned_pid = input.parse::<i32>().map_err(|e| e.to_string())?;
 
-        Ok(CloneReturns {
+        Ok(CloneResults {
             cloned_pid: cloned_pid,
         })
     }

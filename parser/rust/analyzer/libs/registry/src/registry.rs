@@ -2,21 +2,21 @@ use std::fmt::Debug;
 use std::ops::Deref;
 
 pub type ParserArgsFn = Box<dyn Fn(&str) -> Result<Box<dyn SyscallArguments>, String> + Send + Sync>;
-pub type ParserReturnsFn = Box<dyn Fn(&str) -> Result<Box<dyn SyscallReturns>, String> + Send + Sync>;
+pub type ParserResultsFn = Box<dyn Fn(&str) -> Result<Box<dyn SyscallResults>, String> + Send + Sync>;
 
 pub fn args_wrapper<T: SyscallArguments>(input: &str) -> Result<Box<dyn SyscallArguments>, String> {
     T::parse(input).map(|parsed| Box::new(parsed) as Box<dyn SyscallArguments>)
 }
 
 
-pub fn returns_wrapper<T: SyscallReturns>(input: &str) -> Result<Box<dyn SyscallReturns>, String> {
-    T::parse(input).map(|parsed| Box::new(parsed) as Box<dyn SyscallReturns>)
+pub fn results_wrapper<T: SyscallResults>(input: &str) -> Result<Box<dyn SyscallResults>, String> {
+    T::parse(input).map(|parsed| Box::new(parsed) as Box<dyn SyscallResults>)
 }
 
 
 pub struct  Register {
     pub arguments: ParserArgsFn,
-    pub returns: Option<ParserReturnsFn>,
+    pub returns: Option<ParserResultsFn>,
 }
 
 
@@ -37,7 +37,7 @@ pub trait SyscallArguments: 'static + Debug {
  }
 
  #[typetag::serde]
- pub trait SyscallReturns: 'static + Debug {
+ pub trait SyscallResults: 'static + Debug {
     fn parse(input: &str) -> Result<Self, String>
     where
         Self: Sized;

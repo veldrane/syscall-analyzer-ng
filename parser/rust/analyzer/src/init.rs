@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use registry::registry::{Register, args_wrapper, returns_wrapper};
+use registry::registry::{Register, args_wrapper, results_wrapper};
 use parsers::{mmap, munmap, openat, socket, accept, listen, fcntl, pread64, sendto, clone, close, sendmsg, epoll_create};
 
 pub fn init_registry() -> HashMap<String, Register> {
@@ -74,7 +74,7 @@ pub fn init_registry() -> HashMap<String, Register> {
         ("clone".to_string(), 
             Register { 
                 arguments: Box::new(args_wrapper::<clone::CloneArgs>), 
-                returns: Some(Box::new(returns_wrapper::<clone::CloneReturns>)),
+                returns: Some(Box::new(results_wrapper::<clone::CloneResults>)),
         }),
         ("close".to_string(), 
             Register { 

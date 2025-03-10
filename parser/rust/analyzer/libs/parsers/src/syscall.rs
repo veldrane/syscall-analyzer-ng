@@ -1,7 +1,7 @@
 use serde::{Serialize, Serializer};
 use serde::ser::SerializeMap;
 use serde_json::value::Value;
-use registry::registry::{SyscallArguments, SyscallReturns};
+use registry::registry::{SyscallArguments, SyscallResults};
 
 #[derive(Debug)]
 pub struct Syscall<'a> {
@@ -9,7 +9,7 @@ pub struct Syscall<'a> {
     pub timestamp: &'a str,
     pub name: &'a str,
     pub args: Box<dyn SyscallArguments>,
-    pub returns: Option<Box<dyn SyscallReturns>>,
+    pub returns: Option<Box<dyn SyscallResults>>,
     pub result: &'a str,
     pub duration: &'a str,
 }
@@ -32,7 +32,7 @@ impl<'a> Serialize for Syscall<'a> {
         serialize_syscall_parts(&mut map, args_value)?;
         let returns_value = serde_json::to_value(&self.returns).map_err(serde::ser::Error::custom)?;
         serialize_syscall_parts(&mut map, returns_value)?;
-        
+
         map.end()
     }
 }
