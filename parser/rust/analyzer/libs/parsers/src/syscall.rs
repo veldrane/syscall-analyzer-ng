@@ -1,33 +1,36 @@
 use serde::{Serialize, Serializer};
+use serde::ser::SerializeMap;
 use serde_json::value::Value;
-use indexmap::IndexMap;
 use registry::registry::SyscallArguments;
 
 #[derive(Debug)]
-pub struct Syscall {
-    pub timestamp: String,
-    pub name: String,
+pub struct Syscall<'a> {
+    pub id: &'a i32,
+    pub timestamp: &'a str,
+    pub name: &'a str,
     pub args: Box<dyn SyscallArguments>,
-    pub result: String,
-    pub duration: String,
+    pub result: &'a str,
+    pub duration: &'a str,
 }
 
 
-impl Serialize for Syscall {
+impl<'a> Serialize for Syscall<'a> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
     {
-        // Vytvoříme top-level mapu
-        let mut map:IndexMap<String, Value> = IndexMap::new();
+        // Neznáme přesný počet polí, tak zadáme None
+        let mut map = serializer.serialize_map(None)?;
 
-        map.insert("timestamp".to_string(), Value::String(self.timestamp.clone()));
-        map.insert("name".to_string(), Value::String(self.name.clone()));
-        // Serializace vnořeného typu do Value
+        map.serialize_entry("id", self.id)?;
+        map.serialize_entry("timestamp", self.timestamp)?;
+        map.serialize_entry("name", self.name)?;
+        map.serialize_entry("result", self.result)?;
+        map.serialize_entry("duration", self.duration)?;
 
         let args_value = serde_json::to_value(&self.args).unwrap();
         if let Value::Object(args_map) = args_value {
-            for (_, value) in args_map.clone() {
+            for (_, value) in args_map {
                 match value {
                     Value::Object(s) => {
                         for (k, v) in s {
@@ -40,7 +43,7 @@ impl Serialize for Syscall {
                                 _ => {   
                                 }
                             }
-                            map.insert(k, v);
+                            map.serialize_entry(&k, &v)?;
                         }
                     },
                     _ => {
@@ -49,11 +52,6 @@ impl Serialize for Syscall {
                 }
             }
         }
-
-        map.insert("result".to_string(), Value::String(self.result.clone()));
-        map.insert("duration".to_string(), Value::String(self.duration.clone()));
-
-        // Serializace výsledné mapy
-        map.serialize(serializer)
+        map.end()
     }
 }

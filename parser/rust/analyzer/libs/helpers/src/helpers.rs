@@ -19,7 +19,12 @@ pub fn split_fd_parts(parts: &str) -> (i32, String) {
     (fd, filename)
 }
 
-
+pub fn split_fd_parts_to_refs(parts: &str) -> (&str, &str) {
+    let mut split_iter = parts.split('<');
+    let fd = split_iter.next().expect("Missing fd part").trim();
+    let filename = split_iter.next().expect("Missing filename part").trim();
+    (fd, filename)
+}
 pub fn split_fd_parts_to_strings(parts: &str) -> (String, String) {
 
     let fd_parts: Vec<String> = parts
