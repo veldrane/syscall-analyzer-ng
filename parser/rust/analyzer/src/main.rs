@@ -84,7 +84,7 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
                 .map(|v| Box::new(v) as Box<dyn Parsable>)
         };
 
-        let parsed_returns = if let Some(parsers) = parsers {
+        let parsed_results = if let Some(parsers) = parsers {
             parsers.returns.as_ref().map(|f| f(fields["result"].as_ref())).transpose()?
         } else {
             None
@@ -110,8 +110,8 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
             },
         };
 
-        let returns = match parsed_returns {
-            Some(parsed_returns) => Some(parsed_returns),
+        let results = match parsed_results {
+            Some(parsed_results) => Some(parsed_results),
             None => None,
         };
 
@@ -122,7 +122,7 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
             timestamp: fields["timestamp"].as_ref(),
             name: fields["syscall"].as_ref(),
             args: arguments,
-            returns: returns,
+            results: results,
             result: fields["result"].as_ref(),
             duration: fields["duration"].as_ref(),
         };

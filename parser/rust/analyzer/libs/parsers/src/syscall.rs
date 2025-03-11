@@ -1,7 +1,7 @@
 use serde::{Serialize, Serializer};
 use serde::ser::SerializeMap;
-use serde_json::value::Value;
 use registry::registry::Parsable;
+use helpers::helpers::flat_serializer;
 
 #[derive(Debug)]
 pub struct Syscall<'a> {
@@ -9,27 +9,11 @@ pub struct Syscall<'a> {
     pub timestamp: &'a str,
     pub name: &'a str,
     pub args: Box<dyn Parsable>,
-    pub returns: Option<Box<dyn Parsable>>,
+    pub results: Option<Box<dyn Parsable>>,
     pub result: &'a str,
     pub duration: &'a str,
 }
 
-impl<'a> Syscall<'a> {
-    
-    pub fn expand_json<S> (&self, serialized_map: &mut S) -> Result<(), S::Error>
-    where
-        S: SerializeMap,
-    {
-
-        let args_value = serde_json::to_value(&self.args).map_err(serde::ser::Error::custom)?;
-        serialize_syscall_parts(serialized_map, args_value)?;
-        let returns_value = serde_json::to_value(&self.returns).map_err(serde::ser::Error::custom)?;
-        serialize_syscall_parts(serialized_map, returns_value)?;
-
-        Ok(())
-
-    }
-}
 
 
 impl<'a> Serialize for Syscall<'a> {
@@ -45,39 +29,13 @@ impl<'a> Serialize for Syscall<'a> {
         map.serialize_entry("result", self.result)?;
         map.serialize_entry("duration", self.duration)?;
 
-        self.expand_json(&mut map)?;
+        flat_serializer(&mut map, &self.args)?;
+
+        if let Some(ref results) = self.results {
+            flat_serializer(&mut map, results)?;
+        }
 
         map.end()
-    }
-}
 
-fn serialize_syscall_parts<S>(serialize: &mut S, value: Value) -> Result<(), S::Error>
-where
-    S: SerializeMap,
-{
-    
-    if let Value::Object(args_map) = value {
-        for (_, value) in args_map {
-            match value {
-                Value::Object(s) => {
-                    for (k, v) in s {
-                        match &v {
-                            Value::String(x) => {
-                                if x == "" {
-                                    continue;
-                                }
-                            },
-                            _ => {   
-                            }
-                        }
-                        serialize.serialize_entry(&k, &v)?;
-                    }
-                },
-                _ => {
-                    println!("Unexpected value type: {:?}", value);
-                }
-            }
-        }
     }
-    Ok(())
 }
