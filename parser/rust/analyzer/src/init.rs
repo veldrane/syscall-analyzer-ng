@@ -1,35 +1,105 @@
-use registry::registry::{Registry, SyscallArguments};
+use std::collections::HashMap;
+
+use registry::registry::{Register, parser_wrapper};
 use parsers::{mmap, munmap, openat, socket, accept, listen, fcntl, pread64, sendto, clone, close, sendmsg, epoll_create};
 
-pub fn init_registry() -> Registry {
-
-    let mut registry = Registry::new();
-
-    mmap::MmapArguments::register(&mut registry, "mmap");
-    munmap::MunmapArguments::register(&mut registry, "munmap");
-    openat::OpenatArguments::register(&mut registry, "openat");
-    socket::SocketArgs::register(&mut registry, "socket");
-    accept::AcceptArgs::register(&mut registry, "accept");
-    accept::AcceptArgs::register(&mut registry, "accept4");
-    accept::AcceptArgs::register(&mut registry, "connect");
-    accept::AcceptArgs::register(&mut registry, "bind");
-    listen::ListenArgs::register(&mut registry, "listen");
-    fcntl::FcntlArgs::register(&mut registry, "fcntl");
-    pread64::ReadArgs::register(&mut registry, "read");
-    pread64::ReadArgs::register(&mut registry, "pread64");
-    pread64::ReadArgs::register(&mut registry, "write");
-    pread64::ReadArgs::register(&mut registry, "pwrite64");
-    sendto::SendtoArgs::register(&mut registry, "sendto");
-    sendto::SendtoArgs::register(&mut registry, "recvfrom");
-    clone::CloneArgs::register(&mut registry, "clone");
-    close::CloseArgs::register(&mut registry, "close");
-    sendmsg::SendmsgArgs::register(&mut registry, "sendmsg");
-    sendmsg::SendmsgArgs::register(&mut registry, "recvmsg");
-    epoll_create::EpollCreateArgs::register(&mut registry, "epoll_create");
-    epoll_create::EpollCreate1Args::register(&mut registry, "epoll_create1");
-
-    return registry;
+pub fn init_registry() -> HashMap<String, Register> {
     
-    //OpenArguments::register(&mut registry, "open");
-
+    return HashMap::from([
+        ("mmap".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<mmap::MmapArguments>), 
+                returns: None,
+        }),
+        ("munmap".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<munmap::MunmapArguments>), 
+                returns: None,
+        }),
+        ("openat".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<openat::OpenatArguments>), 
+                returns: None,
+        }),
+        ("socket".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<socket::SocketArgs>), 
+                returns: None,
+        }),
+        ("accept".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<accept::AcceptArgs>), 
+                returns: None,
+        }),
+        ("accept4".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<accept::AcceptArgs>), 
+                returns: None,
+        }),
+        ("connect".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<accept::AcceptArgs>), 
+                returns: None,
+        }),
+        ("bind".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<accept::AcceptArgs>), 
+                returns: None,
+        }),
+        ("listen".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<listen::ListenArgs>), 
+                returns: None,
+        }),
+        ("fcntl".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<fcntl::FcntlArgs>), 
+                returns: None,
+        }),
+        ("pread64".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<pread64::ReadArgs>), 
+                returns: None,
+        }),
+        ("sendto".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<sendto::SendtoArgs>), 
+                returns: None,
+        }),
+        ("recvfrom".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<sendto::SendtoArgs>), 
+                returns: None,
+        }),
+        ("clone".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<clone::CloneArgs>), 
+                returns: Some(Box::new(parser_wrapper::<clone::CloneResults>)),
+        }),
+        ("close".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<close::CloseArgs>), 
+                returns: None,
+        }),
+        ("sendmsg".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<sendmsg::SendmsgArgs>), 
+                returns: None,
+        }),
+        ("recvmsg".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<sendmsg::SendmsgArgs>), 
+                returns: None,
+        }),
+        ("epoll_create".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<epoll_create::EpollCreateArgs>), 
+                returns: None,
+        }),
+        ("epoll_create1".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<epoll_create::EpollCreateArgs>), 
+                returns: None,
+        })
+    ]);
 }

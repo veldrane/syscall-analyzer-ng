@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use registry::registry::SyscallArguments;
+use registry::registry::Parsable;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct MunmapArguments {
@@ -9,7 +9,7 @@ pub struct MunmapArguments {
 
 
 #[typetag::serde]
-impl SyscallArguments for MunmapArguments {
+impl Parsable for MunmapArguments {
     fn parse(input: &str) -> Result<Self, String> {
 
 

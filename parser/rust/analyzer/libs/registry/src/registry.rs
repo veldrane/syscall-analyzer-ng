@@ -1,37 +1,33 @@
-use std::collections::HashMap;
 use std::fmt::Debug;
+use std::ops::Deref;
+
+pub type ParserFn = Box<dyn Fn(&str) -> Result<Box<dyn Parsable>, String> + Send + Sync>;
 
 
-pub type ParserFn = Box<dyn Fn(&str) -> Result<Box<dyn SyscallArguments>, String> + Send + Sync>;
+pub fn parser_wrapper<T: Parsable>(input: &str) -> Result<Box<dyn Parsable>, String> {
+    T::parse(input).map(|parsed| Box::new(parsed) as Box<dyn Parsable>)
+}
 
-pub type Registry = HashMap<String, ParserFn>;
 
-pub trait RegistryBuilder {
-    fn new() -> Self;
+
+pub struct  Register {
+    pub arguments: ParserFn,
+    pub returns: Option<ParserFn>,
+}
+
+
+impl Deref for Register {
+
+    type Target = Register;
+
+    fn deref(&self) -> &Self::Target {
+        &self
+    }
 }
 
 #[typetag::serde]
-pub trait SyscallArguments: 'static + Debug {
+pub trait Parsable: 'static + Debug {
     fn parse(input: &str) -> Result<Self, String>
     where
         Self: Sized;
-
-    fn register(registry: &mut Registry, name: &'static str)
-    where
-        Self: Sized,
-    {
-        registry.insert(
-            name.to_string(),
-            Box::new(|input: &str| {
-                Self::parse(input)
-                    .map(|parsed| Box::new(parsed) as Box<dyn SyscallArguments>)
-            }),
-        );
-    }
-}
-
-impl RegistryBuilder for Registry {
-    fn new() -> Self {
-        HashMap::new()
-    }
-}
+ }

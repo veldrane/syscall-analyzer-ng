@@ -1,7 +1,7 @@
-//use crate::{helpers::split_fd_parts, registry::SyscallArguments};
+//use crate::{helpers::split_fd_parts, registry::Parsable};
 
 use helpers::helpers::split_fd_parts;
-use registry::registry::SyscallArguments;
+use registry::registry::Parsable;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 
@@ -22,7 +22,7 @@ pub struct AcceptArgs {
 }
 
 #[typetag::serde]
-impl SyscallArguments for AcceptArgs {
+impl Parsable for AcceptArgs {
     fn parse(input: &str) -> Result<Self, String> {
         
 

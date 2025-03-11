@@ -1,4 +1,4 @@
-use registry::registry::SyscallArguments;
+use registry::registry::Parsable;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug,Serialize,Deserialize)]
@@ -7,7 +7,7 @@ pub struct DefaultArgs {
 }
 
 #[typetag::serde]
-impl SyscallArguments for DefaultArgs {
+impl Parsable for DefaultArgs {
     fn parse(input: &str) -> Result<Self, String> {
         Ok(DefaultArgs {
             raw: input.to_string(),

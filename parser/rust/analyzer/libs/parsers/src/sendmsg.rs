@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use helpers::helpers::split_fd_parts;
-use registry::registry::SyscallArguments;
+use registry::registry::Parsable;
 use regex::Regex;
 use serde::{Deserialize, Serialize, Serializer};
 use serde_json::value::Value;
@@ -50,7 +50,7 @@ pub struct MsgControl {
 
 
 #[typetag::serde]
-impl SyscallArguments for SendmsgArgs {
+impl Parsable for SendmsgArgs {
     fn parse(input: &str) -> Result<Self, String> {
         
 
