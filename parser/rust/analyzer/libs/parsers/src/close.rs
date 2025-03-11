@@ -1,5 +1,5 @@
 use helpers::helpers::split_fd_parts;
-use registry::registry::SyscallArguments;
+use registry::registry::Parsable;
 use serde::{Deserialize, Serialize};
 
 
@@ -11,7 +11,7 @@ pub struct CloseArgs {
 
 
 #[typetag::serde]
-impl SyscallArguments for CloseArgs {
+impl Parsable for CloseArgs {
     fn parse(input: &str) -> Result<Self, String> {
 
         let (fd, file_name ) = split_fd_parts(&input);

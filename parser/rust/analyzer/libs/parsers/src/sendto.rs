@@ -1,5 +1,5 @@
 use helpers::helpers::split_fd_parts;
-use registry::registry::SyscallArguments;
+use registry::registry::Parsable;
 use serde::{Deserialize, Serialize};
 
 
@@ -16,7 +16,7 @@ pub struct SendtoArgs {
 
 
 #[typetag::serde]
-impl SyscallArguments for SendtoArgs {
+impl Parsable for SendtoArgs {
     fn parse(input: &str) -> Result<Self, String> {
 
         let parts: Vec<String> = input

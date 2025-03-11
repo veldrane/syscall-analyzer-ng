@@ -1,17 +1,34 @@
 use serde::{Serialize, Serializer};
 use serde::ser::SerializeMap;
 use serde_json::value::Value;
-use registry::registry::{SyscallArguments, SyscallResults};
+use registry::registry::Parsable;
 
 #[derive(Debug)]
 pub struct Syscall<'a> {
     pub id: &'a i32,
     pub timestamp: &'a str,
     pub name: &'a str,
-    pub args: Box<dyn SyscallArguments>,
-    pub returns: Option<Box<dyn SyscallResults>>,
+    pub args: Box<dyn Parsable>,
+    pub returns: Option<Box<dyn Parsable>>,
     pub result: &'a str,
     pub duration: &'a str,
+}
+
+impl<'a> Syscall<'a> {
+    
+    pub fn expand_json<S> (&self, serialized_map: &mut S) -> Result<(), S::Error>
+    where
+        S: SerializeMap,
+    {
+
+        let args_value = serde_json::to_value(&self.args).map_err(serde::ser::Error::custom)?;
+        serialize_syscall_parts(serialized_map, args_value)?;
+        let returns_value = serde_json::to_value(&self.returns).map_err(serde::ser::Error::custom)?;
+        serialize_syscall_parts(serialized_map, returns_value)?;
+
+        Ok(())
+
+    }
 }
 
 
@@ -28,10 +45,7 @@ impl<'a> Serialize for Syscall<'a> {
         map.serialize_entry("result", self.result)?;
         map.serialize_entry("duration", self.duration)?;
 
-        let args_value = serde_json::to_value(&self.args).map_err(serde::ser::Error::custom)?;
-        serialize_syscall_parts(&mut map, args_value)?;
-        let returns_value = serde_json::to_value(&self.returns).map_err(serde::ser::Error::custom)?;
-        serialize_syscall_parts(&mut map, returns_value)?;
+        self.expand_json(&mut map)?;
 
         map.end()
     }

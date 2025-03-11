@@ -1,5 +1,5 @@
 use serde::{Serialize,Deserialize};
-use registry::registry::SyscallArguments;
+use registry::registry::Parsable;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct SocketArgs {
@@ -9,7 +9,7 @@ pub struct SocketArgs {
 }
 
 #[typetag::serde]
-impl SyscallArguments for SocketArgs {
+impl Parsable for SocketArgs {
     fn parse(input: &str) -> Result<Self, String> {
         
         let parts: Vec<String> = input

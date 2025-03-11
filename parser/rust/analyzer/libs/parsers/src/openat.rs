@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use registry::registry::SyscallArguments;
+use registry::registry::Parsable;
 use std::str::FromStr;
 use helpers::helpers::{split_fd_parts_to_strings, HexString};
 
@@ -15,7 +15,7 @@ pub struct OpenatArguments {
 
 
 #[typetag::serde]
-impl SyscallArguments for OpenatArguments {
+impl Parsable for OpenatArguments {
     fn parse(input: &str) -> Result<Self, String> {
 
         let mut openat_syscall = OpenatArguments {

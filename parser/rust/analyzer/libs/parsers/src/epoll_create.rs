@@ -1,4 +1,4 @@
-use registry::registry::SyscallArguments;
+use registry::registry::Parsable;
 use serde::{Deserialize, Serialize};
 
 
@@ -9,7 +9,7 @@ pub struct EpollCreateArgs {
 
 
 #[typetag::serde]
-impl SyscallArguments for EpollCreateArgs {
+impl Parsable for EpollCreateArgs {
     fn parse(input: &str) -> Result<Self, String> {
 
         let size = input.parse::<i32>().map_err(|e| e.to_string())?;
@@ -27,7 +27,7 @@ pub struct EpollCreate1Args {
 
 
 #[typetag::serde]
-impl SyscallArguments for EpollCreate1Args {
+impl Parsable for EpollCreate1Args {
     fn parse(input: &str) -> Result<Self, String> {
 
         Ok(EpollCreate1Args {

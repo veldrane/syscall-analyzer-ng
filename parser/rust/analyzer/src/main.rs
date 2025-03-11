@@ -2,7 +2,7 @@
 use std::fs::read_to_string;
 use std::process::exit;
 use parsers::syscall::Syscall;
-use registry::registry::{SyscallArguments, Register};
+use registry::registry::{Parsable, Register};
 use parsers::default;
 use std::collections::HashMap;
 
@@ -81,7 +81,7 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
             (parsers.arguments)(fields["arguments"].as_ref())
         } else {
             default::DefaultArgs::parse(fields["arguments"].as_ref())
-                .map(|v| Box::new(v) as Box<dyn SyscallArguments>)
+                .map(|v| Box::new(v) as Box<dyn Parsable>)
         };
 
         let parsed_returns = if let Some(parsers) = parsers {

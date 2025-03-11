@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use helpers::helpers::split_fd_parts;
-use registry::registry::SyscallArguments;
+use registry::registry::Parsable;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct MmapArguments {
@@ -15,7 +15,7 @@ pub struct MmapArguments {
 
 
 #[typetag::serde]
-impl SyscallArguments for MmapArguments {
+impl Parsable for MmapArguments {
     fn parse(input: &str) -> Result<Self, String> {
 
         let mut filename = "".to_string();
