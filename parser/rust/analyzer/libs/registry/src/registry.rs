@@ -12,7 +12,7 @@ pub fn parser_wrapper<T: Parsable>(input: &str) -> Result<Box<dyn Parsable>, Str
 
 pub struct  Register {
     pub arguments: ParserFn,
-    pub returns: Option<ParserFn>,
+    pub results: Option<ParserFn>,
 }
 
 

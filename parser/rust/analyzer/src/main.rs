@@ -84,7 +84,7 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
         };
 
         let results = if let Some(parsers) = parsers {
-            match parsers.returns.as_ref().map(|f| f(fields["result"].as_ref())).transpose() {
+            match parsers.results.as_ref().map(|f| f(fields["result"].as_ref())).transpose() {
                 Ok(value) => value,
                 Err(_) => None,
             }
