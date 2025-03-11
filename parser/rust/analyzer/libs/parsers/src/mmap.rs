@@ -9,7 +9,7 @@ pub struct MmapArguments {
     protection: String,
     flags: String,
     fd: i32,
-    filename: String,
+    file_name: String,
     offset: String
 }
 
@@ -18,7 +18,7 @@ pub struct MmapArguments {
 impl Parsable for MmapArguments {
     fn parse(input: &str) -> Result<Self, String> {
 
-        let mut filename = "".to_string();
+        let mut file_name = "".to_string();
         let mut fd = -1;
 
         let parts: Vec<String> = input
@@ -34,7 +34,7 @@ impl Parsable for MmapArguments {
         }
 
         if !parts[4].contains("-1") {
-            (fd, filename) = split_fd_parts(&parts[4]);
+            (fd, file_name) = split_fd_parts(&parts[4]);
         }
 
         Ok(MmapArguments {
@@ -43,7 +43,7 @@ impl Parsable for MmapArguments {
             protection: parts[2].to_string(),
             flags: parts[3].to_string(),
             fd: fd,
-            filename: filename,
+            file_name: file_name,
             offset: parts[5].to_string()
         })
     }

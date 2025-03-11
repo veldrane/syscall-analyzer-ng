@@ -66,15 +66,6 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
             },
         };
 
-        //let result = if let Some(parser) = registry.get(&fields["syscall"]) {
-        //    parser(fields["arguments"].as_ref())
-        //} else {
-        //    default::DefaultArgs::parse(fields["arguments"].as_ref())
-        //        .map(|v| Box::new(v) as Box<dyn SyscallArguments>)
-        //};
-
-        //let parsers = registry.get(&fields["syscall"]);
-
         let parsers = registry.get(&fields["syscall"]);
 
         let parsed_arguments = if let Some(parsers) = parsers {
@@ -84,24 +75,6 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
                 .map(|v| Box::new(v) as Box<dyn Parsable>)
         };
 
-        let parsed_results = if let Some(parsers) = parsers {
-            parsers.returns.as_ref().map(|f| f(fields["result"].as_ref())).transpose()?
-        } else {
-            None
-        };
-        
-        //let parsed_arguments = if let Some(parser) = registry.get(&fields["syscall"]) {
-        //    (parser.arguments)(fields["arguments"].as_ref())
-        //} else {
-        //    default::DefaultArgs::parse(fields["arguments"].as_ref())
-        //        .map(|v| Box::new(v) as Box<dyn SyscallArguments>)
-        //};
-
-        //let returns = match parsers {
-        //    Some(parser) => parser(fields["returns"].as_ref()),
-         //   None => None,
-        //};
-
         let arguments = match parsed_arguments {
             Ok(parsed_args) => parsed_args,
             Err(e) => {
@@ -110,12 +83,18 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
             },
         };
 
-        let results = match parsed_results {
-            Some(parsed_results) => Some(parsed_results),
-            None => None,
+        let results = if let Some(parsers) = parsers {
+            match parsers.returns.as_ref().map(|f| f(fields["result"].as_ref())).transpose() {
+                Ok(value) => value,
+                Err(_) => None,
+            }
+        } else {
+            None
         };
+        
+        
 
-        registry.get(&fields["syscall"]);
+        // registry.get(&fields["syscall"]);   PROC ?
 
         let syscall = Syscall {
             id: &id,

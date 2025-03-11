@@ -1,5 +1,6 @@
 use serde::{Serialize,Deserialize};
 use registry::registry::Parsable;
+use helpers::helpers::split_fd_parts;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct SocketArgs {
@@ -28,4 +29,33 @@ impl Parsable for SocketArgs {
             protocol: parts[2].to_string()
         })
     }   
+}
+
+
+#[derive(Debug, Serialize,Deserialize)]
+pub struct SocketResults {
+    pub socket_fd: i32,
+    pub socket_name: String,
+}
+
+#[typetag::serde]
+impl Parsable for SocketResults {
+    fn parse(input: &str) -> Result<Self, String> {
+        
+        let parts: Vec<&str> = input
+                                    .split(' ')
+                                    .collect();
+
+
+        if parts[0] == "-1" {
+            return Err("Error opening file".into());
+        }
+
+        let (socket_fd, socket_name) = split_fd_parts(&parts[0]);
+
+        Ok(SocketResults {
+            socket_fd: socket_fd,
+            socket_name: socket_name,
+        })
+    }
 }

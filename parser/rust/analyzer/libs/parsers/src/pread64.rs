@@ -8,10 +8,24 @@ pub struct ReadArgs {
     fd: i32,
     file_name: String,
     buffer: String,
-    size: i32,
+    requested_size: i32,
     offset: String,
 }
 
+#[derive(Debug, Serialize,Deserialize)]
+pub struct ReadResults {
+    size: i32,
+}
+
+#[typetag::serde]
+impl Parsable for ReadResults {
+    fn parse(input: &str) -> Result<Self, String> {
+        let size = input.parse::<i32>().map_err(|e| e.to_string())?;
+        Ok(ReadResults {
+            size: size,
+        })
+    }   
+}
 
 #[typetag::serde]
 impl Parsable for ReadArgs {
@@ -41,7 +55,7 @@ impl Parsable for ReadArgs {
             fd: fd,
             file_name: file_name,
             buffer: parts[1].to_string(),
-            size:parts[2].parse::<i32>().unwrap(),
+            requested_size:parts[2].parse::<i32>().unwrap(),
             offset: offset
         })
     }   

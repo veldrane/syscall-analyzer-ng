@@ -5,8 +5,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct SendtoArgs {
-    fd: i32,
-    sock_name: String,
+    socket_fd: i32,
+    socket_name: String,
     buffer: String,
     size: i32,
     flags: String,
@@ -31,7 +31,7 @@ impl Parsable for SendtoArgs {
             return Err("Invalid number of arguments".into());
         }
         
-        let (fd, sock_name ) = split_fd_parts(&parts[0]);
+        let (socket_fd, socket_name ) = split_fd_parts(&parts[0]);
 
         //let opt_arg = if let Some(opt) = parts.get(2) {
         //    opt.to_string()
@@ -40,8 +40,8 @@ impl Parsable for SendtoArgs {
         //};
 
         Ok(SendtoArgs {
-            fd: fd,
-            sock_name: sock_name,
+            socket_fd: socket_fd,
+            socket_name: socket_name,
             buffer: parts[1].to_string(),
             size:parts[2].parse::<i32>().unwrap(),
             flags: parts[3].to_string(),

@@ -19,12 +19,12 @@ pub fn init_registry() -> HashMap<String, Register> {
         ("openat".to_string(), 
             Register { 
                 arguments: Box::new(parser_wrapper::<openat::OpenatArguments>), 
-                returns: None,
+                returns: Some(Box::new(parser_wrapper::<openat::OpenatResults>)),
         }),
         ("socket".to_string(), 
             Register { 
                 arguments: Box::new(parser_wrapper::<socket::SocketArgs>), 
-                returns: None,
+                returns: Some(Box::new(parser_wrapper::<socket::SocketResults>)),
         }),
         ("accept".to_string(), 
             Register { 
@@ -59,7 +59,22 @@ pub fn init_registry() -> HashMap<String, Register> {
         ("pread64".to_string(), 
             Register { 
                 arguments: Box::new(parser_wrapper::<pread64::ReadArgs>), 
-                returns: None,
+                returns: Some(Box::new(parser_wrapper::<pread64::ReadResults>)),
+        }),
+        ("pwrite64".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<pread64::ReadArgs>), 
+                returns: Some(Box::new(parser_wrapper::<pread64::ReadResults>)),
+        }),
+        ("write".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<pread64::ReadArgs>), 
+                returns: Some(Box::new(parser_wrapper::<pread64::ReadResults>)),
+        }),
+        ("read".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<pread64::ReadArgs>), 
+                returns: Some(Box::new(parser_wrapper::<pread64::ReadResults>)),
         }),
         ("sendto".to_string(), 
             Register { 
@@ -94,12 +109,12 @@ pub fn init_registry() -> HashMap<String, Register> {
         ("epoll_create".to_string(), 
             Register { 
                 arguments: Box::new(parser_wrapper::<epoll_create::EpollCreateArgs>), 
-                returns: None,
+                returns: Some(Box::new(parser_wrapper::<epoll_create::EpollCreateResults>)),
         }),
         ("epoll_create1".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<epoll_create::EpollCreateArgs>), 
-                returns: None,
+                arguments: Box::new(parser_wrapper::<epoll_create::EpollCreate1Args>), 
+                returns: Some(Box::new(parser_wrapper::<epoll_create::EpollCreateResults>)),
         })
     ]);
 }

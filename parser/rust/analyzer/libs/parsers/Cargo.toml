@@ -7,6 +7,7 @@ edition = "2021"
 regex = "1.10.3"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+serde_with = "3.12.0"
 typetag = "0.2.19"
 indexmap = { version = "2.7.1", features = ["serde"] }
 registry = { path = "../../libs/registry" }
