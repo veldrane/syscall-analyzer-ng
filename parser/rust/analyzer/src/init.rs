@@ -33,8 +33,8 @@ pub fn init_registry() -> HashMap<String, Register> {
         }),
         ("accept4".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<network::NetworkArgs>), 
-                results: None,
+                arguments: Box::new(parser_wrapper::<network::Accept4Args>), 
+                results: Some(Box::new(parser_wrapper::<network::Accept4Results>)),
         }),
         ("connect".to_string(), 
             Register { 

@@ -1,5 +1,3 @@
-//use crate::{helpers::split_fd_parts, registry::Parsable};
-
 use helpers::helpers::split_fd_parts;
 use registry::registry::Parsable;
 use regex::Regex;
@@ -21,6 +19,22 @@ pub struct NetworkArgs {
     socket_len: String,   
 }
 
+// socket addr must be described in more depth, not much knowledge about this parameter
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Accept4Args {
+    parrent_socket_fd: String,
+    parrent_socket_name: String,
+    socket_addr: String,
+    socket_len: String,   
+}
+
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Accept4Results {
+    socket_fd: i32,
+    socket_name: String,
+}   
+
 #[typetag::serde]
 impl Parsable for NetworkArgs {
     fn parse(input: &str) -> Result<Self, String> {
@@ -41,4 +55,50 @@ impl Parsable for NetworkArgs {
             socket_len: caps["socket_len"].to_string(),
         })
     }   
+}
+
+
+#[typetag::serde]
+impl Parsable for Accept4Args {
+    fn parse(input: &str) -> Result<Self, String> {
+        
+
+        // let mut flags= 0;
+        let re = Regex::new(ACCEPT_SYSCALL_ARGS).unwrap();
+        let caps = re.captures(&input).unwrap();
+        let (socket_fd, socket_name) = split_fd_parts(&caps["socket_raw"]);
+
+        //if parts.len() != 4 {
+        //    return Err("Invalid number of arguments".into());
+        //}
+        Ok(Accept4Args {
+            parrent_socket_fd: socket_fd.to_string(),
+            parrent_socket_name: socket_name.to_string(),
+            socket_addr: caps["socket_addr"].to_string(),
+            socket_len: caps["socket_len"].to_string(),
+        })
+    }   
+}
+
+
+#[typetag::serde]
+impl Parsable for Accept4Results {
+    fn parse(input: &str) -> Result<Self, String> {
+        
+        let parts: Vec<&str> = input
+                                    .split(' ')
+                                    .collect();
+
+
+        if parts[0] == "-1" {
+            return Err("Error opening socket".into());
+        }
+
+        let (socket_fd, socket_name) = split_fd_parts(&parts[0]);
+
+        Ok(Accept4Results {
+            socket_fd: socket_fd,
+            socket_name: socket_name,
+        })
+    }
 }
