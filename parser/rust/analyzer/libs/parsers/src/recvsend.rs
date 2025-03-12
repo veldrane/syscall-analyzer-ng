@@ -10,8 +10,8 @@ pub struct RecvSend {
     buffer: String,
     size: i32,
     flags: String,
-    sock_addr: String,
-    sock_len: String,
+    socket_addr: String,
+    socket_len: String,
 }
 
 
@@ -45,8 +45,8 @@ impl Parsable for RecvSend {
             buffer: parts[1].to_string(),
             size:parts[2].parse::<i32>().unwrap(),
             flags: parts[3].to_string(),
-            sock_addr: parts[4].to_string(),
-            sock_len: parts[5].to_string()
+            socket_addr: parts[4].to_string(),
+            socket_len: parts[5].to_string()
         })
     }   
 }
