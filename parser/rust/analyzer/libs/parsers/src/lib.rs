@@ -13,3 +13,4 @@ pub mod close;
 pub mod munmap;
 pub mod messages;
 pub mod epoll_create;
+pub mod dup2;

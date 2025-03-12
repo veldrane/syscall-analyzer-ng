@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use registry::registry::{Register, parser_wrapper};
-use parsers::{mmap, munmap, openat, socket, network, listen, fcntl, readwrite, recvsend, clone, close, messages, epoll_create};
+use parsers::{mmap, munmap, openat, socket, network, listen, fcntl, readwrite, recvsend, clone, close, messages, epoll_create, dup2};
 
 pub fn init_registry() -> HashMap<String, Register> {
     
@@ -20,6 +20,11 @@ pub fn init_registry() -> HashMap<String, Register> {
             Register { 
                 arguments: Box::new(parser_wrapper::<openat::OpenatArguments>), 
                 results: Some(Box::new(parser_wrapper::<openat::OpenatResults>)),
+        }),
+        ("dup2".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<dup2::Dup2Args>), 
+                results: Some(Box::new(parser_wrapper::<dup2::Dup2Results>)),
         }),
         ("socket".to_string(), 
             Register { 
