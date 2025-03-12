@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use registry::registry::{Register, parser_wrapper};
-use parsers::{mmap, munmap, openat, socket, accept, listen, fcntl, pread64, sendto, clone, close, sendmsg, epoll_create};
+use parsers::{mmap, munmap, openat, socket, network, listen, fcntl, readwrite, recvsend, clone, close, messages, epoll_create};
 
 pub fn init_registry() -> HashMap<String, Register> {
     
@@ -28,22 +28,22 @@ pub fn init_registry() -> HashMap<String, Register> {
         }),
         ("accept".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<accept::AcceptArgs>), 
+                arguments: Box::new(parser_wrapper::<network::NetworkArgs>), 
                 results: None,
         }),
         ("accept4".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<accept::AcceptArgs>), 
+                arguments: Box::new(parser_wrapper::<network::NetworkArgs>), 
                 results: None,
         }),
         ("connect".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<accept::AcceptArgs>), 
+                arguments: Box::new(parser_wrapper::<network::NetworkArgs>), 
                 results: None,
         }),
         ("bind".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<accept::AcceptArgs>), 
+                arguments: Box::new(parser_wrapper::<network::NetworkArgs>), 
                 results: None,
         }),
         ("listen".to_string(), 
@@ -58,32 +58,32 @@ pub fn init_registry() -> HashMap<String, Register> {
         }),
         ("pread64".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<pread64::ReadArgs>), 
-                results: Some(Box::new(parser_wrapper::<pread64::ReadResults>)),
+                arguments: Box::new(parser_wrapper::<readwrite::ReadWriteArgs>), 
+                results: Some(Box::new(parser_wrapper::<readwrite::ReadWriteResults>)),
         }),
         ("pwrite64".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<pread64::ReadArgs>), 
-                results: Some(Box::new(parser_wrapper::<pread64::ReadResults>)),
+                arguments: Box::new(parser_wrapper::<readwrite::ReadWriteArgs>), 
+                results: Some(Box::new(parser_wrapper::<readwrite::ReadWriteResults>)),
         }),
         ("write".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<pread64::ReadArgs>), 
-                results: Some(Box::new(parser_wrapper::<pread64::ReadResults>)),
+                arguments: Box::new(parser_wrapper::<readwrite::ReadWriteArgs>), 
+                results: Some(Box::new(parser_wrapper::<readwrite::ReadWriteResults>)),
         }),
         ("read".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<pread64::ReadArgs>), 
-                results: Some(Box::new(parser_wrapper::<pread64::ReadResults>)),
+                arguments: Box::new(parser_wrapper::<readwrite::ReadWriteArgs>), 
+                results: Some(Box::new(parser_wrapper::<readwrite::ReadWriteResults>)),
         }),
         ("sendto".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<sendto::SendtoArgs>), 
+                arguments: Box::new(parser_wrapper::<recvsend::RecvSend>), 
                 results: None,
         }),
         ("recvfrom".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<sendto::SendtoArgs>), 
+                arguments: Box::new(parser_wrapper::<recvsend::RecvSend>), 
                 results: None,
         }),
         ("clone".to_string(), 
@@ -98,12 +98,12 @@ pub fn init_registry() -> HashMap<String, Register> {
         }),
         ("sendmsg".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<sendmsg::SendmsgArgs>), 
+                arguments: Box::new(parser_wrapper::<messages::MessagesArgs>), 
                 results: None,
         }),
         ("recvmsg".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<sendmsg::SendmsgArgs>), 
+                arguments: Box::new(parser_wrapper::<messages::MessagesArgs>), 
                 results: None,
         }),
         ("epoll_create".to_string(), 

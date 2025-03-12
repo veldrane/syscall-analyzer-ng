@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct SendtoArgs {
+pub struct RecvSend {
     socket_fd: i32,
     socket_name: String,
     buffer: String,
@@ -16,7 +16,7 @@ pub struct SendtoArgs {
 
 
 #[typetag::serde]
-impl Parsable for SendtoArgs {
+impl Parsable for RecvSend {
     fn parse(input: &str) -> Result<Self, String> {
 
         let parts: Vec<String> = input
@@ -39,7 +39,7 @@ impl Parsable for SendtoArgs {
         //    "".to_string()
         //};
 
-        Ok(SendtoArgs {
+        Ok(RecvSend {
             socket_fd: socket_fd,
             socket_name: socket_name,
             buffer: parts[1].to_string(),

@@ -1,4 +1,3 @@
-
 use std::fs::read_to_string;
 use std::process::exit;
 use parsers::syscall::Syscall;

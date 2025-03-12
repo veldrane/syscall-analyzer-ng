@@ -14,7 +14,7 @@ const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>.*)\,\s*\{(?P<sock_addr>.*)\}
 
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct AcceptArgs {
+pub struct NetworkArgs {
     sockfd: String,
     sock_name: String,
     sock_addr: String,
@@ -22,7 +22,7 @@ pub struct AcceptArgs {
 }
 
 #[typetag::serde]
-impl Parsable for AcceptArgs {
+impl Parsable for NetworkArgs {
     fn parse(input: &str) -> Result<Self, String> {
         
 
@@ -34,7 +34,7 @@ impl Parsable for AcceptArgs {
         //if parts.len() != 4 {
         //    return Err("Invalid number of arguments".into());
         //}
-        Ok(AcceptArgs {
+        Ok(NetworkArgs {
             sockfd: sockfd.to_string(),
             sock_name: sock_name.to_string(),
             sock_addr: caps["sock_addr"].to_string(),
