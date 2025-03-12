@@ -14,3 +14,5 @@ pub mod munmap;
 pub mod messages;
 pub mod epoll_create;
 pub mod dup2;
+pub mod access;
+pub mod mprotect;

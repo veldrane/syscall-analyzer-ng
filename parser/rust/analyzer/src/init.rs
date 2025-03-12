@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use registry::registry::{Register, parser_wrapper};
-use parsers::{mmap, munmap, openat, socket, network, listen, fcntl, readwrite, recvsend, clone, close, messages, epoll_create, dup2};
+use parsers::{mmap, munmap, mprotect, access, openat, socket, network, listen, fcntl, readwrite, recvsend, clone, close, messages, epoll_create, dup2};
 
 pub fn init_registry() -> HashMap<String, Register> {
     
@@ -11,9 +11,19 @@ pub fn init_registry() -> HashMap<String, Register> {
                 arguments: Box::new(parser_wrapper::<mmap::MmapArguments>), 
                 results: None,
         }),
+        ("mprotect".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<mprotect::MprotectArgs>), 
+                results: None,
+        }),
         ("munmap".to_string(), 
             Register { 
                 arguments: Box::new(parser_wrapper::<munmap::MunmapArguments>), 
+                results: None,
+        }),
+        ("access".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<access::AccessArgs>), 
                 results: None,
         }),
         ("openat".to_string(), 
@@ -30,6 +40,16 @@ pub fn init_registry() -> HashMap<String, Register> {
             Register { 
                 arguments: Box::new(parser_wrapper::<socket::SocketArgs>), 
                 results: Some(Box::new(parser_wrapper::<socket::SocketResults>)),
+        }),
+        ("setsockopt".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<socket::SocketOptArgs>), 
+                results: None,
+        }),
+        ("getsockopt".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<socket::SocketOptArgs>), 
+                results: None,
         }),
         ("accept".to_string(), 
             Register { 

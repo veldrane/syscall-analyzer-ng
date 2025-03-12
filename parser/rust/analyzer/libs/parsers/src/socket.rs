@@ -9,6 +9,7 @@ pub struct SocketArgs {
     protocol: String,
 }
 
+
 #[typetag::serde]
 impl Parsable for SocketArgs {
     fn parse(input: &str) -> Result<Self, String> {
@@ -58,4 +59,44 @@ impl Parsable for SocketResults {
             socket_name: socket_name,
         })
     }
+}
+
+#[derive(Debug, Serialize,Deserialize)]
+pub struct SocketOptArgs {
+    socket_fd: String,
+    socket_name: String,
+    level: String,
+    operation: String,
+    opt_val: String,
+    socket_len: String,
+}
+
+#[typetag::serde]
+impl Parsable for SocketOptArgs {
+
+    fn parse(input: &str) -> Result<Self, String> {
+        
+        let parts: Vec<String> = input
+                                    .chars()
+                                    .filter(|&c| !r#""\"? "#.contains(c))
+                                    .collect::<String>()
+                                    .split(',')
+                                    .map(str::to_string)
+                                    .collect::<Vec<String>>();
+        if parts.len() < 5 {
+            return Err("Invalid number of arguments".into());
+        }
+
+        let (socket_fd, socket_name) = split_fd_parts(&parts[0]);
+
+        Ok(SocketOptArgs {
+            socket_fd: socket_fd.to_string(),
+            socket_name: socket_name.to_string(),
+            level: parts[1].to_string(),
+            operation: parts[2].to_string(),
+            opt_val: parts[3].to_string(),
+            socket_len: parts[4].to_string()
+        })
+    }   
+    
 }
