@@ -5,6 +5,7 @@ use regex::Regex;
 
 const EPOLL_WAIT_ARGS: &str = r".*\,\s\[\{(?P<epoll_event>.*)\}\]\,\s(?P<maxevents>.+)\,\s(?P<timeout>.+)";
 
+const EPOLL_PWAIT2_ARGS: &str = r"(?P<epoll_descriptor>.+)\,\s\[(?P<epoll_event>.*)\]\,\s(?P<maxevents>\d+)\,\s\{(?P<timespec>.+)\}\,\s(?P<sigmask>.+)\,\s.+";
 
 #[derive(Debug, Serialize,Deserialize, Default)]
 pub struct EpollWaitArgs {
@@ -38,7 +39,7 @@ impl Parsable for EpollWaitArgs {
 
         (epoll_wait_args.epoll_fd, epoll_wait_args.epoll_name ) = split_fd_parts(&parts[0]);
 
-        let caps = re.captures(&input).ok_or(input.to_string()).unwrap();
+        let caps = re.captures(&input).ok_or(input.to_string())?;
 
         epoll_wait_args.epoll_event = Some(caps["epoll_event"].parse::<String>().unwrap());
         epoll_wait_args.maxevents = caps["maxevents"].parse::<i32>().unwrap();
@@ -47,18 +48,34 @@ impl Parsable for EpollWaitArgs {
     }   
 }
 
-#[derive(Debug, Serialize,Deserialize)]
-pub struct EpollWait1Args {
-    flags: String,
+#[derive(Debug, Serialize,Deserialize, Default)]
+pub struct EpollPwait2Args {
+    epoll_fd: i32,
+    epoll_name: String,
+    epoll_event: Option<String>,
+    maxevents: i32,
+    timespec: String,
+    sigmask: String,
 }
 
-
 #[typetag::serde]
-impl Parsable for EpollWait1Args {
+impl Parsable for EpollPwait2Args {
     fn parse(input: &str) -> Result<Self, String> {
 
-        Ok(EpollWait1Args {
-            flags: input.to_string(),
-        })
+        let re = Regex::new(EPOLL_PWAIT2_ARGS).map_err(|e| e.to_string())?;
+        let mut epoll_pwait2_args = EpollPwait2Args::default();
+
+
+        let caps = re.captures(&input).ok_or(input.to_string())?;
+
+        (epoll_pwait2_args.epoll_fd, epoll_pwait2_args.epoll_name ) = split_fd_parts(&caps["epoll_descriptor"]);
+
+
+
+        epoll_pwait2_args.epoll_event = Some(caps["epoll_event"].parse::<String>().unwrap());
+        epoll_pwait2_args.maxevents = caps["maxevents"].parse::<i32>().unwrap();
+        epoll_pwait2_args.timespec = caps["timespec"].parse::<String>().unwrap();
+        epoll_pwait2_args.sigmask = caps["sigmask"].parse::<String>().unwrap();
+        Ok(epoll_pwait2_args)
     }   
 }

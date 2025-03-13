@@ -150,6 +150,11 @@ pub fn init_registry() -> HashMap<String, Register> {
             Register { 
                 arguments: Box::new(parser_wrapper::<epoll_wait::EpollWaitArgs>), 
                 results: None,
+        }),
+        ("epoll_pwait2".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<epoll_wait::EpollPwait2Args>), 
+                results: None,
         })
     ]);
 }

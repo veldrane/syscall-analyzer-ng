@@ -52,6 +52,9 @@ impl Parsable for EpollCtlArgs {
             "NULL" => {
                 epoll_ctl_args.epoll_event = None;
             },
+            s if s.contains("0x") => {
+                epoll_ctl_args.epoll_event = Some(s.to_string());
+            }
             _ => {
                 let caps = re.captures(&input).ok_or(input.to_string())?;
                 epoll_ctl_args.epoll_event = Some(caps["epoll_event"].to_string());
