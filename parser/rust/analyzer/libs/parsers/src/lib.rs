@@ -13,6 +13,8 @@ pub mod close;
 pub mod munmap;
 pub mod messages;
 pub mod epoll_create;
+pub mod epoll_ctl;
+pub mod epoll_wait;
 pub mod dup2;
 pub mod access;
 pub mod mprotect;

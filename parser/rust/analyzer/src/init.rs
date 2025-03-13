@@ -1,14 +1,14 @@
 use std::collections::HashMap;
 
 use registry::registry::{Register, parser_wrapper};
-use parsers::{mmap, munmap, mprotect, access, openat, socket, network, listen, fcntl, readwrite, recvsend, clone, close, messages, epoll_create, dup2};
+use parsers::*;
 
 pub fn init_registry() -> HashMap<String, Register> {
     
     return HashMap::from([
         ("mmap".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<mmap::MmapArguments>), 
+                arguments: Box::new(parser_wrapper::<mmap::MmapArgs>), 
                 results: None,
         }),
         ("mprotect".to_string(), 
@@ -18,7 +18,7 @@ pub fn init_registry() -> HashMap<String, Register> {
         }),
         ("munmap".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<munmap::MunmapArguments>), 
+                arguments: Box::new(parser_wrapper::<munmap::MunmapArgs>), 
                 results: None,
         }),
         ("access".to_string(), 
@@ -103,12 +103,12 @@ pub fn init_registry() -> HashMap<String, Register> {
         }),
         ("sendto".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<recvsend::RecvSend>), 
+                arguments: Box::new(parser_wrapper::<recvsend::RecvSendArgs>), 
                 results: None,
         }),
         ("recvfrom".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<recvsend::RecvSend>), 
+                arguments: Box::new(parser_wrapper::<recvsend::RecvSendArgs>), 
                 results: None,
         }),
         ("clone".to_string(), 
@@ -140,6 +140,16 @@ pub fn init_registry() -> HashMap<String, Register> {
             Register { 
                 arguments: Box::new(parser_wrapper::<epoll_create::EpollCreate1Args>), 
                 results: Some(Box::new(parser_wrapper::<epoll_create::EpollCreateResults>)),
+        }),
+        ("epoll_ctl".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<epoll_ctl::EpollCtlArgs>), 
+                results: None,
+        }),
+        ("epoll_wait".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<epoll_wait::EpollWaitArgs>), 
+                results: None,
         })
     ]);
 }

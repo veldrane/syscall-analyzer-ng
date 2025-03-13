@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct RecvSend {
+pub struct RecvSendArgs {
     socket_fd: i32,
     socket_name: String,
     buffer: String,
@@ -16,7 +16,7 @@ pub struct RecvSend {
 
 
 #[typetag::serde]
-impl Parsable for RecvSend {
+impl Parsable for RecvSendArgs {
     fn parse(input: &str) -> Result<Self, String> {
 
         let parts: Vec<String> = input
@@ -33,13 +33,7 @@ impl Parsable for RecvSend {
         
         let (socket_fd, socket_name ) = split_fd_parts(&parts[0]);
 
-        //let opt_arg = if let Some(opt) = parts.get(2) {
-        //    opt.to_string()
-        //} else {
-        //    "".to_string()
-        //};
-
-        Ok(RecvSend {
+        Ok(RecvSendArgs {
             socket_fd: socket_fd,
             socket_name: socket_name,
             buffer: parts[1].to_string(),

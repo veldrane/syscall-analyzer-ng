@@ -2,14 +2,14 @@ use serde::{Deserialize, Serialize};
 use registry::registry::Parsable;
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct MunmapArguments {
+pub struct MunmapArgs {
     addr: String,
     size: i32,
 }
 
 
 #[typetag::serde]
-impl Parsable for MunmapArguments {
+impl Parsable for MunmapArgs {
     fn parse(input: &str) -> Result<Self, String> {
 
 
@@ -21,7 +21,7 @@ impl Parsable for MunmapArguments {
                                     .map(str::to_string)
                                     .collect::<Vec<String>>();
 
-        Ok(MunmapArguments {
+        Ok(MunmapArgs {
             addr: parts[0].to_string(),
             size: parts[1].parse::<i32>().unwrap(),
         })

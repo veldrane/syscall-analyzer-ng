@@ -3,7 +3,7 @@ use helpers::helpers::split_fd_parts;
 use registry::registry::Parsable;
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct MmapArguments {
+pub struct MmapArgs {
     addr: String,
     size: i32,
     protection: String,
@@ -15,7 +15,7 @@ pub struct MmapArguments {
 
 
 #[typetag::serde]
-impl Parsable for MmapArguments {
+impl Parsable for MmapArgs {
     fn parse(input: &str) -> Result<Self, String> {
 
         let mut file_name = "".to_string();
@@ -37,7 +37,7 @@ impl Parsable for MmapArguments {
             (fd, file_name) = split_fd_parts(&parts[4]);
         }
 
-        Ok(MmapArguments {
+        Ok(MmapArgs {
             addr: parts[0].to_string(),
             size: parts[1].parse::<i32>().unwrap(),
             protection: parts[2].to_string(),

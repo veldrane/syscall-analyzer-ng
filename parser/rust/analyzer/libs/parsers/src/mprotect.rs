@@ -1,7 +1,6 @@
-use helpers::helpers::HexString;
+
 use registry::registry::Parsable;
 use serde::{Deserialize, Serialize};
-use std::str::FromStr;
 
 
 #[derive(Debug, Serialize,Deserialize)]
@@ -17,7 +16,7 @@ impl Parsable for MprotectArgs {
         let parts: Vec<String> = input
                                     .chars()
                                     .filter(|&c| !r#""\"? "#.contains(c))
-                                    .collect::<String>()
+                                    .collect::<String>()    
                                     .split(',')
                                     .map(str::to_string)
                                     .collect::<Vec<String>>();
