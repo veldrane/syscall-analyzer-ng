@@ -21,13 +21,15 @@ use tokio::runtime::Runtime;
 
 
 const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<arguments>.*)\)\s*\=\s(?P<result>.*)\s<(?P<duration>\d+\.\d+)>";
+//const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<arguments>.*)\)\s*\=\s(?:(?P<result>.*?)\s<(?P<duration>\d+\.\d+)>|\?)";
+
 static RE: Lazy<Regex> = Lazy::new(|| Regex::new(BASIC_SYSCALL).unwrap());
 
 /* Strace parameters for the parser
 strace -y -T -ttt -ff -xx -qq -o curl $CMD
 */
 
-// const STRACE_OUTPUT: &str = "../../../tests/syscalls/nginx-all.out";
+//const STRACE_OUTPUT: &str = "../../../tests/syscalls/nginx-all.out";
 const STRACE_OUTPUT: &str = "../../../tests/libreoffice/libreoffice.out";
 
 

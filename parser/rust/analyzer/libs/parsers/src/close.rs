@@ -14,14 +14,6 @@ pub struct CloseArgs {
 impl Parsable for CloseArgs {
     fn parse(input: &str) -> Result<Self, String> {
 
-
-        match input {
-            "-1" => return Err("Error closing file".into()),
-            s if !s.contains("<") => return Err("Invalid file descriptor".into()),
-            s if s.contains("deleted") => return Err("Invalid file descriptor".into()),
-            _ => (),
-        }
-
         let (fd, file_name ) = split_fd_parts(&input);
 
         Ok(CloseArgs {
