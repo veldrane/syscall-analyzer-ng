@@ -55,6 +55,16 @@ impl Parsable for Dup2Args {
             return Err("Invalid number of arguments".into());
         }
         
+        match &parts[1] {
+            s if !s.contains("<") => return Err("Invalid file descriptor".into()),
+            _ => {}
+        }
+
+        match &parts[0] {
+            s if !s.contains("<") => return Err("Invalid file descriptor".into()),
+            _ => {}
+        }
+
         let (old_fd, old_file_name ) = split_fd_parts(&parts[0]);
         let (requested_fd, requested_file_name ) = split_fd_parts(&parts[1]);
 

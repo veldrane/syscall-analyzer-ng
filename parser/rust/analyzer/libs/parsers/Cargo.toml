@@ -12,3 +12,4 @@ typetag = "0.2.19"
 indexmap = { version = "2.7.1", features = ["serde"] }
 registry = { path = "../../libs/registry" }
 helpers = { path = "../../libs/helpers" }
+once_cell = "1.21.1"

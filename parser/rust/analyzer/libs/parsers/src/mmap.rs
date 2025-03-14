@@ -39,7 +39,7 @@ impl Parsable for MmapArgs {
 
         Ok(MmapArgs {
             addr: parts[0].to_string(),
-            size: parts[1].parse::<i32>().unwrap(),
+            size: parts[1].parse::<i32>().unwrap_or(0),
             protection: parts[2].to_string(),
             flags: parts[3].to_string(),
             fd: fd,

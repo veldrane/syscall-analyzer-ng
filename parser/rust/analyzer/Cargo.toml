@@ -20,3 +20,4 @@ registry = { path = "libs/registry"}
 tokio = { version = "*", features = ["full"] }
 elasticsearch = "8.17.0-alpha.1"
 url = "2.5.4"
+once_cell = "1.21.1"

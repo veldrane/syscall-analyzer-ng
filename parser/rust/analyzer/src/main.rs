@@ -4,9 +4,12 @@ use parsers::syscall::Syscall;
 use registry::registry::{Parsable, Register};
 use parsers::default;
 use std::collections::HashMap;
+use std::time::SystemTime;
 
 use modules::init;
 use regex::Regex;
+//use once_cell::sync::Lazy;
+use once_cell::sync::Lazy;
 
 use elasticsearch::{
     auth::Credentials, http::transport::{SingleNodeConnectionPool, TransportBuilder}, Elasticsearch, BulkParts 
@@ -18,13 +21,15 @@ use tokio::runtime::Runtime;
 
 
 const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<arguments>.*)\)\s*\=\s(?P<result>.*)\s<(?P<duration>\d+\.\d+)>";
-
+static re: Lazy<Regex> = Lazy::new(|| Regex::new(BASIC_SYSCALL).unwrap());
 
 /* Strace parameters for the parser
 strace -y -T -ttt -ff -xx -qq -o curl $CMD
 */
 
-const STRACE_OUTPUT: &str = "../../../tests/syscalls/nginx-all.out";
+// const STRACE_OUTPUT: &str = "../../../tests/syscalls/nginx-all.out";
+const STRACE_OUTPUT: &str = "../../../tests/libreoffice/libreoffice.out";
+
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 
@@ -40,8 +45,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::Error>> {
 
-
-    let re = Regex::new(BASIC_SYSCALL)?;
+    eprintln!("{}", SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_millis());
 
     //let rt = Runtime::new().expect("Nelze vytvořit runtime");
 
@@ -114,6 +118,8 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
     //rt.block_on(async {
     //    store_to_elastic(client, body).await
     //}).unwrap(); 
+
+    eprintln!("{}", SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_millis());
 
     exit(0);
 

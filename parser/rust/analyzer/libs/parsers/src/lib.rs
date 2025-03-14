@@ -18,3 +18,4 @@ pub mod epoll_wait;
 pub mod dup2;
 pub mod access;
 pub mod mprotect;
+pub mod eventfd;

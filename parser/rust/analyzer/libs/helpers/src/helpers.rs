@@ -18,8 +18,10 @@ pub fn split_fd_parts(parts: &str) -> (i32, String) {
     .map(str::to_string)
     .collect::<Vec<String>>();
 
+    println!("{}", parts);    
+
     let fd = fd_parts[0].parse::<i32>().unwrap();
-    let filename = HexString::from_str(&fd_parts[1]).unwrap().to_string();
+    let filename = HexString::from_str(&fd_parts[1]).unwrap_or(HexString("".to_string())).to_string();
     //let filename = HexString::fd_parts[1].clone(from_str().unwrap();
     (fd, filename)
 }

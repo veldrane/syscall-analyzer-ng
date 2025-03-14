@@ -2,7 +2,7 @@ use helpers::helpers::split_fd_parts;
 use registry::registry::Parsable;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
-
+use once_cell::sync::Lazy;
 
 
 //const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>\w+)\,\s\{(?P<socket_addr>\w+)\}\,\s(?P<socket_len>.*)\)";
@@ -10,6 +10,8 @@ const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>.*)\,\s*\{(?P<socket_addr>.*)
 //const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>\d+<socket:\[\d+\]>)\s*,\s*\{(?P<socket_addr>.*)\},\s*(?P<socket_len>.*)";
 //const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>\d+<socket:\[\d+\]>),\s*\{(?P<socket_addr>[^}]+)\},\s*(?P<socket_len>[^,]+)";
 
+
+static re: Lazy<Regex> = Lazy::new(|| Regex::new(ACCEPT_SYSCALL_ARGS).unwrap());
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NetworkArgs {
@@ -41,8 +43,8 @@ impl Parsable for NetworkArgs {
         
 
         // let mut flags= 0;
-        let re = Regex::new(ACCEPT_SYSCALL_ARGS).unwrap();
-        let caps = re.captures(&input).unwrap();
+
+        let caps = re.captures(&input).ok_or("Error network parsing")?;
         let (socket_fd, socket_name) = split_fd_parts(&caps["socket_raw"]);
 
         //if parts.len() != 4 {
@@ -64,7 +66,7 @@ impl Parsable for Accept4Args {
         
 
         // let mut flags= 0;
-        let re = Regex::new(ACCEPT_SYSCALL_ARGS).unwrap();
+
         let caps = re.captures(&input).unwrap();
         let (socket_fd, socket_name) = split_fd_parts(&caps["socket_raw"]);
 
