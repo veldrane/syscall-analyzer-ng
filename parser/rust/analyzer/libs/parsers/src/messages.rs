@@ -12,8 +12,8 @@ const SENDMSG_SYSCALL_ARGS: &str = r"(?P<socket_raw>.+)\,\s\{(?P<msg_args>.*)\}\
 const MSG_ARGS: &str = r"msg_name\=(?P<msg_name>.+)\,\smsg_namelen\=(?P<msg_namelen>.+)\,\smsg_iov\=\[\{(?P<msg_iov>.*)\}\]\,\smsg_iovlen\=(?P<msg_iovlen>.*)\,\smsg_control\=\[\{(?P<msg_control>.*)\}\]\,\smsg_controllen\=(?P<msg_controllen>.*)\,\smsg_flags\=(?P<msg_flags>.*)";
 
 
-static re: Lazy<Regex> = Lazy::new(|| Regex::new(SENDMSG_SYSCALL_ARGS).unwrap());
-static re_msg: Lazy<Regex> = Lazy::new(|| Regex::new(MSG_ARGS).unwrap());
+static RE: Lazy<Regex> = Lazy::new(|| Regex::new(SENDMSG_SYSCALL_ARGS).unwrap());
+static RE_MSG: Lazy<Regex> = Lazy::new(|| Regex::new(MSG_ARGS).unwrap());
 
 
 #[derive(Debug, Deserialize)]
@@ -74,11 +74,11 @@ impl Parsable for MessagesArgs {
 
         let mut arguments = MessagesArgs::default();
 
-        let caps = re.captures(&input).unwrap();
+        let caps = RE.captures(&input).unwrap();
         (arguments.socket_fd, arguments.socket_name) = split_fd_parts(&caps["socket_raw"]);
 
 
-        let msg_caps = match re_msg.captures(&caps["msg_args"]) {
+        let msg_caps = match RE_MSG.captures(&caps["msg_args"]) {
             Some(caps) => caps,
             None => {
                 arguments.msg_args = MsgArgsOutput::Raw(caps["msg_args"].to_string());

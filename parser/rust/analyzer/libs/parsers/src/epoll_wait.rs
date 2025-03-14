@@ -8,8 +8,8 @@ const EPOLL_WAIT_ARGS: &str = r".*\,\s\[\{(?P<epoll_event>.*)\}\]\,\s(?P<maxeven
 
 const EPOLL_PWAIT2_ARGS: &str = r"(?P<epoll_descriptor>.+)\,\s\[(?P<epoll_event>.*)\]\,\s(?P<maxevents>\d+)\,\s\{(?P<timespec>.+)\}\,\s(?P<sigmask>.+)\,\s.+";
 
-static re_epoll_wait_args: Lazy<Regex> = Lazy::new(|| Regex::new(EPOLL_WAIT_ARGS).unwrap());
-static re_epoll_pwait2_args: Lazy<Regex> = Lazy::new(|| Regex::new(EPOLL_PWAIT2_ARGS).unwrap());
+static RE_EPOLL_WAIT_ARGS: Lazy<Regex> = Lazy::new(|| Regex::new(EPOLL_WAIT_ARGS).unwrap());
+static RE_EPOLL_PWAIT2_ARGS: Lazy<Regex> = Lazy::new(|| Regex::new(EPOLL_PWAIT2_ARGS).unwrap());
 
 
 #[derive(Debug, Serialize,Deserialize, Default)]
@@ -44,7 +44,7 @@ impl Parsable for EpollWaitArgs {
 
         (epoll_wait_args.epoll_fd, epoll_wait_args.epoll_name ) = split_fd_parts(&parts[0]);
 
-        let caps = re_epoll_wait_args.captures(&input).ok_or(input.to_string())?;
+        let caps = RE_EPOLL_WAIT_ARGS.captures(&input).ok_or(input.to_string())?;
 
         epoll_wait_args.epoll_event = Some(caps["epoll_event"].parse::<String>().unwrap());
         epoll_wait_args.maxevents = caps["maxevents"].parse::<i32>().unwrap();
@@ -71,7 +71,7 @@ impl Parsable for EpollPwait2Args {
         let mut epoll_pwait2_args = EpollPwait2Args::default();
 
 
-        let caps = re_epoll_pwait2_args.captures(&input).ok_or(input.to_string())?;
+        let caps = RE_EPOLL_PWAIT2_ARGS.captures(&input).ok_or(input.to_string())?;
 
         (epoll_pwait2_args.epoll_fd, epoll_pwait2_args.epoll_name ) = split_fd_parts(&caps["epoll_descriptor"]);
 

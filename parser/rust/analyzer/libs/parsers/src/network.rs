@@ -11,7 +11,7 @@ const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>.*)\,\s*\{(?P<socket_addr>.*)
 //const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>\d+<socket:\[\d+\]>),\s*\{(?P<socket_addr>[^}]+)\},\s*(?P<socket_len>[^,]+)";
 
 
-static re: Lazy<Regex> = Lazy::new(|| Regex::new(ACCEPT_SYSCALL_ARGS).unwrap());
+static RE: Lazy<Regex> = Lazy::new(|| Regex::new(ACCEPT_SYSCALL_ARGS).unwrap());
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NetworkArgs {
@@ -44,7 +44,7 @@ impl Parsable for NetworkArgs {
 
         // let mut flags= 0;
 
-        let caps = re.captures(&input).ok_or("Error network parsing")?;
+        let caps = RE.captures(&input).ok_or("Error network parsing")?;
         let (socket_fd, socket_name) = split_fd_parts(&caps["socket_raw"]);
 
         //if parts.len() != 4 {
@@ -67,7 +67,7 @@ impl Parsable for Accept4Args {
 
         // let mut flags= 0;
 
-        let caps = re.captures(&input).unwrap();
+        let caps = RE.captures(&input).unwrap();
         let (socket_fd, socket_name) = split_fd_parts(&caps["socket_raw"]);
 
         //if parts.len() != 4 {

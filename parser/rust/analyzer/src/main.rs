@@ -21,7 +21,7 @@ use tokio::runtime::Runtime;
 
 
 const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<arguments>.*)\)\s*\=\s(?P<result>.*)\s<(?P<duration>\d+\.\d+)>";
-static re: Lazy<Regex> = Lazy::new(|| Regex::new(BASIC_SYSCALL).unwrap());
+static RE: Lazy<Regex> = Lazy::new(|| Regex::new(BASIC_SYSCALL).unwrap());
 
 /* Strace parameters for the parser
 strace -y -T -ttt -ff -xx -qq -o curl $CMD
@@ -61,7 +61,7 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
     for line in read_to_string(STRACE_OUTPUT)?.lines() {
 
         id += 1;
-        let fields = match re.captures(line) {
+        let fields = match RE.captures(line) {
             Some(captures) => captures,
             None => {
                 eprintln!("Řádek neodpovídá formátu: {}", line);

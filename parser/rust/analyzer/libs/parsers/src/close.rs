@@ -1,5 +1,3 @@
-use std::default;
-
 use helpers::helpers::split_fd_parts;
 use registry::registry::Parsable;
 use serde::{Deserialize, Serialize};
