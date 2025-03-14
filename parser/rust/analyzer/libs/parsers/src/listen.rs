@@ -5,8 +5,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct ListenArgs {
-    sockfd: String,
-    sock_name: String,
+    socket_fd: String,
+    socket_name: String,
     backlog: String,
 }
 
@@ -29,11 +29,11 @@ impl Parsable for ListenArgs {
         if parts.len() != 2 {
             return Err("Invalid number of arguments".into());
         }
-        let (sockfd, sock_name ) = split_fd_parts(&parts[0]);
+        let (socket_fd, socket_name ) = split_fd_parts(&parts[0]);
 
         Ok(ListenArgs {
-            sockfd: sockfd.to_string(),
-            sock_name: sock_name,
+            socket_fd: socket_fd.to_string(),
+            socket_name: socket_name,
             backlog: parts[1].to_string(),
         })
     }   

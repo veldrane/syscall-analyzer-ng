@@ -1,105 +1,165 @@
 use std::collections::HashMap;
 
 use registry::registry::{Register, parser_wrapper};
-use parsers::{mmap, munmap, openat, socket, accept, listen, fcntl, pread64, sendto, clone, close, sendmsg, epoll_create};
+use parsers::*;
 
 pub fn init_registry() -> HashMap<String, Register> {
     
     return HashMap::from([
         ("mmap".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<mmap::MmapArguments>), 
-                returns: None,
+                arguments: Box::new(parser_wrapper::<mmap::MmapArgs>), 
+                results: None,
+        }),
+        ("mprotect".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<mprotect::MprotectArgs>), 
+                results: None,
         }),
         ("munmap".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<munmap::MunmapArguments>), 
-                returns: None,
+                arguments: Box::new(parser_wrapper::<munmap::MunmapArgs>), 
+                results: None,
+        }),
+        ("access".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<access::AccessArgs>), 
+                results: None,
         }),
         ("openat".to_string(), 
             Register { 
                 arguments: Box::new(parser_wrapper::<openat::OpenatArguments>), 
-                returns: None,
+                results: Some(Box::new(parser_wrapper::<openat::OpenatResults>)),
+        }),
+        ("dup2".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<dup2::Dup2Args>), 
+                results: Some(Box::new(parser_wrapper::<dup2::Dup2Results>)),
         }),
         ("socket".to_string(), 
             Register { 
                 arguments: Box::new(parser_wrapper::<socket::SocketArgs>), 
-                returns: None,
+                results: Some(Box::new(parser_wrapper::<socket::SocketResults>)),
+        }),
+        ("setsockopt".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<socket::SocketOptArgs>), 
+                results: None,
+        }),
+        ("getsockopt".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<socket::SocketOptArgs>), 
+                results: None,
         }),
         ("accept".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<accept::AcceptArgs>), 
-                returns: None,
+                arguments: Box::new(parser_wrapper::<network::NetworkArgs>), 
+                results: None,
         }),
         ("accept4".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<accept::AcceptArgs>), 
-                returns: None,
+                arguments: Box::new(parser_wrapper::<network::Accept4Args>), 
+                results: Some(Box::new(parser_wrapper::<network::Accept4Results>)),
         }),
         ("connect".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<accept::AcceptArgs>), 
-                returns: None,
+                arguments: Box::new(parser_wrapper::<network::NetworkArgs>), 
+                results: None,
         }),
         ("bind".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<accept::AcceptArgs>), 
-                returns: None,
+                arguments: Box::new(parser_wrapper::<network::NetworkArgs>), 
+                results: None,
         }),
         ("listen".to_string(), 
             Register { 
                 arguments: Box::new(parser_wrapper::<listen::ListenArgs>), 
-                returns: None,
+                results: None,
         }),
         ("fcntl".to_string(), 
             Register { 
                 arguments: Box::new(parser_wrapper::<fcntl::FcntlArgs>), 
-                returns: None,
+                results: None,
         }),
         ("pread64".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<pread64::ReadArgs>), 
-                returns: None,
+                arguments: Box::new(parser_wrapper::<readwrite::ReadWriteArgs>), 
+                results: Some(Box::new(parser_wrapper::<readwrite::ReadWriteResults>)),
+        }),
+        ("pwrite64".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<readwrite::ReadWriteArgs>), 
+                results: Some(Box::new(parser_wrapper::<readwrite::ReadWriteResults>)),
+        }),
+        ("write".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<readwrite::ReadWriteArgs>), 
+                results: Some(Box::new(parser_wrapper::<readwrite::ReadWriteResults>)),
+        }),
+        ("read".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<readwrite::ReadWriteArgs>), 
+                results: Some(Box::new(parser_wrapper::<readwrite::ReadWriteResults>)),
         }),
         ("sendto".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<sendto::SendtoArgs>), 
-                returns: None,
+                arguments: Box::new(parser_wrapper::<recvsend::RecvSendArgs>), 
+                results: None,
         }),
         ("recvfrom".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<sendto::SendtoArgs>), 
-                returns: None,
+                arguments: Box::new(parser_wrapper::<recvsend::RecvSendArgs>), 
+                results: None,
         }),
         ("clone".to_string(), 
             Register { 
                 arguments: Box::new(parser_wrapper::<clone::CloneArgs>), 
-                returns: Some(Box::new(parser_wrapper::<clone::CloneResults>)),
+                results: Some(Box::new(parser_wrapper::<clone::CloneResults>)),
         }),
         ("close".to_string(), 
             Register { 
                 arguments: Box::new(parser_wrapper::<close::CloseArgs>), 
-                returns: None,
+                results: None,
         }),
         ("sendmsg".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<sendmsg::SendmsgArgs>), 
-                returns: None,
+                arguments: Box::new(parser_wrapper::<messages::MessagesArgs>), 
+                results: None,
         }),
         ("recvmsg".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<sendmsg::SendmsgArgs>), 
-                returns: None,
+                arguments: Box::new(parser_wrapper::<messages::MessagesArgs>), 
+                results: None,
         }),
         ("epoll_create".to_string(), 
             Register { 
                 arguments: Box::new(parser_wrapper::<epoll_create::EpollCreateArgs>), 
-                returns: None,
+                results: Some(Box::new(parser_wrapper::<epoll_create::EpollCreateResults>)),
         }),
         ("epoll_create1".to_string(), 
             Register { 
-                arguments: Box::new(parser_wrapper::<epoll_create::EpollCreateArgs>), 
-                returns: None,
+                arguments: Box::new(parser_wrapper::<epoll_create::EpollCreate1Args>), 
+                results: Some(Box::new(parser_wrapper::<epoll_create::EpollCreateResults>)),
+        }),
+        ("epoll_ctl".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<epoll_ctl::EpollCtlArgs>), 
+                results: None,
+        }),
+        ("epoll_wait".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<epoll_wait::EpollWaitArgs>), 
+                results: None,
+        }),
+        ("epoll_pwait2".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<epoll_wait::EpollPwait2Args>), 
+                results: None,
+        }),
+        ("eventfd2".to_string(), 
+            Register { 
+                arguments: Box::new(parser_wrapper::<eventfd::Eventfd2Args>), 
+                results: Some(Box::new(parser_wrapper::<eventfd::Eventfd2Results>)),
         })
     ]);
 }

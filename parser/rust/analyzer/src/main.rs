@@ -1,13 +1,15 @@
-
 use std::fs::read_to_string;
 use std::process::exit;
 use parsers::syscall::Syscall;
 use registry::registry::{Parsable, Register};
 use parsers::default;
 use std::collections::HashMap;
+use std::time::SystemTime;
 
 use modules::init;
 use regex::Regex;
+//use once_cell::sync::Lazy;
+use once_cell::sync::Lazy;
 
 use elasticsearch::{
     auth::Credentials, http::transport::{SingleNodeConnectionPool, TransportBuilder}, Elasticsearch, BulkParts 
@@ -19,13 +21,17 @@ use tokio::runtime::Runtime;
 
 
 const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<arguments>.*)\)\s*\=\s(?P<result>.*)\s<(?P<duration>\d+\.\d+)>";
+//const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<arguments>.*)\)\s*\=\s(?:(?P<result>.*?)\s<(?P<duration>\d+\.\d+)>|\?)";
 
+static RE: Lazy<Regex> = Lazy::new(|| Regex::new(BASIC_SYSCALL).unwrap());
 
 /* Strace parameters for the parser
 strace -y -T -ttt -ff -xx -qq -o curl $CMD
 */
 
-const STRACE_OUTPUT: &str = "../../../tests/syscalls/nginx-all.out";
+//const STRACE_OUTPUT: &str = "../../../tests/syscalls/nginx-all.out";
+const STRACE_OUTPUT: &str = "../../../tests/libreoffice/libreoffice.out";
+
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 
@@ -41,8 +47,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::Error>> {
 
-
-    let re = Regex::new(BASIC_SYSCALL)?;
+    eprintln!("{}", SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_millis());
 
     //let rt = Runtime::new().expect("Nelze vytvořit runtime");
 
@@ -58,22 +63,13 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
     for line in read_to_string(STRACE_OUTPUT)?.lines() {
 
         id += 1;
-        let fields = match re.captures(line) {
+        let fields = match RE.captures(line) {
             Some(captures) => captures,
             None => {
                 eprintln!("Řádek neodpovídá formátu: {}", line);
                 continue;
             },
         };
-
-        //let result = if let Some(parser) = registry.get(&fields["syscall"]) {
-        //    parser(fields["arguments"].as_ref())
-        //} else {
-        //    default::DefaultArgs::parse(fields["arguments"].as_ref())
-        //        .map(|v| Box::new(v) as Box<dyn SyscallArguments>)
-        //};
-
-        //let parsers = registry.get(&fields["syscall"]);
 
         let parsers = registry.get(&fields["syscall"]);
 
@@ -84,24 +80,6 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
                 .map(|v| Box::new(v) as Box<dyn Parsable>)
         };
 
-        let parsed_results = if let Some(parsers) = parsers {
-            parsers.returns.as_ref().map(|f| f(fields["result"].as_ref())).transpose()?
-        } else {
-            None
-        };
-        
-        //let parsed_arguments = if let Some(parser) = registry.get(&fields["syscall"]) {
-        //    (parser.arguments)(fields["arguments"].as_ref())
-        //} else {
-        //    default::DefaultArgs::parse(fields["arguments"].as_ref())
-        //        .map(|v| Box::new(v) as Box<dyn SyscallArguments>)
-        //};
-
-        //let returns = match parsers {
-        //    Some(parser) => parser(fields["returns"].as_ref()),
-         //   None => None,
-        //};
-
         let arguments = match parsed_arguments {
             Ok(parsed_args) => parsed_args,
             Err(e) => {
@@ -110,12 +88,18 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
             },
         };
 
-        let results = match parsed_results {
-            Some(parsed_results) => Some(parsed_results),
-            None => None,
+        let results = if let Some(parsers) = parsers {
+            match parsers.results.as_ref().map(|f| f(fields["result"].as_ref())).transpose() {
+                Ok(value) => value,
+                Err(_) => None,
+            }
+        } else {
+            None
         };
+        
+        
 
-        registry.get(&fields["syscall"]);
+        // registry.get(&fields["syscall"]);   PROC ?
 
         let syscall = Syscall {
             id: &id,
@@ -136,6 +120,8 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
     //rt.block_on(async {
     //    store_to_elastic(client, body).await
     //}).unwrap(); 
+
+    eprintln!("{}", SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_millis());
 
     exit(0);
 

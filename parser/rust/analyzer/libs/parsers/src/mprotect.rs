@@ -1,29 +1,34 @@
-use serde::{Deserialize, Serialize};
+
 use registry::registry::Parsable;
+use serde::{Deserialize, Serialize};
+
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct MunmapArgs {
+pub struct MprotectArgs {
     addr: String,
-    size: i32,
+    size: String,
+    protection: String,
 }
 
-
 #[typetag::serde]
-impl Parsable for MunmapArgs {
+impl Parsable for MprotectArgs {
     fn parse(input: &str) -> Result<Self, String> {
-
-
         let parts: Vec<String> = input
                                     .chars()
                                     .filter(|&c| !r#""\"? "#.contains(c))
-                                    .collect::<String>()
+                                    .collect::<String>()    
                                     .split(',')
                                     .map(str::to_string)
                                     .collect::<Vec<String>>();
 
-        Ok(MunmapArgs {
+        if parts.len() < 3{
+            return Err("Invalid number of arguments".into());
+        }
+
+        Ok(MprotectArgs {
             addr: parts[0].to_string(),
-            size: parts[1].parse::<i32>().unwrap(),
+            size: parts[1].to_string(),
+            protection: parts[2].to_string(),
         })
-    }
+    }   
 }

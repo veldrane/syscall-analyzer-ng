@@ -10,6 +10,14 @@ pub struct HexString(String);
 
 pub fn split_fd_parts(parts: &str) -> (i32, String) {
 
+
+    match parts {
+        "-1" => return (-1, "".to_string()),
+        s if !s.contains("<") => return (parts.parse::<i32>().unwrap(), "".to_string()),
+        s if s.contains("deleted") => return (-1, "".to_string()),
+        _ => (),
+    }
+
     let fd_parts: Vec<String> = parts
     .chars()
     .filter(|&c| !r#""\">? "#.contains(c))
@@ -19,7 +27,7 @@ pub fn split_fd_parts(parts: &str) -> (i32, String) {
     .collect::<Vec<String>>();
 
     let fd = fd_parts[0].parse::<i32>().unwrap();
-    let filename = HexString::from_str(&fd_parts[1]).unwrap().to_string();
+    let filename = HexString::from_str(&fd_parts[1]).unwrap_or(HexString("".to_string())).to_string();
     //let filename = HexString::fd_parts[1].clone(from_str().unwrap();
     (fd, filename)
 }

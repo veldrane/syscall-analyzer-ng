@@ -4,17 +4,31 @@ use serde::{Deserialize, Serialize};
 
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct ReadArgs {
+pub struct ReadWriteArgs {
     fd: i32,
     file_name: String,
     buffer: String,
-    size: i32,
+    requested_size: i32,
     offset: String,
 }
 
+#[derive(Debug, Serialize,Deserialize)]
+pub struct ReadWriteResults {
+    size: i32,
+}
 
 #[typetag::serde]
-impl Parsable for ReadArgs {
+impl Parsable for ReadWriteResults {
+    fn parse(input: &str) -> Result<Self, String> {
+        let size = input.parse::<i32>().map_err(|e| e.to_string())?;
+        Ok(ReadWriteResults {
+            size: size,
+        })
+    }   
+}
+
+#[typetag::serde]
+impl Parsable for ReadWriteArgs {
     fn parse(input: &str) -> Result<Self, String> {
 
         let parts: Vec<String> = input
@@ -37,11 +51,11 @@ impl Parsable for ReadArgs {
             "".to_string()
         };
 
-        Ok(ReadArgs {
+        Ok(ReadWriteArgs {
             fd: fd,
             file_name: file_name,
             buffer: parts[1].to_string(),
-            size:parts[2].parse::<i32>().unwrap(),
+            requested_size:parts[2].parse::<i32>().unwrap(),
             offset: offset
         })
     }   

@@ -3,7 +3,7 @@ use registry::registry::Parsable;
 use serde::{Deserialize, Serialize};
 
 
-#[derive(Debug, Serialize,Deserialize)]
+#[derive(Debug, Serialize,Deserialize, Default)]
 pub struct CloseArgs {
     fd: i32,
     file_name: String,
