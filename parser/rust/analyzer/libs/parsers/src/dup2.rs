@@ -1,5 +1,5 @@
 use helpers::helpers::split_fd_parts;
-use registry::registry::Parsable;
+use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
 
 
@@ -19,9 +19,9 @@ pub struct Dup2Results {
 
 #[typetag::serde]
 impl Parsable for Dup2Results {
-        fn parse(input: &str) -> Result<Self, String> {
+    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
             
-            let parts: Vec<&str> = input
+            let parts: Vec<&str> = args
                                         .split(' ')
                                         .collect();
     
@@ -41,9 +41,9 @@ impl Parsable for Dup2Results {
 
 #[typetag::serde]
 impl Parsable for Dup2Args {
-    fn parse(input: &str) -> Result<Self, String> {
+    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
 
-        let parts: Vec<String> = input
+        let parts: Vec<String> = args
                                     .chars()
                                     .filter(|&c| !r#""\"? "#.contains(c))
                                     .collect::<String>()

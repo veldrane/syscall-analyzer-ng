@@ -1,5 +1,5 @@
 use helpers::helpers::split_fd_parts;
-use registry::registry::Parsable;
+use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
 
 
@@ -19,8 +19,8 @@ pub struct ReadWriteResults {
 
 #[typetag::serde]
 impl Parsable for ReadWriteResults {
-    fn parse(input: &str) -> Result<Self, String> {
-        let size = input.parse::<i32>().map_err(|e| e.to_string())?;
+    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
+        let size = args.parse::<i32>().map_err(|e| e.to_string())?;
         Ok(ReadWriteResults {
             size: size,
         })
@@ -29,9 +29,9 @@ impl Parsable for ReadWriteResults {
 
 #[typetag::serde]
 impl Parsable for ReadWriteArgs {
-    fn parse(input: &str) -> Result<Self, String> {
+    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
 
-        let parts: Vec<String> = input
+        let parts: Vec<String> = args
                                     .chars()
                                     .filter(|&c| !r#""\"? "#.contains(c))
                                     .collect::<String>()

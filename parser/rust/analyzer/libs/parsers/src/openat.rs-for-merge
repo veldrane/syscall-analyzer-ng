@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use wrappers::parsers::Parsable;
 use std::str::FromStr;
-use helpers::helpers::{split_fd_parts_to_strings, split_fd_parts, HexString};
+use helpers::helpers::{split_fd_parts_to_strings, HexString};
 
 
 #[derive(Debug,Serialize,Deserialize)]
@@ -14,12 +14,6 @@ pub struct OpenatArguments {
 }
 
 
-#[derive(Debug,Serialize,Deserialize)]
-pub struct OpenatResults {
-    pub fd: i32,
-    pub file_name: String,
-}
-
 #[typetag::serde]
 impl Parsable for OpenatArguments {
     fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
@@ -31,6 +25,7 @@ impl Parsable for OpenatArguments {
             flags: "".to_string(),
             mode: "".to_string(),
         };
+        
         let parts: Vec<String> = args
                                     .chars()
                                     .filter(|&c| !r#""\"? "#.contains(c))
@@ -56,27 +51,5 @@ impl Parsable for OpenatArguments {
         openat_syscall.flags = parts[2].to_string();
 
         Ok(openat_syscall)
-    }
-}
-
-#[typetag::serde]
-impl Parsable for OpenatResults {
-    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
-        
-        let parts: Vec<&str> = args
-                                    .split(' ')
-                                    .collect();
-
-
-        if parts[0] == "-1" {
-            return Err("Error opening file".into());
-        }
-
-        let (fd, file_name) = split_fd_parts(&parts[0]);
-
-        Ok(OpenatResults {
-            fd: fd,
-            file_name: file_name,
-        })
     }
 }

@@ -1,5 +1,5 @@
 use helpers::helpers::split_fd_parts;
-use registry::registry::Parsable;
+use wrappers::parsers::Parsable;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use once_cell::sync::Lazy;
@@ -39,12 +39,12 @@ pub struct Accept4Results {
 
 #[typetag::serde]
 impl Parsable for NetworkArgs {
-    fn parse(input: &str) -> Result<Self, String> {
+    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
         
 
         // let mut flags= 0;
 
-        let caps = RE.captures(&input).ok_or("Error network parsing")?;
+        let caps = RE.captures(&args).ok_or("Error network parsing")?;
         let (socket_fd, socket_name) = split_fd_parts(&caps["socket_raw"]);
 
         //if parts.len() != 4 {
@@ -62,12 +62,12 @@ impl Parsable for NetworkArgs {
 
 #[typetag::serde]
 impl Parsable for Accept4Args {
-    fn parse(input: &str) -> Result<Self, String> {
+    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
         
 
         // let mut flags= 0;
 
-        let caps = RE.captures(&input).unwrap();
+        let caps = RE.captures(&args).unwrap();
         let (socket_fd, socket_name) = split_fd_parts(&caps["socket_raw"]);
 
         //if parts.len() != 4 {
@@ -85,9 +85,9 @@ impl Parsable for Accept4Args {
 
 #[typetag::serde]
 impl Parsable for Accept4Results {
-    fn parse(input: &str) -> Result<Self, String> {
+    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
         
-        let parts: Vec<&str> = input
+        let parts: Vec<&str> = args
                                     .split(' ')
                                     .collect();
 

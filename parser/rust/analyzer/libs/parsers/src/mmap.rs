@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use helpers::helpers::split_fd_parts;
-use registry::registry::Parsable;
+use wrappers::parsers::Parsable;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct MmapArgs {
@@ -16,12 +16,12 @@ pub struct MmapArgs {
 
 #[typetag::serde]
 impl Parsable for MmapArgs {
-    fn parse(input: &str) -> Result<Self, String> {
+    fn parse(args: &str, _: Option<&str>) -> Result<Self, String>{
 
         let mut file_name = "".to_string();
         let mut fd = -1;
 
-        let parts: Vec<String> = input
+        let parts: Vec<String> = args
                                     .chars()
                                     .filter(|&c| !r#""\"? "#.contains(c))
                                     .collect::<String>()

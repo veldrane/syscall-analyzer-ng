@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use registry::registry::Parsable;
+use wrappers::parsers::Parsable;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct MunmapArgs {
@@ -10,10 +10,10 @@ pub struct MunmapArgs {
 
 #[typetag::serde]
 impl Parsable for MunmapArgs {
-    fn parse(input: &str) -> Result<Self, String> {
+    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
 
 
-        let parts: Vec<String> = input
+        let parts: Vec<String> = args
                                     .chars()
                                     .filter(|&c| !r#""\"? "#.contains(c))
                                     .collect::<String>()

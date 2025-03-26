@@ -1,15 +1,15 @@
 use serde::{Serialize, Serializer};
 use serde::ser::SerializeMap;
-use registry::registry::Parsable;
 use helpers::helpers::flat_serializer;
+use wrappers::parsers::Parsable;
+
 
 #[derive(Debug)]
 pub struct Syscall<'a> {
     pub id: &'a i32,
     pub timestamp: &'a str,
     pub name: &'a str,
-    pub args: Box<dyn Parsable>,
-    pub results: Option<Box<dyn Parsable>>,
+    pub attributes: Box<dyn Parsable>,
     pub result: &'a str,
     pub duration: &'a str,
 }
@@ -29,11 +29,11 @@ impl<'a> Serialize for Syscall<'a> {
         map.serialize_entry("result", self.result)?;
         map.serialize_entry("duration", self.duration)?;
 
-        flat_serializer(&mut map, &self.args)?;
+        flat_serializer(&mut map, &self.attributes)?;
 
-        if let Some(ref results) = self.results {
-            flat_serializer(&mut map, results)?;
-        }
+        //if let Some(ref results) = self.results {
+        //    flat_serializer(&mut map, results)?;
+        //}
 
         map.end()
 

@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use helpers::helpers::split_fd_parts;
-use registry::registry::Parsable;
+use wrappers::parsers::Parsable;
 use regex::Regex;
 use serde::{Deserialize, Serialize, Serializer};
 use serde_json::value::Value;
@@ -69,12 +69,12 @@ pub struct MsgControl {
 
 #[typetag::serde]
 impl Parsable for MessagesArgs {
-    fn parse(input: &str) -> Result<Self, String> {
+    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
         
 
         let mut arguments = MessagesArgs::default();
 
-        let caps = RE.captures(&input).unwrap();
+        let caps = RE.captures(&args).unwrap();
         (arguments.socket_fd, arguments.socket_name) = split_fd_parts(&caps["socket_raw"]);
 
 
