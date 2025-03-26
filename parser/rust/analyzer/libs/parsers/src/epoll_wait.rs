@@ -1,4 +1,4 @@
-use registry::registry::Parsable;
+use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
 use helpers::helpers::split_fd_parts;
 use regex::Regex;
@@ -25,12 +25,12 @@ pub struct EpollWaitArgs {
 
 #[typetag::serde]
 impl Parsable for EpollWaitArgs {
-    fn parse(input: &str) -> Result<Self, String> {
+    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
 
         //let re = Regex::new(EPOLL_WAIT_ARGS).map_err(|e| e.to_string())?;
         let mut epoll_wait_args = EpollWaitArgs::default();
 
-        let parts: Vec<String> = input
+        let parts: Vec<String> = args
                                     .chars()
                                     .filter(|&c| !r#""\"? "#.contains(c))
                                     .collect::<String>()
@@ -44,7 +44,7 @@ impl Parsable for EpollWaitArgs {
 
         (epoll_wait_args.epoll_fd, epoll_wait_args.epoll_name ) = split_fd_parts(&parts[0]);
 
-        let caps = RE_EPOLL_WAIT_ARGS.captures(&input).ok_or(input.to_string())?;
+        let caps = RE_EPOLL_WAIT_ARGS.captures(&args).ok_or(args.to_string())?;
 
         epoll_wait_args.epoll_event = Some(caps["epoll_event"].parse::<String>().unwrap());
         epoll_wait_args.maxevents = caps["maxevents"].parse::<i32>().unwrap();
@@ -65,13 +65,13 @@ pub struct EpollPwait2Args {
 
 #[typetag::serde]
 impl Parsable for EpollPwait2Args {
-    fn parse(input: &str) -> Result<Self, String> {
+    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
 
         //let re = Regex::new(EPOLL_PWAIT2_ARGS).map_err(|e| e.to_string())?;
         let mut epoll_pwait2_args = EpollPwait2Args::default();
 
 
-        let caps = RE_EPOLL_PWAIT2_ARGS.captures(&input).ok_or(input.to_string())?;
+        let caps = RE_EPOLL_PWAIT2_ARGS.captures(&args).ok_or(args.to_string())?;
 
         (epoll_pwait2_args.epoll_fd, epoll_pwait2_args.epoll_name ) = split_fd_parts(&caps["epoll_descriptor"]);
 

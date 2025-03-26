@@ -1,4 +1,4 @@
-use registry::registry::Parsable;
+use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
 use helpers::helpers::split_fd_parts;
 use serde_with::skip_serializing_none;
@@ -27,16 +27,15 @@ pub struct EpollCtlArgs {
 
 #[typetag::serde]
 impl Parsable for EpollCtlArgs {
-    fn parse(input: &str) -> Result<Self, String> {
-
+    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
 
         let re = Regex::new(EPOLL_EVENT).map_err(|e| e.to_string())?;
 
-        //let caps = re.captures(&input).ok_or(input.to_string())?;
+        //let caps = re.captures(&args).ok_or(args.to_string())?;
 
         let mut epoll_ctl_args = EpollCtlArgs::default();
 
-        let parts: Vec<String> = input
+        let parts: Vec<String> = args
                                     .chars()
                                     .filter(|&c| !r#""\"? "#.contains(c))
                                     .collect::<String>()
@@ -56,7 +55,7 @@ impl Parsable for EpollCtlArgs {
                 epoll_ctl_args.epoll_event = Some(s.to_string());
             }
             _ => {
-                let caps = re.captures(&input).ok_or(input.to_string())?;
+                let caps = re.captures(&args).ok_or(args.to_string())?;
                 epoll_ctl_args.epoll_event = Some(caps["epoll_event"].to_string());
             }
         }

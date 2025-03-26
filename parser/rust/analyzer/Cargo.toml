@@ -16,8 +16,9 @@ typetag = "0.2.19"
 indexmap = { version = "2.7.1", features = ["serde"] }
 parsers = { path = "libs/parsers" }
 helpers = { path = "libs/helpers" }
-registry = { path = "libs/registry"}
+registry = { path = "libs/registry" }
+trackers = { path = "libs/trackers" }
+wrappers = { path = "libs/wrappers" }
 tokio = { version = "*", features = ["full"] }
 elasticsearch = "8.17.0-alpha.1"
 url = "2.5.4"
-once_cell = "1.21.1"
