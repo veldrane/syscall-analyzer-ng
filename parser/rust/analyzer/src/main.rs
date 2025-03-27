@@ -3,19 +3,12 @@ use std::process::exit;
 use parsers::syscall::Syscall;
 use registry::registry::Register;
 use parsers::default;
+use trackers::descriptors::Descs;
 use wrappers::parsers::Parsable;
 use std::collections::HashMap;
 
 use modules::init;
 use regex::Regex;
-
-use elasticsearch::{
-    auth::Credentials, http::transport::{SingleNodeConnectionPool, TransportBuilder}, Elasticsearch, BulkParts 
-};
-use elasticsearch::http::request::JsonBody;
-use url::Url;
-use serde_json::{json, Value};
-use tokio::runtime::Runtime;
 
 
 const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<arguments>.*)\)\s*\=\s(?P<result>.*)\s<(?P<duration>\d+\.\d+)>";
@@ -25,7 +18,8 @@ const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<argu
 strace -y -T -ttt -ff -xx -qq -o curl $CMD
 */
 
-const STRACE_OUTPUT: &str = "../../../tests/syscalls/nginx-all.out";
+const STRACE_OUTPUT: &str = "../../../tests/curl/curl.38945";
+// const STRACE_OUTPUT: &str = "../../../tests/syscalls/nginx-all.out";
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 
@@ -41,6 +35,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::Error>> {
 
+    let mut descriptors = Descs::init_empty_process("1739965813.133382".to_string());
 
     let re = Regex::new(BASIC_SYSCALL)?;
 
@@ -73,8 +68,6 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
                 continue;
             },
         };
-
-        registry.get(&fields["syscall"]);
 
         let syscall = Syscall {
             id: &id,

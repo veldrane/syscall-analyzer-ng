@@ -1,9 +1,11 @@
 use serde::{Deserialize, Serialize};
 use wrappers::parsers::Parsable;
+use helpers::converts::hex_serde_u64;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct MunmapArgs {
-    addr: String,
+    #[serde(with = "hex_serde_u64")]
+    addr: u64,
     size: i32,
 }
 
@@ -21,8 +23,13 @@ impl Parsable for MunmapArgs {
                                     .map(str::to_string)
                                     .collect::<Vec<String>>();
 
+        let addr = match u64::from_str_radix(&parts[0][2..], 16) {
+            Ok(a) => a,
+            Err(_) => 0,
+        };
+
         Ok(MunmapArgs {
-            addr: parts[0].to_string(),
+            addr: addr,
             size: parts[1].parse::<i32>().unwrap(),
         })
     }

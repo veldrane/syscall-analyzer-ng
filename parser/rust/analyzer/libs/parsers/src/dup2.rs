@@ -9,6 +9,8 @@ pub struct Dup2Args {
     old_file_name: String,
     requested_fd: i32,
     requested_file_name: String,
+    fd: i32,
+    file_name: String,
 }
 
 #[derive(Debug, Serialize,Deserialize)]
@@ -17,27 +19,6 @@ pub struct Dup2Results {
     file_name: String,
 }
 
-#[typetag::serde]
-impl Parsable for Dup2Results {
-    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
-            
-            let parts: Vec<&str> = args
-                                        .split(' ')
-                                        .collect();
-    
-    
-            if parts[0] == "-1" {
-                return Err("Error opening file".into());
-            }
-    
-            let (fd, file_name) = split_fd_parts(&parts[0]);
-    
-            Ok(Dup2Results {
-                fd: fd,
-                file_name: file_name,
-            })
-        }
-}
 
 #[typetag::serde]
 impl Parsable for Dup2Args {
@@ -68,12 +49,20 @@ impl Parsable for Dup2Args {
         let (old_fd, old_file_name ) = split_fd_parts(&parts[0]);
         let (requested_fd, requested_file_name ) = split_fd_parts(&parts[1]);
 
+        let (fd, file_name) = match result {
+            Some(r) => split_fd_parts(&r),
+            None => (0, "".to_string()) 
+        };
+
+
 
         Ok(Dup2Args {
             old_fd: old_fd,
             old_file_name: old_file_name,
             requested_fd: requested_fd,
             requested_file_name: requested_file_name,
+            fd: fd,
+            file_name: file_name,
         })
     }   
 }

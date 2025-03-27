@@ -11,7 +11,7 @@ pub struct RecvSendArgs {
     size: i32,
     flags: String,
     socket_addr: String,
-    socket_len: String,
+    socket_len: i32,
 }
 
 
@@ -40,7 +40,7 @@ impl Parsable for RecvSendArgs {
             size:parts[2].parse::<i32>().unwrap(),
             flags: parts[3].to_string(),
             socket_addr: parts[4].to_string(),
-            socket_len: parts[5].to_string()
+            socket_len: parts[5].parse::<i32>().unwrap_or(0)
         })
     }   
 }

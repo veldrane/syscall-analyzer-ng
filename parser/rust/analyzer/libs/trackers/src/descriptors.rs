@@ -65,16 +65,16 @@ impl DescRecord {
     }
 }
 
-pub struct Fds(Vec<DescRecord>);
+pub struct Descs(Vec<DescRecord>);
 
 
-impl Fds {
+impl Descs {
     pub fn new() -> Self {
-        Fds(Vec::new())
+        Descs(Vec::new())
     }
 
     pub fn init_empty_process(created: String) -> Self {
-        let mut fds = Fds::new();
+        let mut fds = Descs::new();
 
         fds.0.push(DescRecord::new_default_fd(created.clone(), DefaultFd::Stdin));
         fds.0.push(DescRecord::new_default_fd(created.clone(), DefaultFd::Stdout));
@@ -118,7 +118,7 @@ impl Fds {
 
 }
 
-impl Deref for Fds {
+impl Deref for Descs {
     type Target = Vec<DescRecord>;
 
     fn deref(&self) -> &Self::Target {
@@ -126,7 +126,7 @@ impl Deref for Fds {
     }
 }
 
-impl DerefMut for Fds {
+impl DerefMut for Descs {
     fn deref_mut(&mut self) -> &mut Self::Target {
         &mut self.0
     }

@@ -15,31 +15,26 @@ static RE: Lazy<Regex> = Lazy::new(|| Regex::new(ACCEPT_SYSCALL_ARGS).unwrap());
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NetworkArgs {
-    socket_fd: String,
+    socket_fd: i32,
     socket_name: String,
     socket_addr: String,
-    socket_len: String,   
+    socket_len: i32,   
 }
 
 // socket addr must be described in more depth, not much knowledge about this parameter
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Accept4Args {
-    parrent_socket_fd: String,
+    parrent_socket_fd: i32,
     parrent_socket_name: String,
     socket_addr: String,
-    socket_len: String,   
-}
-
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Accept4Results {
+    socket_len: i32,
     socket_fd: i32,
-    socket_name: String,
-}   
+    socket_name: String,  
+}
 
 #[typetag::serde]
 impl Parsable for NetworkArgs {
-    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
+    fn parse(args: &str,_ : Option<&str>) -> Result<Self, String> {
         
 
         // let mut flags= 0;
@@ -51,10 +46,10 @@ impl Parsable for NetworkArgs {
         //    return Err("Invalid number of arguments".into());
         //}
         Ok(NetworkArgs {
-            socket_fd: socket_fd.to_string(),
+            socket_fd: socket_fd,
             socket_name: socket_name.to_string(),
             socket_addr: caps["socket_addr"].to_string(),
-            socket_len: caps["socket_len"].to_string(),
+            socket_len: caps["socket_len"].parse::<i32>().unwrap_or(0),
         })
     }   
 }
@@ -68,39 +63,22 @@ impl Parsable for Accept4Args {
         // let mut flags= 0;
 
         let caps = RE.captures(&args).unwrap();
-        let (socket_fd, socket_name) = split_fd_parts(&caps["socket_raw"]);
+        let (parrent_socket_fd, parrent_socket_name) = split_fd_parts(&caps["socket_raw"]);
 
-        //if parts.len() != 4 {
-        //    return Err("Invalid number of arguments".into());
-        //}
+        let (socket_fd, socket_name) = match result {
+            Some(r) => split_fd_parts(&r),
+            None => (0, "".to_string()) 
+        };
+
+
         Ok(Accept4Args {
-            parrent_socket_fd: socket_fd.to_string(),
-            parrent_socket_name: socket_name.to_string(),
+            parrent_socket_fd: parrent_socket_fd,
+            parrent_socket_name: parrent_socket_name.to_string(),
             socket_addr: caps["socket_addr"].to_string(),
-            socket_len: caps["socket_len"].to_string(),
+            socket_len: caps["socket_len"].parse::<i32>().unwrap_or(0),
+            socket_fd: socket_fd,
+            socket_name: socket_name,
         })
     }   
 }
 
-
-#[typetag::serde]
-impl Parsable for Accept4Results {
-    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
-        
-        let parts: Vec<&str> = args
-                                    .split(' ')
-                                    .collect();
-
-
-        if parts[0] == "-1" {
-            return Err("Error opening socket".into());
-        }
-
-        let (socket_fd, socket_name) = split_fd_parts(&parts[0]);
-
-        Ok(Accept4Results {
-            socket_fd: socket_fd,
-            socket_name: socket_name,
-        })
-    }
-}
