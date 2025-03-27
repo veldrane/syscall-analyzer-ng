@@ -1,5 +1,3 @@
-use std::{panic::resume_unwind, result};
-
 use helpers::helpers::split_fd_parts;
 use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
@@ -9,6 +7,8 @@ use serde::{Deserialize, Serialize};
 pub struct Eventfd2Args {
     initval: i32,
     flags: i32,
+    requested_event_fd: i32,
+    requested_event_name: String,
     event_fd: i32,
     event_name: String,
 }
@@ -33,17 +33,4 @@ impl Parsable for Eventfd2Args {
 
         Ok(eventfd2)
     }
-}
-
-#[typetag::serde]
-impl Parsable for Eventfd2Results {
-    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
-
-        let (fd, file_name ) = split_fd_parts(args);
-
-        Ok(Eventfd2Results{
-            event_fd: fd,
-            event_name: file_name,
-        })
-    }   
 }

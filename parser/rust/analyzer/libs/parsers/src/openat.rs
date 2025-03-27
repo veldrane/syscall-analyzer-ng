@@ -4,33 +4,24 @@ use std::str::FromStr;
 use helpers::helpers::{split_fd_parts_to_strings, split_fd_parts, HexString};
 
 
-#[derive(Debug,Serialize,Deserialize)]
+#[derive(Debug,Serialize,Deserialize, Default)]
 pub struct OpenatArguments {
     dirfd: String,
     path: String,
-    filename: String,
+    requested_file_name: String,
     flags: String,
     mode: String,
+    fd: i32,
+    file_name: String,
 }
 
-
-#[derive(Debug,Serialize,Deserialize)]
-pub struct OpenatResults {
-    pub fd: i32,
-    pub file_name: String,
-}
 
 #[typetag::serde]
 impl Parsable for OpenatArguments {
-    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
+    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
 
-        let mut openat_syscall = OpenatArguments {
-            dirfd: "".to_string(),
-            path: "".to_string(),
-            filename: "".to_string(),
-            flags: "".to_string(),
-            mode: "".to_string(),
-        };
+        let mut openat_syscall = OpenatArguments::default();
+
         let parts: Vec<String> = args
                                     .chars()
                                     .filter(|&c| !r#""\"? "#.contains(c))
@@ -42,8 +33,6 @@ impl Parsable for OpenatArguments {
             return Err("Invalid number of arguments".into());
         }
 
-        //println!("parts vystup{:?}", parts);
-
         let (dirfd, object) = split_fd_parts_to_strings(&parts[0]);
 
         if parts.len() == 4 {
@@ -52,31 +41,14 @@ impl Parsable for OpenatArguments {
 
         openat_syscall.dirfd = dirfd;
         openat_syscall.path = object;
-        openat_syscall.filename = HexString::from_str(&parts[1]).unwrap().to_string();
+        openat_syscall.requested_file_name = HexString::from_str(&parts[1]).unwrap().to_string();
         openat_syscall.flags = parts[2].to_string();
 
+        (openat_syscall.fd, openat_syscall.file_name) = match result {
+            Some(r) => split_fd_parts(&r),
+            None => (0, "".to_string())
+        };
+
         Ok(openat_syscall)
-    }
-}
-
-#[typetag::serde]
-impl Parsable for OpenatResults {
-    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
-        
-        let parts: Vec<&str> = args
-                                    .split(' ')
-                                    .collect();
-
-
-        if parts[0] == "-1" {
-            return Err("Error opening file".into());
-        }
-
-        let (fd, file_name) = split_fd_parts(&parts[0]);
-
-        Ok(OpenatResults {
-            fd: fd,
-            file_name: file_name,
-        })
     }
 }

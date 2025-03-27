@@ -12,16 +12,33 @@ pub fn split_fd_parts(parts: &str) -> (i32, String) {
 
     let fd_parts: Vec<String> = parts
     .chars()
-    .filter(|&c| !r#""\">? "#.contains(c))
+    .filter(|&c| !r#""\">?"#.contains(c))
     .collect::<String>()
     .split('<')
     .map(str::to_string)
     .collect::<Vec<String>>();
 
-    let fd = fd_parts[0].parse::<i32>().unwrap();
-    let filename = HexString::from_str(&fd_parts[1]).unwrap().to_string();
-    //let filename = HexString::fd_parts[1].clone(from_str().unwrap();
-    (fd, filename)
+    let fd = match fd_parts[0].parse::<i32>() {
+        Ok(fd) => fd,
+        Err(_) => {
+            // eprintln!("Error parsing fd: {}", fd_parts[0]);
+            -1
+        }
+    };
+
+    if fd_parts.len() < 2 {
+        return (fd, "".to_string());
+    }
+
+    let file_name = match HexString::from_str(&fd_parts[1]) {
+        Ok(file_name) => file_name.to_string(),
+        Err(_) => {
+            // eprintln!("Error parsing filename: {}", fd_parts[1]);
+            "".to_string()
+        }
+    };
+
+    (fd, file_name)
 }
 
 pub fn split_fd_parts_to_refs(parts: &str) -> (&str, &str) {

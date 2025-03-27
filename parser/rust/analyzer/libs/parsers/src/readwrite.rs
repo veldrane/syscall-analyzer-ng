@@ -10,26 +10,12 @@ pub struct ReadWriteArgs {
     buffer: String,
     requested_size: i32,
     offset: String,
-}
-
-#[derive(Debug, Serialize,Deserialize)]
-pub struct ReadWriteResults {
     size: i32,
 }
 
 #[typetag::serde]
-impl Parsable for ReadWriteResults {
-    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
-        let size = args.parse::<i32>().map_err(|e| e.to_string())?;
-        Ok(ReadWriteResults {
-            size: size,
-        })
-    }   
-}
-
-#[typetag::serde]
 impl Parsable for ReadWriteArgs {
-    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
+    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
 
         let parts: Vec<String> = args
                                     .chars()
@@ -51,12 +37,18 @@ impl Parsable for ReadWriteArgs {
             "".to_string()
         };
 
+        let size = match result {
+            Some(r)=>r.parse::<i32>().map_err(|e| e.to_string())?,
+            None => 0
+        };
+
         Ok(ReadWriteArgs {
             fd: fd,
             file_name: file_name,
             buffer: parts[1].to_string(),
             requested_size:parts[2].parse::<i32>().unwrap(),
-            offset: offset
+            offset: offset,
+            size: size,
         })
     }   
 }

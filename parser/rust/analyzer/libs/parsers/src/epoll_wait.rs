@@ -65,9 +65,8 @@ pub struct EpollPwait2Args {
 
 #[typetag::serde]
 impl Parsable for EpollPwait2Args {
-    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
+    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
 
-        //let re = Regex::new(EPOLL_PWAIT2_ARGS).map_err(|e| e.to_string())?;
         let mut epoll_pwait2_args = EpollPwait2Args::default();
 
 
