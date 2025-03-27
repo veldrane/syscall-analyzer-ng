@@ -2,6 +2,7 @@ use serde::{Serialize, Serializer};
 use serde::ser::SerializeMap;
 use helpers::helpers::flat_serializer;
 use wrappers::parsers::Parsable;
+use wrappers::trackers::Trackable;
 
 
 #[derive(Debug)]
@@ -10,6 +11,7 @@ pub struct Syscall<'a> {
     pub timestamp: &'a str,
     pub name: &'a str,
     pub attributes: Box<dyn Parsable>,
+    pub trackers: Option<Box<dyn Trackable>>,
     pub result: &'a str,
     pub duration: &'a str,
 }

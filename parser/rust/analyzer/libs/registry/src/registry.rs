@@ -1,9 +1,11 @@
 use std::ops::Deref;
 use wrappers::parsers::ParserFn;
+use wrappers::trackers::TrackerFn;
 
 
 pub struct  Register {
     pub attributes: ParserFn,
+    pub trackers: Option<TrackerFn>,
 }
 
 

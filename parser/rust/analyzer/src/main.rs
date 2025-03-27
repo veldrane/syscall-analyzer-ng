@@ -35,7 +35,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::Error>> {
 
-    let mut descriptors = Descs::init_empty_process("1739965813.133382".to_string());
+    let mut descs = Descs::init_empty_process("1739965813.133382".to_string());
 
     let re = Regex::new(BASIC_SYSCALL)?;
 
@@ -74,6 +74,7 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
             timestamp: fields["timestamp"].as_ref(),
             name: fields["syscall"].as_ref(),
             attributes: attributes,
+            trackers: None,
             result: fields["result"].as_ref(),
             duration: fields["duration"].as_ref(),
         };
