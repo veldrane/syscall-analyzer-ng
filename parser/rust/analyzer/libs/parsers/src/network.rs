@@ -15,19 +15,19 @@ static RE: Lazy<Regex> = Lazy::new(|| Regex::new(ACCEPT_SYSCALL_ARGS).unwrap());
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NetworkArgs {
-    socket_fd: String,
+    socket_fd: i32,
     socket_name: String,
     socket_addr: String,
-    socket_len: String,   
+    socket_len: i32,   
 }
 
 // socket addr must be described in more depth, not much knowledge about this parameter
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Accept4Args {
-    parrent_socket_fd: String,
+    parrent_socket_fd: i32,
     parrent_socket_name: String,
     socket_addr: String,
-    socket_len: String,
+    socket_len: i32,
     socket_fd: i32,
     socket_name: String,  
 }
@@ -46,10 +46,10 @@ impl Parsable for NetworkArgs {
         //    return Err("Invalid number of arguments".into());
         //}
         Ok(NetworkArgs {
-            socket_fd: socket_fd.to_string(),
+            socket_fd: socket_fd,
             socket_name: socket_name.to_string(),
             socket_addr: caps["socket_addr"].to_string(),
-            socket_len: caps["socket_len"].to_string(),
+            socket_len: caps["socket_len"].parse::<i32>().unwrap_or(0),
         })
     }   
 }
@@ -72,10 +72,10 @@ impl Parsable for Accept4Args {
 
 
         Ok(Accept4Args {
-            parrent_socket_fd: parrent_socket_fd.to_string(),
+            parrent_socket_fd: parrent_socket_fd,
             parrent_socket_name: parrent_socket_name.to_string(),
             socket_addr: caps["socket_addr"].to_string(),
-            socket_len: caps["socket_len"].to_string(),
+            socket_len: caps["socket_len"].parse::<i32>().unwrap_or(0),
             socket_fd: socket_fd,
             socket_name: socket_name,
         })
