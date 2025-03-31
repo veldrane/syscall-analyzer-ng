@@ -24,7 +24,7 @@ pub struct Eventfd2Results {
 
 #[typetag::serde]
 impl Parsable for Eventfd2Args {
-    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
+    fn parse(_: &str, result: Option<&str>) -> Result<Self, String> {
 
         let mut eventfd2 = Eventfd2Args::default();
 

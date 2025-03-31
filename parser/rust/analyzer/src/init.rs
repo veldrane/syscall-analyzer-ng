@@ -1,10 +1,7 @@
 use std::collections::HashMap;
 use registry::registry::Register;
 use wrappers::{parsers::parser_wrapper, trackers::tracker_wrapper};
-use wrappers::parsers::Parsable;
-use std::any::Any;
 use parsers::*;
-use trackers::descriptors::Descs;
 use std::rc::Rc;
 
 pub fn init_registry() -> HashMap<String, Register> {

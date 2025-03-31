@@ -1,6 +1,5 @@
 use std::{any::Any, fmt::Debug};
 use std::rc::Rc;
-use serde::{Serialize, Serializer};
 
 pub type ParserFn = Rc<dyn Fn(&str, Option<&str>) -> Result<Rc<dyn Parsable>, String> + Send + Sync>;
 

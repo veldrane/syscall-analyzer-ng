@@ -13,7 +13,7 @@ pub struct AccessArgs {
 
 #[typetag::serde]
 impl Parsable for AccessArgs {
-    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
+    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
         let parts: Vec<String> = args
                                     .chars()
                                     .filter(|&c| !r#""\"? "#.contains(c))

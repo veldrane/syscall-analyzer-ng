@@ -48,7 +48,7 @@ impl Trackable for SocketTrack {
             DescType::Socket,
         ) {
             Ok(uuid) => uuid,
-            Err(e) => {
+            Err(_) => {
             //    eprintln!("Error adding socket descriptor");
                 return Err("No uuid found".to_string()) 
             }
