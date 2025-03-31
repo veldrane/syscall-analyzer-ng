@@ -1,6 +1,8 @@
 use helpers::helpers::split_fd_parts;
 use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
+use std::any::Any;
+use std::rc::Rc;
 
 
 #[derive(Debug, Serialize,Deserialize)]
@@ -64,5 +66,9 @@ impl Parsable for Dup2Args {
             fd: fd,
             file_name: file_name,
         })
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
     }   
 }

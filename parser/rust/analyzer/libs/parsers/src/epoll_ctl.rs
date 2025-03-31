@@ -3,6 +3,8 @@ use serde::{Deserialize, Serialize};
 use helpers::helpers::split_fd_parts;
 use serde_with::skip_serializing_none;
 use regex::Regex;
+use std::any::Any;
+use std::rc::Rc;
 
 const EPOLL_EVENT: &str = r".*\,\s\{(?P<epoll_event>.*)\}";
 
@@ -85,6 +87,10 @@ impl Parsable for EpollCtlArgs {
         };
 
         Ok(epoll_ctl_args)
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
     }   
 }
 

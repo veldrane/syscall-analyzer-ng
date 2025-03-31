@@ -1,6 +1,8 @@
 use helpers::helpers::split_fd_parts;
 use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
+use std::any::Any;
+use std::rc::Rc;
 
 
 #[derive(Debug, Serialize,Deserialize)]
@@ -43,4 +45,8 @@ impl Parsable for RecvSendArgs {
             socket_len: parts[5].parse::<i32>().unwrap_or(0)
         })
     }   
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }
 }

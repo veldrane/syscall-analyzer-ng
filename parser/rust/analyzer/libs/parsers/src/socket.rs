@@ -1,6 +1,11 @@
 use serde::{Serialize,Deserialize};
 use wrappers::parsers::Parsable;
+use wrappers::trackers::Trackable;
+use trackers::descriptors::{Descs, DescType};
 use helpers::helpers::split_fd_parts;
+use std::any::Any;
+use std::rc::Rc;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct SocketArgs {
@@ -9,6 +14,52 @@ pub struct SocketArgs {
     protocol: String,
     socket_fd: i32,
     socket_name: String,
+}
+
+#[derive(Debug, Serialize,Deserialize)]
+pub struct SocketTrack {
+    uuid: String,
+}
+
+
+// First template for tracking syscalls, maybe will be rewriten to rc<dyn trait>
+#[typetag::serde]
+impl Trackable for SocketTrack {
+    fn track(attrs: Rc<dyn Parsable>, descs: &mut Descs) -> Result<Self, String> {
+
+        // Pokusíme se downcastnout na Box<SocketArgs>
+
+        // eprint!("Socket track: \n");
+
+        let socket_args: Rc<SocketArgs> = attrs
+            .as_any()
+            .downcast::<SocketArgs>()
+            .map_err(|_| "failed downcast to SocketArgs".to_string())?;
+        
+
+        let uuid = match descs.add(
+            SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .expect("Time went backwards")
+                .as_millis()
+                .to_string(),
+            socket_args.socket_fd,
+            socket_args.socket_name.clone(),
+            DescType::Socket,
+        ) {
+            Ok(uuid) => uuid,
+            Err(e) => {
+            //    eprintln!("Error adding socket descriptor");
+                return Err("No uuid found".to_string()) 
+            }
+        };
+
+        // eprintln!("Socket track uuid: {}", uuid);
+        
+        Ok(SocketTrack {
+            uuid: uuid
+        })
+    }
 }
 
 #[typetag::serde]
@@ -38,5 +89,10 @@ impl Parsable for SocketArgs {
             socket_type: parts[1].to_string(),
             protocol: parts[2].to_string()
         })
-    }   
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }
+
 }

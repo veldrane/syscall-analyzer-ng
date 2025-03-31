@@ -9,6 +9,7 @@ use std::collections::HashMap;
 
 use modules::init;
 use regex::Regex;
+use std::rc::Rc;
 
 
 const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<arguments>.*)\)\s*\=\s(?P<result>.*)\s<(?P<duration>\d+\.\d+)>";
@@ -57,7 +58,7 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
             (parsers.attributes)(fields["arguments"].as_ref(), Some(fields["result"].as_ref()))
         } else {
             default::DefaultArgs::parse(fields["arguments"].as_ref(), None)
-                .map(|v| Box::new(v) as Box<dyn Parsable>)
+                .map(|v| Rc::new(v) as Rc<dyn Parsable>)
         };
 
 
@@ -68,13 +69,25 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
                 continue;
             },
         };
+        
+
+        // let rc_attributes: Rc<Box<dyn Parsable>> = Rc::from(attributes);
+
+        let trackers = if let Some(parsers) = parsers {
+            match &parsers.trackers {
+                Some(trackers) => trackers(Rc::clone(&attributes), &mut descs),
+                None => Err("No trackers".to_string()),
+            }
+        } else {
+            Err("()".to_string())
+        }.ok();
 
         let syscall = Syscall {
             id: &id,
             timestamp: fields["timestamp"].as_ref(),
             name: fields["syscall"].as_ref(),
             attributes: attributes,
-            trackers: None,
+            trackers: trackers,
             result: fields["result"].as_ref(),
             duration: fields["duration"].as_ref(),
         };

@@ -69,6 +69,7 @@ pub struct Descs(Vec<DescRecord>);
 
 
 impl Descs {
+    
     pub fn new() -> Self {
         Descs(Vec::new())
     }
@@ -98,9 +99,9 @@ impl Descs {
 
         let desc_record = DescRecord::new(created, d, path, d_type);
         
-        if self.is_present(&desc_record) {
-            return Err(FdsError::FdAlreadyExists);
-        }
+        //if self.is_present(&desc_record) {
+        //    return Err(FdsError::FdAlreadyExists);
+        //}
 
         let uuid = desc_record.uuid.clone();
         self.0.push(desc_record);

@@ -1,6 +1,8 @@
 use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
 use helpers::helpers::split_fd_parts;
+use std::any::Any;
+use std::rc::Rc;
 
 
 #[derive(Debug, Serialize,Deserialize)]
@@ -27,7 +29,11 @@ impl Parsable for EpollCreateArgs {
             epoll_fd: epoll_fd,
             epoll_name: epoll_name,
         })
-    }   
+    }
+    
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    } 
 }
 
 #[derive(Debug, Serialize,Deserialize)]
@@ -52,5 +58,9 @@ impl Parsable for EpollCreate1Args {
             epoll_fd: epoll_fd,
             epoll_name: epoll_name,
         })
-    }   
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }  
 }

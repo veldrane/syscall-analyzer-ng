@@ -1,7 +1,8 @@
 use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
 use helpers::converts::hex_serde_u64;
-
+use std::any::Any;
+use std::rc::Rc;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct MprotectArgs {
@@ -36,5 +37,9 @@ impl Parsable for MprotectArgs {
             size: parts[1].parse::<i32>().unwrap_or(0),
             protection: parts[2].to_string(),
         })
-    }   
+    }
+    
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }
 }

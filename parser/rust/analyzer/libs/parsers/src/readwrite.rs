@@ -1,7 +1,8 @@
 use helpers::helpers::split_fd_parts;
 use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
-
+use std::any::Any;
+use std::rc::Rc;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct ReadWriteArgs {
@@ -51,4 +52,10 @@ impl Parsable for ReadWriteArgs {
             size: size,
         })
     }   
+
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }
+
 }

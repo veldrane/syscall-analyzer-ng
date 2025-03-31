@@ -3,6 +3,8 @@ use std::ops::Deref;
 use serde::ser::SerializeMap;
 use serde_json::value::Value;
 use wrappers::parsers::Parsable;
+use wrappers::trackers::Trackable;
+use std::rc::Rc;
 
 
 pub struct HexString(String);
@@ -87,12 +89,45 @@ impl Deref for HexString {
 }
 
 
-pub fn flat_serializer<S>(serialize: &mut S, parsable_value: &Box<dyn Parsable>) -> Result<(), S::Error>
+pub fn flat_serializer<S>(serialize: &mut S, parsable_value: Rc<dyn Parsable>) -> Result<(), S::Error>
 where
     S: SerializeMap,
 {
     
     let value = serde_json::to_value(&parsable_value).map_err(serde::ser::Error::custom)?;
+
+    if let Value::Object(args_map) = value {
+        for (_, value) in args_map {
+            match value {
+                Value::Object(s) => {
+                    for (k, v) in s {
+                        match &v {
+                            Value::String(x) => {
+                                if x == "" {
+                                    continue;
+                                }
+                            },
+                            _ => {   
+                            }
+                        }
+                        serialize.serialize_entry(&k, &v)?;
+                    }
+                },
+                _ => {
+                    println!("Unexpected value type: {:?}", value);
+                }
+            }
+        }
+    }
+    Ok(())
+}
+
+pub fn content_serializer<S>(serialize: &mut S, trackable_value: &Box<dyn Trackable>) -> Result<(), S::Error>
+where
+    S: SerializeMap,
+{
+    
+    let value = serde_json::to_value(&trackable_value).map_err(serde::ser::Error::custom)?;
 
     if let Value::Object(args_map) = value {
         for (_, value) in args_map {

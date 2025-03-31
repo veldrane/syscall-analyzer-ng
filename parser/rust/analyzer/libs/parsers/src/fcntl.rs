@@ -1,6 +1,8 @@
 use helpers::helpers::split_fd_parts;
 use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
+use std::any::Any;
+use std::rc::Rc;
 
 
 #[derive(Debug, Serialize,Deserialize)]
@@ -41,5 +43,8 @@ impl Parsable for FcntlArgs {
             operation: parts[1].to_string(),
             opt_arg: opt_arg
         })
+    }
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
     }   
 }

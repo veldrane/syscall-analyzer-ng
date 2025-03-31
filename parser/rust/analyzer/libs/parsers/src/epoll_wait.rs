@@ -3,6 +3,8 @@ use serde::{Deserialize, Serialize};
 use helpers::helpers::split_fd_parts;
 use regex::Regex;
 use once_cell::sync::Lazy;
+use std::any::Any;
+use std::rc::Rc;
 
 const EPOLL_WAIT_ARGS: &str = r".*\,\s\[\{(?P<epoll_event>.*)\}\]\,\s(?P<maxevents>.+)\,\s(?P<timeout>.+)";
 
@@ -50,7 +52,12 @@ impl Parsable for EpollWaitArgs {
         epoll_wait_args.maxevents = caps["maxevents"].parse::<i32>().unwrap();
         epoll_wait_args.timeout = caps["timeout"].parse::<i32>().unwrap();
         Ok(epoll_wait_args)
-    }   
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }
+
 }
 
 #[derive(Debug, Serialize,Deserialize, Default)]
@@ -81,5 +88,9 @@ impl Parsable for EpollPwait2Args {
         epoll_pwait2_args.timespec = caps["timespec"].parse::<String>().unwrap();
         epoll_pwait2_args.sigmask = caps["sigmask"].parse::<String>().unwrap();
         Ok(epoll_pwait2_args)
-    }   
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+    self
+    }  
 }

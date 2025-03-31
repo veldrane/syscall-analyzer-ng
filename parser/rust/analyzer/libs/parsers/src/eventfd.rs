@@ -1,6 +1,8 @@
 use helpers::helpers::split_fd_parts;
 use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
+use std::any::Any;
+use std::rc::Rc;
 
 
 #[derive(Debug, Serialize,Deserialize, Default)]
@@ -32,5 +34,9 @@ impl Parsable for Eventfd2Args {
         };
 
         Ok(eventfd2)
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
     }
 }

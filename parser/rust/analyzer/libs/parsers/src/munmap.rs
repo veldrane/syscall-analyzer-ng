@@ -1,6 +1,8 @@
 use serde::{Deserialize, Serialize};
 use wrappers::parsers::Parsable;
 use helpers::converts::hex_serde_u64;
+use std::any::Any;
+use std::rc::Rc;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct MunmapArgs {
@@ -12,6 +14,7 @@ pub struct MunmapArgs {
 
 #[typetag::serde]
 impl Parsable for MunmapArgs {
+    
     fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
 
 
@@ -32,5 +35,9 @@ impl Parsable for MunmapArgs {
             addr: addr,
             size: parts[1].parse::<i32>().unwrap(),
         })
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
     }
 }

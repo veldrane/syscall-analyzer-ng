@@ -2,7 +2,8 @@ use std::collections::HashMap;
 //use registry::registry::Parsable;
 use serde::{Deserialize, Serialize};
 use wrappers::parsers::Parsable;
-
+use std::any::Any;
+use std::rc::Rc;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct CloneArgs {
@@ -38,5 +39,9 @@ impl Parsable for CloneArgs {
             child_tidptr: parts["child_tidptr"].clone(),
             cloned_pid: cloned_pid,
         })
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
     }   
 }

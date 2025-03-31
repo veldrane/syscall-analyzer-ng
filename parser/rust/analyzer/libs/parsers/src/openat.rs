@@ -2,7 +2,8 @@ use serde::{Deserialize, Serialize};
 use wrappers::parsers::Parsable;
 use std::str::FromStr;
 use helpers::helpers::{split_fd_parts_to_strings, split_fd_parts, HexString};
-
+use std::any::Any;
+use std::rc::Rc;
 
 #[derive(Debug,Serialize,Deserialize, Default)]
 pub struct OpenatArguments {
@@ -51,4 +52,9 @@ impl Parsable for OpenatArguments {
 
         Ok(openat_syscall)
     }
+    
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }
+
 }

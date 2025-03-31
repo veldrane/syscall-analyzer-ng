@@ -1,8 +1,9 @@
 use serde::{Serialize, Serializer};
 use serde::ser::SerializeMap;
-use helpers::helpers::flat_serializer;
+use helpers::helpers::{content_serializer, flat_serializer};
 use wrappers::parsers::Parsable;
 use wrappers::trackers::Trackable;
+use std::rc::Rc;
 
 
 #[derive(Debug)]
@@ -10,7 +11,7 @@ pub struct Syscall<'a> {
     pub id: &'a i32,
     pub timestamp: &'a str,
     pub name: &'a str,
-    pub attributes: Box<dyn Parsable>,
+    pub attributes: Rc<dyn Parsable>,
     pub trackers: Option<Box<dyn Trackable>>,
     pub result: &'a str,
     pub duration: &'a str,
@@ -25,13 +26,19 @@ impl<'a> Serialize for Syscall<'a> {
     {
         let mut map = serializer.serialize_map(None)?;
 
+        let attributes = Rc::clone(&self.attributes);
+
         map.serialize_entry("id", self.id)?;
         map.serialize_entry("timestamp", self.timestamp)?;
         map.serialize_entry("name", self.name)?;
         map.serialize_entry("result", self.result)?;
         map.serialize_entry("duration", self.duration)?;
 
-        flat_serializer(&mut map, &self.attributes)?;
+        flat_serializer(&mut map, attributes)?;
+
+        if let Some(ref trackers) = self.trackers {
+            content_serializer(&mut map, trackers)?;
+        }
 
         //if let Some(ref results) = self.results {
         //    flat_serializer(&mut map, results)?;

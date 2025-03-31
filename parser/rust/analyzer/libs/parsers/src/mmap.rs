@@ -3,6 +3,8 @@ use helpers::helpers::split_fd_parts;
 use helpers::converts::hex_serde_u64;
 use helpers::converts::hex_serde_u16;
 use wrappers::parsers::Parsable;
+use std::any::Any;
+use std::rc::Rc;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct MmapArgs {
@@ -67,6 +69,10 @@ impl Parsable for MmapArgs {
             offset: offset,
             addr: addr,
         })
+    }
+    
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
     }
 }
 

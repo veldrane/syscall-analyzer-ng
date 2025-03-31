@@ -1,164 +1,168 @@
 use std::collections::HashMap;
 use registry::registry::Register;
-use wrappers::parsers::parser_wrapper;
+use wrappers::{parsers::parser_wrapper, trackers::tracker_wrapper};
+use wrappers::parsers::Parsable;
+use std::any::Any;
 use parsers::*;
+use trackers::descriptors::Descs;
+use std::rc::Rc;
 
 pub fn init_registry() -> HashMap<String, Register> {
     
     return HashMap::from([
         ("mmap".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<mmap::MmapArgs>),
+                attributes: Rc::new(parser_wrapper::<mmap::MmapArgs>),
                 trackers: None,      
         }),
         ("mprotect".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<mprotect::MprotectArgs>),
+                attributes: Rc::new(parser_wrapper::<mprotect::MprotectArgs>),
                 trackers: None,
         }),
         ("munmap".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<munmap::MunmapArgs>), 
+                attributes: Rc::new(parser_wrapper::<munmap::MunmapArgs>), 
                 trackers: None,
         }),
         ("access".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<access::AccessArgs>),
+                attributes: Rc::new(parser_wrapper::<access::AccessArgs>),
                 trackers: None,
         }),
         ("openat".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<openat::OpenatArguments>),
+                attributes: Rc::new(parser_wrapper::<openat::OpenatArguments>),
                 trackers: None,   
         }),
         ("dup2".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<dup2::Dup2Args>),
+                attributes: Rc::new(parser_wrapper::<dup2::Dup2Args>),
                 trackers: None,
         }),
         ("socket".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<socket::SocketArgs>),
-                trackers: None,
+                attributes: Rc::new(parser_wrapper::<socket::SocketArgs>),
+                trackers: Some(Box::new(tracker_wrapper::<socket::SocketTrack>))
         }),
         ("setsockopt".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<socket::SocketArgs>),
+                attributes: Rc::new(parser_wrapper::<socket::SocketArgs>),
                 trackers: None,
         }),
         ("getsockopt".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<socket::SocketArgs>),
+                attributes: Rc::new(parser_wrapper::<socket::SocketArgs>),
                 trackers: None,
         }),
         ("accept".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<network::NetworkArgs>),
+                attributes: Rc::new(parser_wrapper::<network::NetworkArgs>),
                 trackers: None,
         }),
         ("accept4".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<network::Accept4Args>),
+                attributes: Rc::new(parser_wrapper::<network::Accept4Args>),
                 trackers: None,
         }),
         ("connect".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<network::NetworkArgs>),
+                attributes: Rc::new(parser_wrapper::<network::NetworkArgs>),
                 trackers: None,
         }),
         ("bind".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<network::NetworkArgs>),
+                attributes: Rc::new(parser_wrapper::<network::NetworkArgs>),
                 trackers: None,
         }),
         ("listen".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<listen::ListenArgs>),
+                attributes: Rc::new(parser_wrapper::<listen::ListenArgs>),
                 trackers: None,   
         }),
         ("fcntl".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<fcntl::FcntlArgs>),
+                attributes: Rc::new(parser_wrapper::<fcntl::FcntlArgs>),
                 trackers: None,   
         }),
         ("pread64".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<readwrite::ReadWriteArgs>),
+                attributes: Rc::new(parser_wrapper::<readwrite::ReadWriteArgs>),
                 trackers: None,   
         }),
         ("pwrite64".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<readwrite::ReadWriteArgs>),
+                attributes: Rc::new(parser_wrapper::<readwrite::ReadWriteArgs>),
                 trackers: None,   
         }),
         ("write".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<readwrite::ReadWriteArgs>),
+                attributes: Rc::new(parser_wrapper::<readwrite::ReadWriteArgs>),
                 trackers: None,   
         }),
         ("read".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<readwrite::ReadWriteArgs>),
+                attributes: Rc::new(parser_wrapper::<readwrite::ReadWriteArgs>),
                 trackers: None,   
         }),
         ("sendto".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<recvsend::RecvSendArgs>),
+                attributes: Rc::new(parser_wrapper::<recvsend::RecvSendArgs>),
                 trackers: None,   
         }),
         ("recvfrom".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<recvsend::RecvSendArgs>),
+                attributes: Rc::new(parser_wrapper::<recvsend::RecvSendArgs>),
                 trackers: None,   
         }),
         ("clone".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<clone::CloneArgs>),
+                attributes: Rc::new(parser_wrapper::<clone::CloneArgs>),
                 trackers: None,   
         }),
         ("close".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<close::CloseArgs>),
+                attributes: Rc::new(parser_wrapper::<close::CloseArgs>),
                 trackers: None,   
         }),
         ("sendmsg".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<messages::MessagesArgs>),
+                attributes: Rc::new(parser_wrapper::<messages::MessagesArgs>),
                 trackers: None,   
         }),
         ("recvmsg".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<messages::MessagesArgs>),
+                attributes: Rc::new(parser_wrapper::<messages::MessagesArgs>),
                 trackers: None,   
         }),
         ("epoll_create".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<epoll_create::EpollCreateArgs>),
+                attributes: Rc::new(parser_wrapper::<epoll_create::EpollCreateArgs>),
                 trackers: None,   
         }),
         ("epoll_create1".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<epoll_create::EpollCreate1Args>),
+                attributes: Rc::new(parser_wrapper::<epoll_create::EpollCreate1Args>),
                 trackers: None,
         }),
         ("epoll_ctl".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<epoll_ctl::EpollCtlArgs>),
+                attributes: Rc::new(parser_wrapper::<epoll_ctl::EpollCtlArgs>),
                 trackers: None,   
         }),
         ("epoll_wait".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<epoll_wait::EpollWaitArgs>),
+                attributes: Rc::new(parser_wrapper::<epoll_wait::EpollWaitArgs>),
                 trackers: None,   
         }),
         ("epoll_pwait2".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<epoll_wait::EpollPwait2Args>),
+                attributes: Rc::new(parser_wrapper::<epoll_wait::EpollPwait2Args>),
                 trackers: None,
         }),
         ("eventfd2".to_string(), 
             Register { 
-                attributes: Box::new(parser_wrapper::<eventfd::Eventfd2Args>),
+                attributes: Rc::new(parser_wrapper::<eventfd::Eventfd2Args>),
                 trackers: None,   
         })
     ]);

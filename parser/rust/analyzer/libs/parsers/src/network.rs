@@ -3,7 +3,8 @@ use wrappers::parsers::Parsable;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use once_cell::sync::Lazy;
-
+use std::any::Any;
+use std::rc::Rc;
 
 //const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>\w+)\,\s\{(?P<socket_addr>\w+)\}\,\s(?P<socket_len>.*)\)";
 const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>.*)\,\s*\{(?P<socket_addr>.*)\}\,\s(?P<socket_len>.*)";
@@ -52,6 +53,11 @@ impl Parsable for NetworkArgs {
             socket_len: caps["socket_len"].parse::<i32>().unwrap_or(0),
         })
     }   
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }
+
 }
 
 
@@ -79,6 +85,10 @@ impl Parsable for Accept4Args {
             socket_fd: socket_fd,
             socket_name: socket_name,
         })
-    }   
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }
 }
 
