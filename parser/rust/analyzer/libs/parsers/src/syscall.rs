@@ -1,6 +1,6 @@
 use serde::{Serialize, Serializer};
 use serde::ser::SerializeMap;
-use helpers::helpers::{content_serializer, flat_serializer};
+use helpers::helpers::generic_serializer;
 use wrappers::parsers::Parsable;
 use wrappers::trackers::Trackable;
 use std::rc::Rc;
@@ -34,10 +34,10 @@ impl<'a> Serialize for Syscall<'a> {
         map.serialize_entry("result", self.result)?;
         map.serialize_entry("duration", self.duration)?;
 
-        flat_serializer(&mut map, attributes)?;
+        generic_serializer(&mut map, attributes)?;
 
         if let Some(ref trackers) = self.trackers {
-            content_serializer(&mut map, trackers)?;
+            generic_serializer(&mut map, trackers)?;
         }
 
         //if let Some(ref results) = self.results {

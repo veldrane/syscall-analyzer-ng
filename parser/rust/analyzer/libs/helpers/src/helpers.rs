@@ -88,69 +88,36 @@ impl Deref for HexString {
     }
 }
 
-
-pub fn flat_serializer<S>(serialize: &mut S, parsable_value: Rc<dyn Parsable>) -> Result<(), S::Error>
+pub fn generic_serializer<S, T>(serialize: &mut S, value: T) -> Result<(), S::Error>
 where
     S: SerializeMap,
-{
+    T: serde::Serialize,
+    {
     
-    let value = serde_json::to_value(&parsable_value).map_err(serde::ser::Error::custom)?;
-
-    if let Value::Object(args_map) = value {
-        for (_, value) in args_map {
-            match value {
-                Value::Object(s) => {
-                    for (k, v) in s {
-                        match &v {
-                            Value::String(x) => {
-                                if x == "" {
-                                    continue;
+        let value = serde_json::to_value(&value).map_err(serde::ser::Error::custom)?;
+    
+        if let Value::Object(args_map) = value {
+            for (_, value) in args_map {
+                match value {
+                    Value::Object(s) => {
+                        for (k, v) in s {
+                            match &v {
+                                Value::String(x) => {
+                                    if x == "" {
+                                        continue;
+                                    }
+                                },
+                                _ => {   
                                 }
-                            },
-                            _ => {   
                             }
+                            serialize.serialize_entry(&k, &v)?;
                         }
-                        serialize.serialize_entry(&k, &v)?;
+                    },
+                    _ => {
+                        println!("Unexpected value type: {:?}", value);
                     }
-                },
-                _ => {
-                    println!("Unexpected value type: {:?}", value);
                 }
             }
         }
+        Ok(())
     }
-    Ok(())
-}
-
-pub fn content_serializer<S>(serialize: &mut S, trackable_value: &Box<dyn Trackable>) -> Result<(), S::Error>
-where
-    S: SerializeMap,
-{
-    
-    let value = serde_json::to_value(&trackable_value).map_err(serde::ser::Error::custom)?;
-
-    if let Value::Object(args_map) = value {
-        for (_, value) in args_map {
-            match value {
-                Value::Object(s) => {
-                    for (k, v) in s {
-                        match &v {
-                            Value::String(x) => {
-                                if x == "" {
-                                    continue;
-                                }
-                            },
-                            _ => {   
-                            }
-                        }
-                        serialize.serialize_entry(&k, &v)?;
-                    }
-                },
-                _ => {
-                    println!("Unexpected value type: {:?}", value);
-                }
-            }
-        }
-    }
-    Ok(())
-}
