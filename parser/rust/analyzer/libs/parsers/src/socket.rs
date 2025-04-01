@@ -3,6 +3,7 @@ use wrappers::parsers::Parsable;
 use wrappers::trackers::Trackable;
 use trackers::descriptors::{Descs, DescType};
 use helpers::helpers::split_fd_parts;
+use core::time;
 use std::any::Any;
 use std::rc::Rc;
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -25,7 +26,7 @@ pub struct SocketTrack {
 // First template for tracking syscalls, maybe will be rewriten to rc<dyn trait>
 #[typetag::serde]
 impl Trackable for SocketTrack {
-    fn track(attrs: Rc<dyn Parsable>, descs: &mut Descs) -> Result<Self, String> {
+    fn track(descs: &mut Descs, timestamp: f64, attrs: Rc<dyn Parsable>) -> Result<Self, String> {
 
         // Pokusíme se downcastnout na Box<SocketArgs>
 
@@ -38,11 +39,7 @@ impl Trackable for SocketTrack {
         
 
         let uuid = match descs.add(
-            SystemTime::now()
-                .duration_since(UNIX_EPOCH)
-                .expect("Time went backwards")
-                .as_millis()
-                .to_string(),
+            timestamp,
             socket_args.socket_fd,
             socket_args.socket_name.clone(),
             DescType::Socket,

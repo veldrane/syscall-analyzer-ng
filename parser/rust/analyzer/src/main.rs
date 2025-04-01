@@ -36,7 +36,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::Error>> {
 
-    let mut descs = Descs::init_empty_process("1739965813.133382".to_string());
+    let mut descs = Descs::init_empty_process(1739965813.133382);
 
     let re = Regex::new(BASIC_SYSCALL)?;
 
@@ -53,6 +53,7 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
         };
 
         let parsers = registry.get(&fields["syscall"]);
+        let timestamp = fields["timestamp"].parse::<f64>().unwrap();
 
         let parsed_attributes = if let Some(parsers) = parsers {
             (parsers.attributes)(fields["arguments"].as_ref(), Some(fields["result"].as_ref()))
@@ -75,7 +76,7 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
 
         let trackers = if let Some(parsers) = parsers {
             match &parsers.trackers {
-                Some(trackers) => trackers(Rc::clone(&attributes), &mut descs),
+                Some(trackers) => trackers(&mut descs, timestamp, Rc::clone(&attributes)),
                 None => Err("No trackers".to_string()),
             }
         } else {
@@ -84,7 +85,7 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
 
         let syscall = Syscall {
             id: &id,
-            timestamp: fields["timestamp"].as_ref(),
+            timestamp: &timestamp,
             name: fields["syscall"].as_ref(),
             attributes: attributes,
             trackers: trackers,

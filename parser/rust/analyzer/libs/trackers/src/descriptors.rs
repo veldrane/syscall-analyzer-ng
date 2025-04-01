@@ -23,8 +23,8 @@ pub enum FdsError {
 
 
 pub struct DescRecord {
-    pub created: String,
-    pub closed: Option<String>,
+    pub created: f64,
+    pub closed: Option<f64>,
     pub uuid: String,
     pub fd: i32,
     pub path: String,
@@ -34,7 +34,7 @@ pub struct DescRecord {
 
 impl DescRecord {
 
-    pub fn new(created: String, fd: i32, path: String, fd_type: DescType) -> Self {
+    pub fn new(created: f64, fd: i32, path: String, fd_type: DescType) -> Self {
         Self {
             created: created,
             closed: None,
@@ -46,7 +46,7 @@ impl DescRecord {
         }
     }
 
-    pub fn new_default_fd(created: String, fd_type: DefaultFd) -> Self {
+    pub fn new_default_fd(created: f64, fd_type: DefaultFd) -> Self {
         let (path, fd) = match fd_type {
             DefaultFd::Stdin => { ("/dev/stdin", 0) },
             DefaultFd::Stdout => { ("/dev/stdout", 1) },
@@ -74,12 +74,12 @@ impl Descs {
         Descs(Vec::new())
     }
 
-    pub fn init_empty_process(created: String) -> Self {
+    pub fn init_empty_process(created: f64) -> Self {
         let mut fds = Descs::new();
 
-        fds.0.push(DescRecord::new_default_fd(created.clone(), DefaultFd::Stdin));
-        fds.0.push(DescRecord::new_default_fd(created.clone(), DefaultFd::Stdout));
-        fds.0.push(DescRecord::new_default_fd(created.clone(), DefaultFd::Stderr));
+        fds.0.push(DescRecord::new_default_fd(created, DefaultFd::Stdin));
+        fds.0.push(DescRecord::new_default_fd(created, DefaultFd::Stdout));
+        fds.0.push(DescRecord::new_default_fd(created, DefaultFd::Stderr));
         fds
     }
 
@@ -95,7 +95,7 @@ impl Descs {
             self.iter_mut().find(|r| r.uuid == uuid)
         }
 
-    pub fn add(&mut self, created: String, d: i32, path: String, d_type: DescType) -> Result<String, FdsError> {
+    pub fn add(&mut self, created: f64, d: i32, path: String, d_type: DescType) -> Result<String, FdsError> {
 
         let desc_record = DescRecord::new(created, d, path, d_type);
         
@@ -108,7 +108,7 @@ impl Descs {
         Ok(uuid)
     }
     
-    pub fn close(&mut self, uuid: &str, closed: String) -> Result<(), FdsError> {
+    pub fn close(&mut self, uuid: &str, closed: f64) -> Result<(), FdsError> {
 
         let desc_record = self.get_mut_by_uuid(uuid).ok_or(FdsError::FdNotFound)?;
 

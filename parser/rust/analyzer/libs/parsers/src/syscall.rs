@@ -9,7 +9,7 @@ use std::rc::Rc;
 #[derive(Debug)]
 pub struct Syscall<'a> {
     pub id: &'a i32,
-    pub timestamp: &'a str,
+    pub timestamp: &'a f64,
     pub name: &'a str,
     pub attributes: Rc<dyn Parsable>,
     pub trackers: Option<Box<dyn Trackable>>,
@@ -39,10 +39,6 @@ impl<'a> Serialize for Syscall<'a> {
         if let Some(ref trackers) = self.trackers {
             generic_serializer(&mut map, trackers)?;
         }
-
-        //if let Some(ref results) = self.results {
-        //    flat_serializer(&mut map, results)?;
-        //}
 
         map.end()
 
