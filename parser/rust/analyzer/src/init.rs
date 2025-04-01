@@ -30,7 +30,7 @@ pub fn init_registry() -> HashMap<String, Register> {
         ("openat".to_string(), 
             Register { 
                 attributes: Rc::new(parser_wrapper::<openat::OpenatArguments>),
-                trackers: None,   
+                trackers: Some(Box::new(tracker_wrapper::<openat::OpenatTrack>))
         }),
         ("dup2".to_string(), 
             Register { 
@@ -85,22 +85,22 @@ pub fn init_registry() -> HashMap<String, Register> {
         ("pread64".to_string(), 
             Register { 
                 attributes: Rc::new(parser_wrapper::<readwrite::ReadWriteArgs>),
-                trackers: None,   
+                trackers: Some(Box::new(tracker_wrapper::<readwrite::ReadWriteTrack>))  
         }),
         ("pwrite64".to_string(), 
             Register { 
                 attributes: Rc::new(parser_wrapper::<readwrite::ReadWriteArgs>),
-                trackers: None,   
+                trackers: Some(Box::new(tracker_wrapper::<readwrite::ReadWriteTrack>))  
         }),
         ("write".to_string(), 
             Register { 
                 attributes: Rc::new(parser_wrapper::<readwrite::ReadWriteArgs>),
-                trackers: None,   
+                trackers: Some(Box::new(tracker_wrapper::<readwrite::ReadWriteTrack>)),   
         }),
         ("read".to_string(), 
             Register { 
                 attributes: Rc::new(parser_wrapper::<readwrite::ReadWriteArgs>),
-                trackers: None,   
+                trackers: Some(Box::new(tracker_wrapper::<readwrite::ReadWriteTrack>)),   
         }),
         ("sendto".to_string(), 
             Register { 
@@ -120,7 +120,7 @@ pub fn init_registry() -> HashMap<String, Register> {
         ("close".to_string(), 
             Register { 
                 attributes: Rc::new(parser_wrapper::<close::CloseArgs>),
-                trackers: None,   
+                trackers: Some(Box::new(tracker_wrapper::<close::CloseTrack>))   
         }),
         ("sendmsg".to_string(), 
             Register { 

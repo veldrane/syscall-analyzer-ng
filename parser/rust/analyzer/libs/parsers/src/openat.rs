@@ -1,9 +1,12 @@
 use serde::{Deserialize, Serialize};
 use wrappers::parsers::Parsable;
+use wrappers::trackers::Trackable;
 use std::str::FromStr;
 use helpers::helpers::{split_fd_parts_to_strings, split_fd_parts, HexString};
 use std::any::Any;
 use std::rc::Rc;
+use trackers::descriptors::{Descs, DescType};
+
 
 #[derive(Debug,Serialize,Deserialize, Default)]
 pub struct OpenatArguments {
@@ -16,6 +19,11 @@ pub struct OpenatArguments {
     file_name: String,
 }
 
+
+#[derive(Debug,Serialize,Deserialize, Default)]
+pub struct OpenatTrack {
+    uuid: String,
+}
 
 #[typetag::serde]
 impl Parsable for OpenatArguments {
@@ -57,4 +65,44 @@ impl Parsable for OpenatArguments {
         self
     }
 
+}
+
+#[typetag::serde]
+impl Trackable for OpenatTrack {
+    fn track(descs: &mut Descs, timestamp: f64, attrs: Rc<dyn Parsable>) -> Result<Self, String> {
+
+        // Pokusíme se downcastnout na Box<SocketArgs>
+
+        // eprint!("Socket track: \n");
+
+        let openat_args: Rc<OpenatArguments> = attrs
+            .as_any()
+            .downcast::<OpenatArguments>()
+            .map_err(|_| "failed downcast to SocketArgs".to_string())?;
+
+
+        if openat_args.fd == -1 {
+            return Err("Socket fd is 0".to_string());
+        }
+        
+
+        let uuid = match descs.add(
+            timestamp,
+            openat_args.fd,
+            openat_args.file_name.clone(),
+            DescType::File,
+        ) {
+            Ok(uuid) => uuid,
+            Err(_) => {
+            //    eprintln!("Error adding socket descriptor");
+                return Err("No uuid found".to_string()) 
+            }
+        };
+
+        // eprintln!("Socket track uuid: {}", uuid);
+        
+        Ok(OpenatTrack {
+            uuid: uuid
+        })
+    }
 }

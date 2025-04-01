@@ -2,7 +2,7 @@ use std::ops::DerefMut;
 use uuid::Uuid;
 use std::ops::Deref;
 
-
+#[derive(Debug, Clone)]
 pub enum DescType {
     File,
     Socket,
@@ -22,6 +22,7 @@ pub enum FdsError {
 }
 
 
+#[derive(Debug, Clone)]
 pub struct DescRecord {
     pub created: f64,
     pub closed: Option<f64>,
@@ -65,6 +66,7 @@ impl DescRecord {
     }
 }
 
+#[derive(Debug, Clone)]
 pub struct Descs(Vec<DescRecord>);
 
 
@@ -87,12 +89,16 @@ impl Descs {
         self.iter().any(|f| (f.fd == d.fd) && (f.deleted == false))
     }
 
-    pub fn get_by_d(&self, d: i32) -> Option<&DescRecord> {
-        self.iter().find(|r| r.fd == d)
+    pub fn get_by_descriptor_number(&self, d: i32) -> Option<&DescRecord> {
+        self.iter().find(|r| (r.fd == d) && (r.deleted == false))
+    }
+
+    pub fn get_mut_by_descriptor_number(&mut self, d: i32) -> Option<&mut DescRecord> {
+        self.iter_mut().find(|r| (r.fd == d) && (r.deleted == false))
     }
 
     pub fn get_mut_by_uuid(&mut self, uuid: &str) -> Option<&mut DescRecord> {
-            self.iter_mut().find(|r| r.uuid == uuid)
+            self.iter_mut().find(|r| (r.uuid == uuid) && (r.deleted == false))
         }
 
     pub fn add(&mut self, created: f64, d: i32, path: String, d_type: DescType) -> Result<String, FdsError> {
@@ -114,6 +120,22 @@ impl Descs {
 
         desc_record.closed = Some(closed);
         desc_record.deleted = true;
+        Ok(())
+    }
+
+    pub fn close_by_descriptor_number(&mut self, d: i32, closed: f64) -> Result<(), FdsError> {
+
+        let desc_record = self.get_mut_by_descriptor_number(d).ok_or(FdsError::FdNotFound)?;
+
+        desc_record.closed = Some(closed);
+        desc_record.deleted = true;
+        Ok(())
+    }
+
+    pub fn del_by_descriptor_number(&mut self, d: i32) -> Result<(), FdsError> {
+
+        let desc_record = self.get_by_descriptor_number(d).ok_or(FdsError::FdNotFound)?;
+        // desc_record.deleted = true;
         Ok(())
     }
 

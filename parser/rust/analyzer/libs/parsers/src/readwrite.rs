@@ -1,8 +1,10 @@
 use helpers::helpers::split_fd_parts;
 use wrappers::parsers::Parsable;
+use wrappers::trackers::Trackable;
 use serde::{Deserialize, Serialize};
 use std::any::Any;
 use std::rc::Rc;
+use trackers::descriptors::Descs;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct ReadWriteArgs {
@@ -12,6 +14,11 @@ pub struct ReadWriteArgs {
     requested_size: i32,
     offset: String,
     size: i32,
+}
+
+#[derive(Debug, Serialize,Deserialize)]
+pub struct ReadWriteTrack {
+    uuid: String,
 }
 
 #[typetag::serde]
@@ -58,4 +65,40 @@ impl Parsable for ReadWriteArgs {
         self
     }
 
+}
+
+#[typetag::serde]
+impl Trackable for ReadWriteTrack {
+    fn track(descs: &mut Descs, timestamp: f64, attrs: Rc<dyn Parsable>) -> Result<Self, String> {
+
+        // Pokusíme se downcastnout na Box<SocketArgs>
+
+        // eprint!("Socket track: \n");
+
+        //eprintln!("descriptors: {:?}\n\n\n", descs);
+
+        let args: Rc<ReadWriteArgs> = attrs
+            .as_any()
+            .downcast::<ReadWriteArgs>()
+            .map_err(|_| "failed downcast to ReadWriteArgs".to_string())?;
+
+
+        if args.fd == -1 {
+            return Err("Socket fd is 0".to_string());
+        }
+        
+
+        let uuid = match descs.get_by_descriptor_number(args.fd) {
+            Some(record) => &record.uuid,
+            None => {
+                return Err("No uuid found".to_string()) 
+            }
+        };
+
+        // eprintln!("Socket track uuid: {}", uuid);
+        
+        Ok(ReadWriteTrack {
+            uuid: uuid.to_string()
+        })
+    }
 }

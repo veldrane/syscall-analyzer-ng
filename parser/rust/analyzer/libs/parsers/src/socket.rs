@@ -36,6 +36,11 @@ impl Trackable for SocketTrack {
             .as_any()
             .downcast::<SocketArgs>()
             .map_err(|_| "failed downcast to SocketArgs".to_string())?;
+
+
+        if socket_args.socket_fd == -1 {
+            return Err("Socket fd is 0".to_string());
+        }
         
 
         let uuid = match descs.add(
