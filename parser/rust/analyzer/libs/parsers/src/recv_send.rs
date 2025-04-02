@@ -35,11 +35,13 @@ impl Parsable for SocketTransferAttrs {
         
         let (socket_fd, socket_name ) = split_fd_parts(&parts[0]);
 
+        let size = parts[2].parse::<i32>().map_err(|e| e.to_string())?;
+
         Ok(SocketTransferAttrs {
             socket_fd: socket_fd,
             socket_name: socket_name,
             buffer: parts[1].to_string(),
-            size:parts[2].parse::<i32>().unwrap(),
+            size:size,
             flags: parts[3].to_string(),
             socket_addr: parts[4].to_string(),
             socket_len: parts[5].parse::<i32>().unwrap_or(0)

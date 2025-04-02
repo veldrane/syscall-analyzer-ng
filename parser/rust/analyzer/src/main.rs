@@ -19,7 +19,8 @@ const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<syscall>\w+)\((?P<argu
 strace -y -T -ttt -ff -xx -qq -o curl $CMD
 */
 
-const STRACE_OUTPUT: &str = "../../../tests/curl/curl.38945";
+// const STRACE_OUTPUT: &str = "../../../tests/curl/curl.38945";
+const STRACE_OUTPUT: &str = "../../../tests/sshd/sshd.8797";
 // const STRACE_OUTPUT: &str = "../../../tests/syscalls/nginx-all.out";
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
