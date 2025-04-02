@@ -11,7 +11,7 @@ const EPOLL_EVENT: &str = r".*\,\s\{(?P<epoll_event>.*)\}";
 
 #[skip_serializing_none]
 #[derive(Debug, Serialize,Deserialize, Default)]
-pub struct EpollCtlArgs {
+pub struct EpollControlAttrs {
     epoll_fd: i32,
     epoll_name: String,
     epoll_opetation: String,
@@ -28,14 +28,14 @@ pub struct EpollCtlArgs {
 
 
 #[typetag::serde]
-impl Parsable for EpollCtlArgs {
+impl Parsable for EpollControlAttrs {
     fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
 
         let re = Regex::new(EPOLL_EVENT).map_err(|e| e.to_string())?;
 
         //let caps = re.captures(&args).ok_or(args.to_string())?;
 
-        let mut epoll_ctl_args = EpollCtlArgs::default();
+        let mut epoll_ctl_args = EpollControlAttrs::default();
 
         let parts: Vec<String> = args
                                     .chars()

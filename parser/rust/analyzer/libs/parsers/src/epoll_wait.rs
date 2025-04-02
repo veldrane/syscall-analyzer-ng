@@ -15,7 +15,7 @@ static RE_EPOLL_PWAIT2_ARGS: Lazy<Regex> = Lazy::new(|| Regex::new(EPOLL_PWAIT2_
 
 
 #[derive(Debug, Serialize,Deserialize, Default)]
-pub struct EpollWaitArgs {
+pub struct EpollWaitAttrs {
     epoll_fd: i32,
     epoll_name: String,
     epoll_event: Option<String>,
@@ -26,11 +26,11 @@ pub struct EpollWaitArgs {
 
 
 #[typetag::serde]
-impl Parsable for EpollWaitArgs {
+impl Parsable for EpollWaitAttrs {
     fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
 
         //let re = Regex::new(EPOLL_WAIT_ARGS).map_err(|e| e.to_string())?;
-        let mut epoll_wait_args = EpollWaitArgs::default();
+        let mut epoll_wait_args = EpollWaitAttrs::default();
 
         let parts: Vec<String> = args
                                     .chars()

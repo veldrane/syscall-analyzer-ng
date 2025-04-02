@@ -6,7 +6,7 @@ use std::rc::Rc;
 
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct FcntlArgs {
+pub struct FileControlAttrs {
     fd: i32,
     file_name: String,
     operation: String,
@@ -15,7 +15,7 @@ pub struct FcntlArgs {
 
 
 #[typetag::serde]
-impl Parsable for FcntlArgs {
+impl Parsable for FileControlAttrs {
     fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
 
         let parts: Vec<String> = args
@@ -37,7 +37,7 @@ impl Parsable for FcntlArgs {
             "".to_string()
         };
 
-        Ok(FcntlArgs {
+        Ok(FileControlAttrs {
             fd: fd,
             file_name: file_name,
             operation: parts[1].to_string(),

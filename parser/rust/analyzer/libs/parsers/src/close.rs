@@ -7,7 +7,7 @@ use trackers::fd_table::Descs;
 use wrappers::trackers::Trackable;
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct CloseArgs {
+pub struct CloseFileAttrs {
     fd: i32,
     file_name: String,
 }
@@ -20,12 +20,12 @@ pub struct CloseTrack {
 
 
 #[typetag::serde]
-impl Parsable for CloseArgs {
+impl Parsable for CloseFileAttrs {
     fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
 
         let (fd, file_name ) = split_fd_parts(&args);
 
-        Ok(CloseArgs {
+        Ok(CloseFileAttrs {
             fd: fd,
             file_name: file_name,
         })
@@ -44,9 +44,9 @@ impl Trackable for CloseTrack {
 
         //eprint!("Socket track: \n");
 
-        let args: Rc<CloseArgs> = attrs
+        let args: Rc<CloseFileAttrs> = attrs
             .as_any()
-            .downcast::<CloseArgs>()
+            .downcast::<CloseFileAttrs>()
             .map_err(|_| "failed downcast to ReadWriteArgs".to_string())?;
 
 

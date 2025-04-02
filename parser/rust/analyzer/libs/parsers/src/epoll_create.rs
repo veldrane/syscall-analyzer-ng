@@ -6,7 +6,7 @@ use std::rc::Rc;
 
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct EpollCreateArgs {
+pub struct EpollCreationAttrs {
     size: i32,
     epoll_fd: i32,
     epoll_name: String,
@@ -14,7 +14,7 @@ pub struct EpollCreateArgs {
 
 
 #[typetag::serde]
-impl Parsable for EpollCreateArgs {
+impl Parsable for EpollCreationAttrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
 
         let size = args.parse::<i32>().map_err(|e| e.to_string())?;
@@ -24,7 +24,7 @@ impl Parsable for EpollCreateArgs {
             None => (0, "".to_string())
         };
 
-        Ok(EpollCreateArgs {
+        Ok(EpollCreationAttrs {
             size: size,
             epoll_fd: epoll_fd,
             epoll_name: epoll_name,
@@ -37,7 +37,7 @@ impl Parsable for EpollCreateArgs {
 }
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct EpollCreate1Args {
+pub struct EpollCreate1Attrs {
     flags: String,
     epoll_fd: i32,
     epoll_name: String,
@@ -45,7 +45,7 @@ pub struct EpollCreate1Args {
 
 
 #[typetag::serde]
-impl Parsable for EpollCreate1Args {
+impl Parsable for EpollCreate1Attrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
 
         let (epoll_fd, epoll_name) = match result {
@@ -53,7 +53,7 @@ impl Parsable for EpollCreate1Args {
             None => (0, "".to_string())
         };
 
-        Ok(EpollCreate1Args {
+        Ok(EpollCreate1Attrs {
             flags: args.to_string(),
             epoll_fd: epoll_fd,
             epoll_name: epoll_name,

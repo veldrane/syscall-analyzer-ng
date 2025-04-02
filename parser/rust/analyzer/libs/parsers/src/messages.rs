@@ -34,7 +34,7 @@ impl Default for MsgArgsOutput {
 // const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>.*)\,\s*\{(?P<sock_addr>.*)\}\,\s(?P<sock_len>.*)";
 
 #[derive(Debug, Deserialize, Default)]
-pub struct MessagesArgs {
+pub struct SocketMessageAttrs {
     socket_fd: i32,
     socket_name: String,
     msg_args: MsgArgsOutput,
@@ -70,11 +70,11 @@ pub struct MsgControl {
 
 
 #[typetag::serde]
-impl Parsable for MessagesArgs {
+impl Parsable for SocketMessageAttrs {
     fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
         
 
-        let mut arguments = MessagesArgs::default();
+        let mut arguments = SocketMessageAttrs::default();
 
         let caps = RE.captures(&args).unwrap();
         (arguments.socket_fd, arguments.socket_name) = split_fd_parts(&caps["socket_raw"]);
@@ -152,7 +152,7 @@ impl Parsable for MessagesArgs {
     }   
 }
 
-impl Serialize for MessagesArgs {
+impl Serialize for SocketMessageAttrs {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,

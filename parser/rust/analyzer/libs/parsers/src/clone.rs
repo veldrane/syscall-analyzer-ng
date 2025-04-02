@@ -6,7 +6,7 @@ use std::any::Any;
 use std::rc::Rc;
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct CloneArgs {
+pub struct CloneAttrs {
     stack: String,
     flags: String,
     child_tidptr: String,
@@ -14,7 +14,7 @@ pub struct CloneArgs {
 }
 
 #[typetag::serde]
-impl Parsable for CloneArgs {
+impl Parsable for CloneAttrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
 
         let parts: HashMap<String, String> = args
@@ -33,7 +33,7 @@ impl Parsable for CloneArgs {
             None => 0
         };
 
-        Ok(CloneArgs {
+        Ok(CloneAttrs {
             stack: parts["child_stack"].clone(),
             flags: parts["flags"].clone(),
             child_tidptr: parts["child_tidptr"].clone(),

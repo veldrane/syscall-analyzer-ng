@@ -58,7 +58,7 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
         let parsed_attributes = if let Some(parsers) = parsers {
             (parsers.attributes)(fields["arguments"].as_ref(), Some(fields["result"].as_ref()))
         } else {
-            default::DefaultArgs::parse(fields["arguments"].as_ref(), None)
+            default::RawAttrs::parse(fields["arguments"].as_ref(), None)
                 .map(|v| Rc::new(v) as Rc<dyn Parsable>)
         };
 

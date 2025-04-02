@@ -6,7 +6,7 @@ use std::rc::Rc;
 
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct RecvSendArgs {
+pub struct SocketTransferAttrs {
     socket_fd: i32,
     socket_name: String,
     buffer: String,
@@ -18,7 +18,7 @@ pub struct RecvSendArgs {
 
 
 #[typetag::serde]
-impl Parsable for RecvSendArgs {
+impl Parsable for SocketTransferAttrs {
     fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
 
         let parts: Vec<String> = args
@@ -35,7 +35,7 @@ impl Parsable for RecvSendArgs {
         
         let (socket_fd, socket_name ) = split_fd_parts(&parts[0]);
 
-        Ok(RecvSendArgs {
+        Ok(SocketTransferAttrs {
             socket_fd: socket_fd,
             socket_name: socket_name,
             buffer: parts[1].to_string(),

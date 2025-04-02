@@ -6,18 +6,15 @@ use std::rc::Rc;
 
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct ListenArgs {
+pub struct NetworkListenAttrs {
     socket_fd: String,
     socket_name: String,
     backlog: String,
 }
 
-#[derive(Debug, Serialize,Deserialize)]
-#[serde(transparent)]
-pub struct ListenArgsWrapper(ListenArgs);
 
 #[typetag::serde]
-impl Parsable for ListenArgs {
+impl Parsable for NetworkListenAttrs {
     fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
 
         let parts: Vec<String> = args
@@ -33,7 +30,7 @@ impl Parsable for ListenArgs {
         }
         let (socket_fd, socket_name ) = split_fd_parts(&parts[0]);
 
-        Ok(ListenArgs {
+        Ok(NetworkListenAttrs {
             socket_fd: socket_fd.to_string(),
             socket_name: socket_name,
             backlog: parts[1].to_string(),

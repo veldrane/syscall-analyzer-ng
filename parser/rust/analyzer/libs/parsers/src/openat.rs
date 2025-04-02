@@ -9,7 +9,7 @@ use trackers::fd_table::{Descs, DescType};
 
 
 #[derive(Debug,Serialize,Deserialize, Default)]
-pub struct OpenatArguments {
+pub struct OpenAtAttrs {
     dirfd: String,
     path: String,
     requested_file_name: String,
@@ -26,10 +26,10 @@ pub struct OpenatTrack {
 }
 
 #[typetag::serde]
-impl Parsable for OpenatArguments {
+impl Parsable for OpenAtAttrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
 
-        let mut openat_syscall = OpenatArguments::default();
+        let mut openat_syscall = OpenAtAttrs::default();
 
         let parts: Vec<String> = args
                                     .chars()
@@ -75,9 +75,9 @@ impl Trackable for OpenatTrack {
 
         // eprint!("Socket track: \n");
 
-        let openat_args: Rc<OpenatArguments> = attrs
+        let openat_args: Rc<OpenAtAttrs> = attrs
             .as_any()
-            .downcast::<OpenatArguments>()
+            .downcast::<OpenAtAttrs>()
             .map_err(|_| "failed downcast to SocketArgs".to_string())?;
 
 

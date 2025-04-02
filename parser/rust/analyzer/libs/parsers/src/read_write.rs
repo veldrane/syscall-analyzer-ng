@@ -7,7 +7,7 @@ use std::rc::Rc;
 use trackers::fd_table::Descs;
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct ReadWriteArgs {
+pub struct IORequestAttrs {
     fd: i32,
     file_name: String,
     buffer: String,
@@ -22,7 +22,7 @@ pub struct ReadWriteTrack {
 }
 
 #[typetag::serde]
-impl Parsable for ReadWriteArgs {
+impl Parsable for IORequestAttrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
 
         let parts: Vec<String> = args
@@ -50,7 +50,7 @@ impl Parsable for ReadWriteArgs {
             None => 0
         };
 
-        Ok(ReadWriteArgs {
+        Ok(IORequestAttrs {
             fd: fd,
             file_name: file_name,
             buffer: parts[1].to_string(),
@@ -77,9 +77,9 @@ impl Trackable for ReadWriteTrack {
 
         //eprintln!("descriptors: {:?}\n\n\n", descs);
 
-        let args: Rc<ReadWriteArgs> = attrs
+        let args: Rc<IORequestAttrs> = attrs
             .as_any()
-            .downcast::<ReadWriteArgs>()
+            .downcast::<IORequestAttrs>()
             .map_err(|_| "failed downcast to ReadWriteArgs".to_string())?;
 
 

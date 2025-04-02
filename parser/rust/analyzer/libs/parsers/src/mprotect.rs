@@ -5,7 +5,7 @@ use std::any::Any;
 use std::rc::Rc;
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct MprotectArgs {
+pub struct MprotectAttrs {
     #[serde(with = "hex_serde_u64")]
     addr: u64,
     size: i32,
@@ -13,7 +13,7 @@ pub struct MprotectArgs {
 }
 
 #[typetag::serde]
-impl Parsable for MprotectArgs {
+impl Parsable for MprotectAttrs {
     fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
         let parts: Vec<String> = args
                                     .chars()
@@ -32,7 +32,7 @@ impl Parsable for MprotectArgs {
             Err(_) => 0,
         };
 
-        Ok(MprotectArgs {
+        Ok(MprotectAttrs {
             addr: addr,
             size: parts[1].parse::<i32>().unwrap_or(0),
             protection: parts[2].to_string(),

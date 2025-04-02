@@ -4,14 +4,14 @@ use std::any::Any;
 use std::rc::Rc;
 
 #[derive(Debug,Serialize,Deserialize)]
-pub struct DefaultArgs {
+pub struct RawAttrs {
     raw: String,
 }
 
 #[typetag::serde]
-impl Parsable for DefaultArgs {
+impl Parsable for RawAttrs {
     fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
-        Ok(DefaultArgs {
+        Ok(RawAttrs {
             raw: args.to_string(),
         })
     }
