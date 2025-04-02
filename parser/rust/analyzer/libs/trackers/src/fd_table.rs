@@ -149,6 +149,16 @@ impl Descs {
         Ok(())
     }
 
+    pub fn close_range(&mut self, min_fd: i32, max_fd: i32, closed: f64) -> Result<(), FdsError> {
+        for desc_record in self.iter_mut() {
+            if desc_record.fd >= min_fd && desc_record.fd <= max_fd {
+                desc_record.closed = Some(closed);
+                desc_record.deleted = true;
+            }
+        }
+        Ok(())
+    }
+
     pub fn remove_fd(&mut self, fd: i32) -> Result<(), FdsError> {
         // Příklad: zde by mohlo dojít k odstranění nebo označení záznamu jako smazaného.
         let desc_record = self.get_fd(fd).ok_or(FdsError::FdNotFound)?;

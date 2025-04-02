@@ -122,6 +122,11 @@ pub fn init_registry() -> HashMap<String, Register> {
                 attributes: Rc::new(parser_wrapper::<close::CloseFileAttrs>),
                 trackers: Some(Box::new(tracker_wrapper::<close::FileDescriptorTracker>))   
         }),
+        ("close_range".to_string(), 
+            Register { 
+                attributes: Rc::new(parser_wrapper::<close::CloseRangeAttrs>),
+                trackers: Some(Box::new(tracker_wrapper::<close::CloseRangeTracker>))
+        }),
         ("sendmsg".to_string(), 
             Register { 
                 attributes: Rc::new(parser_wrapper::<messages::SocketMessageAttrs>),

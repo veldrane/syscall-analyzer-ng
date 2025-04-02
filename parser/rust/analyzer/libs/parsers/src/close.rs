@@ -1,6 +1,7 @@
 use helpers::helpers::split_fd_parts;
 use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
+use core::time;
 use std::any::Any;
 use std::rc::Rc;
 use trackers::fd_table::Descs;
@@ -14,10 +15,20 @@ pub struct CloseFileAttrs {
 
 
 #[derive(Debug, Serialize,Deserialize)]
+pub struct CloseRangeAttrs {
+    min_fd: i32,
+    max_fd: i32,
+    mask: i32,
+}
+
+#[derive(Debug, Serialize,Deserialize)]
 pub struct FileDescriptorTracker {
     uuid: String,
 }
 
+
+#[derive(Debug, Serialize,Deserialize)]
+pub struct CloseRangeTracker {}
 
 #[typetag::serde]
 impl Parsable for CloseFileAttrs {
@@ -75,4 +86,52 @@ impl Trackable for FileDescriptorTracker {
             uuid: uuid.to_string()
         })
     }
+}
+
+
+#[typetag::serde]
+impl Parsable for CloseRangeAttrs {
+    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
+
+        let parts: Vec<String> = args
+                                    .chars()
+                                    .filter(|&c| !r#""\"? "#.contains(c))
+                                    .collect::<String>()
+                                    .split(',')
+                                    .map(str::to_string)
+                                    .collect::<Vec<String>>();
+
+        Ok(CloseRangeAttrs {
+            min_fd: parts[0].parse::<i32>().unwrap_or(0),
+            max_fd: parts[1].parse::<i32>().unwrap_or(0),
+            mask: parts[2].parse::<i32>().unwrap_or(0),
+        })
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }  
+}
+
+#[typetag::serde]
+impl Trackable for CloseRangeTracker {
+    fn track(descs: &mut Descs, timestamp: f64, attrs: Rc<dyn Parsable>) -> Result<Self, String> {
+
+
+        let args: Rc<CloseRangeAttrs> = attrs
+            .as_any()
+            .downcast::<CloseRangeAttrs>()
+            .map_err(|_| "failed downcast to ReadWriteArgs".to_string())?;
+
+            
+        match descs.close_range(args.min_fd, args.max_fd, timestamp) {
+            Ok(_) => {}
+            Err(_) => {
+                return Err("Error closing descriptor".to_string())
+            }
+        };
+
+        Ok(CloseRangeTracker {})
+    }
+    
 }
