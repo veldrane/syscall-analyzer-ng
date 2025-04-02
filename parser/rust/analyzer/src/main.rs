@@ -3,7 +3,7 @@ use std::process::exit;
 use parsers::syscall::Syscall;
 use registry::registry::Register;
 use parsers::default;
-use trackers::descriptors::Descs;
+use trackers::fd_table::Descs;
 use wrappers::parsers::Parsable;
 use std::collections::HashMap;
 
@@ -36,7 +36,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::Error>> {
 
-    let mut descs = Descs::init_empty_process(1739965813.133382);
+    let mut descs = Descs::with_std_fds(1739965813.133382);
 
     let re = Regex::new(BASIC_SYSCALL)?;
 

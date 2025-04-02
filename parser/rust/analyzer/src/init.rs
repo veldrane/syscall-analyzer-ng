@@ -84,32 +84,32 @@ pub fn init_registry() -> HashMap<String, Register> {
         }),
         ("pread64".to_string(), 
             Register { 
-                attributes: Rc::new(parser_wrapper::<readwrite::ReadWriteArgs>),
-                trackers: Some(Box::new(tracker_wrapper::<readwrite::ReadWriteTrack>))  
+                attributes: Rc::new(parser_wrapper::<read_write::ReadWriteArgs>),
+                trackers: Some(Box::new(tracker_wrapper::<read_write::ReadWriteTrack>))  
         }),
         ("pwrite64".to_string(), 
             Register { 
-                attributes: Rc::new(parser_wrapper::<readwrite::ReadWriteArgs>),
-                trackers: Some(Box::new(tracker_wrapper::<readwrite::ReadWriteTrack>))  
+                attributes: Rc::new(parser_wrapper::<read_write::ReadWriteArgs>),
+                trackers: Some(Box::new(tracker_wrapper::<read_write::ReadWriteTrack>))  
         }),
         ("write".to_string(), 
             Register { 
-                attributes: Rc::new(parser_wrapper::<readwrite::ReadWriteArgs>),
-                trackers: Some(Box::new(tracker_wrapper::<readwrite::ReadWriteTrack>)),   
+                attributes: Rc::new(parser_wrapper::<read_write::ReadWriteArgs>),
+                trackers: Some(Box::new(tracker_wrapper::<read_write::ReadWriteTrack>)),   
         }),
         ("read".to_string(), 
             Register { 
-                attributes: Rc::new(parser_wrapper::<readwrite::ReadWriteArgs>),
-                trackers: Some(Box::new(tracker_wrapper::<readwrite::ReadWriteTrack>)),   
+                attributes: Rc::new(parser_wrapper::<read_write::ReadWriteArgs>),
+                trackers: Some(Box::new(tracker_wrapper::<read_write::ReadWriteTrack>)),   
         }),
         ("sendto".to_string(), 
             Register { 
-                attributes: Rc::new(parser_wrapper::<recvsend::RecvSendArgs>),
+                attributes: Rc::new(parser_wrapper::<recv_send::RecvSendArgs>),
                 trackers: None,   
         }),
         ("recvfrom".to_string(), 
             Register { 
-                attributes: Rc::new(parser_wrapper::<recvsend::RecvSendArgs>),
+                attributes: Rc::new(parser_wrapper::<recv_send::RecvSendArgs>),
                 trackers: None,   
         }),
         ("clone".to_string(), 

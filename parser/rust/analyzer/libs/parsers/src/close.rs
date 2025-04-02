@@ -3,7 +3,7 @@ use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
 use std::any::Any;
 use std::rc::Rc;
-use trackers::descriptors::Descs;
+use trackers::fd_table::Descs;
 use wrappers::trackers::Trackable;
 
 #[derive(Debug, Serialize,Deserialize)]
@@ -55,7 +55,7 @@ impl Trackable for CloseTrack {
         }
         
 
-        let uuid = match descs.get_by_descriptor_number(args.fd) {
+        let uuid = match descs.get_fd(args.fd) {
             Some(record) => record.uuid.clone(),
             None => {
                 return Err("No uuid found".to_string()) 

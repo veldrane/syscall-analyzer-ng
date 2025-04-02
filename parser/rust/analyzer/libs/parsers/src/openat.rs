@@ -5,7 +5,7 @@ use std::str::FromStr;
 use helpers::helpers::{split_fd_parts_to_strings, split_fd_parts, HexString};
 use std::any::Any;
 use std::rc::Rc;
-use trackers::descriptors::{Descs, DescType};
+use trackers::fd_table::{Descs, DescType};
 
 
 #[derive(Debug,Serialize,Deserialize, Default)]

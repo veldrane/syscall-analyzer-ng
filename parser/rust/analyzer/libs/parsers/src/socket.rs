@@ -1,7 +1,7 @@
 use serde::{Serialize,Deserialize};
 use wrappers::parsers::Parsable;
 use wrappers::trackers::Trackable;
-use trackers::descriptors::{Descs, DescType};
+use trackers::fd_table::{Descs, DescType};
 use helpers::helpers::split_fd_parts;
 use core::time;
 use std::any::Any;

@@ -1,5 +1,5 @@
 use std::fmt::Debug;
-use trackers::descriptors::Descs;
+use trackers::fd_table::Descs;
 use std::rc::Rc;
 
 use crate::parsers::Parsable;
