@@ -9,7 +9,7 @@ use std::rc::Rc;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct SocketArgs {
+pub struct NetworkSocketAttrs {
     domain: String,
     socket_type: String,
     protocol: String,
@@ -18,23 +18,23 @@ pub struct SocketArgs {
 }
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct SocketTrack {
+pub struct NetworkSocketTracker {
     uuid: String,
 }
 
 
 // First template for tracking syscalls, maybe will be rewriten to rc<dyn trait>
 #[typetag::serde]
-impl Trackable for SocketTrack {
+impl Trackable for NetworkSocketTracker {
     fn track(descs: &mut Descs, timestamp: f64, attrs: Rc<dyn Parsable>) -> Result<Self, String> {
 
         // Pokusíme se downcastnout na Box<SocketArgs>
 
         // eprint!("Socket track: \n");
 
-        let socket_args: Rc<SocketArgs> = attrs
+        let socket_args: Rc<NetworkSocketAttrs> = attrs
             .as_any()
-            .downcast::<SocketArgs>()
+            .downcast::<NetworkSocketAttrs>()
             .map_err(|_| "failed downcast to SocketArgs".to_string())?;
 
 
@@ -58,14 +58,14 @@ impl Trackable for SocketTrack {
 
         // eprintln!("Socket track uuid: {}", uuid);
         
-        Ok(SocketTrack {
+        Ok(NetworkSocketTracker {
             uuid: uuid
         })
     }
 }
 
 #[typetag::serde]
-impl Parsable for SocketArgs {
+impl Parsable for NetworkSocketAttrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
         
         let parts: Vec<String> = args
@@ -84,7 +84,7 @@ impl Parsable for SocketArgs {
             None => (0, "".to_string())
         };
 
-        Ok(SocketArgs {
+        Ok(NetworkSocketAttrs {
             socket_fd: socket_fd,
             socket_name: socket_name,
             domain: parts[0].to_string(),

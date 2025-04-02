@@ -17,7 +17,7 @@ pub struct IORequestAttrs {
 }
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct ReadWriteTrack {
+pub struct IORequestTracker {
     uuid: String,
 }
 
@@ -68,7 +68,7 @@ impl Parsable for IORequestAttrs {
 }
 
 #[typetag::serde]
-impl Trackable for ReadWriteTrack {
+impl Trackable for IORequestTracker {
     fn track(descs: &mut Descs, timestamp: f64, attrs: Rc<dyn Parsable>) -> Result<Self, String> {
 
         // Pokusíme se downcastnout na Box<SocketArgs>
@@ -97,7 +97,7 @@ impl Trackable for ReadWriteTrack {
 
         // eprintln!("Socket track uuid: {}", uuid);
         
-        Ok(ReadWriteTrack {
+        Ok(IORequestTracker {
             uuid: uuid.to_string()
         })
     }

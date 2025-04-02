@@ -14,7 +14,7 @@ pub struct CloseFileAttrs {
 
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct CloseTrack {
+pub struct FileDescriptorTracker {
     uuid: String,
 }
 
@@ -37,7 +37,7 @@ impl Parsable for CloseFileAttrs {
 }
 
 #[typetag::serde]
-impl Trackable for CloseTrack {
+impl Trackable for FileDescriptorTracker {
     fn track(descs: &mut Descs, timestamp: f64, attrs: Rc<dyn Parsable>) -> Result<Self, String> {
 
         // Pokusíme se downcastnout na Box<SocketArgs>
@@ -71,7 +71,7 @@ impl Trackable for CloseTrack {
 
         // eprintln!("Socket track uuid: {}", uuid);
         
-        Ok(CloseTrack {
+        Ok(FileDescriptorTracker {
             uuid: uuid.to_string()
         })
     }

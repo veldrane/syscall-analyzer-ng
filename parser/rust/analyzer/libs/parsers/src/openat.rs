@@ -21,7 +21,7 @@ pub struct OpenAtAttrs {
 
 
 #[derive(Debug,Serialize,Deserialize, Default)]
-pub struct OpenatTrack {
+pub struct FileDescriptorTracker {
     uuid: String,
 }
 
@@ -68,7 +68,7 @@ impl Parsable for OpenAtAttrs {
 }
 
 #[typetag::serde]
-impl Trackable for OpenatTrack {
+impl Trackable for FileDescriptorTracker {
     fn track(descs: &mut Descs, timestamp: f64, attrs: Rc<dyn Parsable>) -> Result<Self, String> {
 
         // Pokusíme se downcastnout na Box<SocketArgs>
@@ -86,11 +86,14 @@ impl Trackable for OpenatTrack {
         }
         
 
+        let desc_type: DescType = DescType::from_str(&openat_args.file_name)
+            .map_err(|_| "failed to parse descriptor type".to_string())?;
+
         let uuid = match descs.add(
             timestamp,
             openat_args.fd,
             openat_args.file_name.clone(),
-            DescType::File,
+            desc_type,
         ) {
             Ok(uuid) => uuid,
             Err(_) => {
@@ -101,7 +104,7 @@ impl Trackable for OpenatTrack {
 
         // eprintln!("Socket track uuid: {}", uuid);
         
-        Ok(OpenatTrack {
+        Ok(FileDescriptorTracker {
             uuid: uuid
         })
     }

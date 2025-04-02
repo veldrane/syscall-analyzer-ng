@@ -1,13 +1,42 @@
 use std::ops::DerefMut;
 use uuid::Uuid;
 use std::ops::Deref;
+use std::str::FromStr;
 
 #[derive(Debug, Clone)]
 pub enum DescType {
     File,
     Socket,
     Epoll,
-    Unknown,
+    Time,
+    Event,
+    Pipe,
+}
+
+impl FromStr for DescType {
+
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+
+        match s {
+            s if s.contains("socket:") => {
+                Ok(DescType::Socket)
+            },
+            s if s.contains("anon_inode:[timerfd]") => {
+                Ok(DescType::Time)
+            },
+            s if s.contains("anon_inode:[eventfd]") => {
+                Ok(DescType::Event)
+            },
+            s if s.contains("anon_inode:[epoll]") => {
+                Ok(DescType::Epoll)
+            },
+            _ => {
+                Ok(DescType::File)
+            }
+        }
+    }
 }
 
 pub enum StdFd {

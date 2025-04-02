@@ -30,7 +30,7 @@ pub fn init_registry() -> HashMap<String, Register> {
         ("openat".to_string(), 
             Register { 
                 attributes: Rc::new(parser_wrapper::<openat::OpenAtAttrs>),
-                trackers: Some(Box::new(tracker_wrapper::<openat::OpenatTrack>))
+                trackers: Some(Box::new(tracker_wrapper::<openat::FileDescriptorTracker>))
         }),
         ("dup2".to_string(), 
             Register { 
@@ -39,17 +39,17 @@ pub fn init_registry() -> HashMap<String, Register> {
         }),
         ("socket".to_string(), 
             Register { 
-                attributes: Rc::new(parser_wrapper::<socket::SocketArgs>),
-                trackers: Some(Box::new(tracker_wrapper::<socket::SocketTrack>))
+                attributes: Rc::new(parser_wrapper::<socket::NetworkSocketAttrs>),
+                trackers: Some(Box::new(tracker_wrapper::<socket::NetworkSocketTracker>))
         }),
         ("setsockopt".to_string(), 
             Register { 
-                attributes: Rc::new(parser_wrapper::<socket::SocketArgs>),
+                attributes: Rc::new(parser_wrapper::<socket::NetworkSocketAttrs>),
                 trackers: None,
         }),
         ("getsockopt".to_string(), 
             Register { 
-                attributes: Rc::new(parser_wrapper::<socket::SocketArgs>),
+                attributes: Rc::new(parser_wrapper::<socket::NetworkSocketAttrs>),
                 trackers: None,
         }),
         ("accept".to_string(), 
@@ -85,22 +85,22 @@ pub fn init_registry() -> HashMap<String, Register> {
         ("pread64".to_string(), 
             Register { 
                 attributes: Rc::new(parser_wrapper::<read_write::IORequestAttrs>),
-                trackers: Some(Box::new(tracker_wrapper::<read_write::ReadWriteTrack>))  
+                trackers: Some(Box::new(tracker_wrapper::<read_write::IORequestTracker>))  
         }),
         ("pwrite64".to_string(), 
             Register { 
                 attributes: Rc::new(parser_wrapper::<read_write::IORequestAttrs>),
-                trackers: Some(Box::new(tracker_wrapper::<read_write::ReadWriteTrack>))  
+                trackers: Some(Box::new(tracker_wrapper::<read_write::IORequestTracker>))  
         }),
         ("write".to_string(), 
             Register { 
                 attributes: Rc::new(parser_wrapper::<read_write::IORequestAttrs>),
-                trackers: Some(Box::new(tracker_wrapper::<read_write::ReadWriteTrack>)),   
+                trackers: Some(Box::new(tracker_wrapper::<read_write::IORequestTracker>)),   
         }),
         ("read".to_string(), 
             Register { 
                 attributes: Rc::new(parser_wrapper::<read_write::IORequestAttrs>),
-                trackers: Some(Box::new(tracker_wrapper::<read_write::ReadWriteTrack>)),   
+                trackers: Some(Box::new(tracker_wrapper::<read_write::IORequestTracker>)),   
         }),
         ("sendto".to_string(), 
             Register { 
@@ -120,7 +120,7 @@ pub fn init_registry() -> HashMap<String, Register> {
         ("close".to_string(), 
             Register { 
                 attributes: Rc::new(parser_wrapper::<close::CloseFileAttrs>),
-                trackers: Some(Box::new(tracker_wrapper::<close::CloseTrack>))   
+                trackers: Some(Box::new(tracker_wrapper::<close::FileDescriptorTracker>))   
         }),
         ("sendmsg".to_string(), 
             Register { 
