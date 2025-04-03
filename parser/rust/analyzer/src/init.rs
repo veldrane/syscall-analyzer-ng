@@ -309,5 +309,81 @@ pub fn build_registry() -> HashMap<String, RegistryEntry> {
             attributes: Rc::new(as_dyn_parser::<waitid::WaitidAttrs>),
             trackers: None,
         }),
+        ("arch_prctl".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<arch_prctl::ArchPrctlAttrs>),
+            trackers: None,
+        }),
+        ("brk".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<brk::BrkAttrs>),
+            trackers: None,
+        }),
+        ("chdir".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<chdir::ChdirAttrs>),
+            trackers: None,
+        }),
+        ("fstat".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<fstat::FstatAttrs>),
+            trackers: None,
+        }),
+        ("fstatfs".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<fstatfs::FstatfsAttrs>),
+            trackers: None,
+        }),
+        ("getdents64".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<getdents64::Getdents64Attrs>),
+            trackers: None,
+        }),
+        ("getrandom".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<getrandom::GetrandomAttrs>),
+            trackers: None,
+        }),
+        ("getsockname".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<getsockname::GetsocknameAttrs>),
+            trackers: None,
+        }),
+        ("lseek".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<lseek::LseekAttrs>),
+            trackers: None,
+        }),
+        ("newfstatat".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<newfstatat::NewfstatatAttrs>),
+            trackers: None,
+        }),
+        ("pipe2".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<pipe2::Pipe2Attrs>),
+            trackers: None,
+        }),
+        ("prlimit64".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<prlimit64::Prlimit64Attrs>),
+            trackers: None,
+        }),
+        ("rseq".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<rseq::RseqAttrs>),
+            trackers: None,
+        }),
+        ("rt_sigprocmask".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<rt_sigprocmask::RtSigprocmaskAttrs>),
+            trackers: None,
+        }),
+        ("setgroups".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<setgroups::SetgroupsAttrs>),
+            trackers: None,
+        }),
+        ("set_robust_list".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<set_robust_list::SetRobustListAttrs>),
+            trackers: None,
+        }),
+        ("set_tid_address".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<set_tid_address::SetTidAddressAttrs>),
+            trackers: None,
+        }),
+        ("statfs".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<statfs::StatfsAttrs>),
+            trackers: None,
+        }),
+        ("umask".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<umask::UmaskAttrs>),
+            trackers: None,
+        }),
     ]);
 }
