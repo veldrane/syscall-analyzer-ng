@@ -217,5 +217,97 @@ pub fn build_registry() -> HashMap<String, RegistryEntry> {
             attributes: Rc::new(as_dyn_parser::<futex::FutexAttrs>),
             trackers: None,
         }),
+        ("futex_wait".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<futex_wait::FutexWaitAttrs>),
+            trackers: None,
+        }),
+        ("futex_requeue".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<futex_requeue::FutexRequeueAttrs>),
+            trackers: None,
+        }),
+        ("futex_wake".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<futex_wake::FutexWakeAttrs>),
+            trackers: None,
+        }),
+        ("getpeername".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<getpeername::GetpeernameAttrs>),
+            trackers: None,
+        }),
+        ("getrlimit".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<getrlimit::GetrlimitAttrs>),
+            trackers: None,
+        }),
+        ("inotify_init".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<inotify_init::InotifyInitAttrs>),
+            trackers: None,
+        }),
+        ("ioctl".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<ioctl::IoctlAttrs>),
+            trackers: None,
+        }),
+        ("madvise".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<madvise::MadviseAttrs>),
+            trackers: None,
+        }),
+        ("membarrier".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<membarrier::MembarrierAttrs>),
+            trackers: None,
+        }),
+        ("memfd_create".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<memfd_create::MemfdCreateAttrs>),
+            trackers: None,
+        }),
+        ("memfd_secret".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<memfd_secret::MemfdSecretAttrs>),
+            trackers: None,
+        }),
+        ("mlock2".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<mlock2::Mlock2Attrs>),
+            trackers: None,
+        }),
+        ("poll".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<poll::PollAttrs>),
+            trackers: None,
+        }),
+        ("ppoll".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<ppoll::PpollAttrs>),
+            trackers: None,
+        }),
+        ("prctl".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<prctl::PrctlAttrs>),
+            trackers: None,
+        }),
+        ("process_madvise".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<process_madvise::ProcessMadviseAttrs>),
+            trackers: None,
+        }),
+        ("rt_sigaction".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<rt_sigaction::RtSigactionAttrs>),
+            trackers: None,
+        }),
+        ("seccomp".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<seccomp::SeccompAttrs>),
+            trackers: None,
+        }),
+        ("semctl".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<semctl::SemctlAttrs>),
+            trackers: None,
+        }),
+        ("setns".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<setns::SetnsAttrs>),
+            trackers: None,
+        }),
+        ("sysinfo".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<sysinfo::SysinfoAttrs>),
+            trackers: None,
+        }),
+        ("timerfd_create".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<timerfd_create::TimerfdCreateAttrs>),
+            trackers: None,
+        }),
+        ("waitid".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<waitid::WaitidAttrs>),
+            trackers: None,
+        }),
     ]);
 }
