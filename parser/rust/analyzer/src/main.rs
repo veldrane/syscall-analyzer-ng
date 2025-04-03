@@ -5,6 +5,7 @@ use registry::registry::Register;
 use parsers::default;
 use trackers::fd_table::Descs;
 use wrappers::parsers::Parsable;
+use wrappers::trackers::Trackable;
 use std::collections::HashMap;
 
 use modules::init;
@@ -37,52 +38,31 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::Error>> {
 
-    let mut descs = Descs::with_std_fds(1739965813.133382);
-
     let re = Regex::new(BASIC_SYSCALL)?;
-
+    let mut descs = Descs::with_std_fds(1739965813.133382);
     let mut id = 0;
+
     for line in read_to_string(STRACE_OUTPUT)?.lines() {
 
         id += 1;
-        let fields = match re.captures(line) {
-            Some(captures) => captures,
-            None => {
-                eprintln!("Řádek neodpovídá formátu: {}", line);
-                continue;
-            },
-        };
+        let fields = get_fields(line, &re).ok_or("Error parsing line")?;
 
-        let parsers = registry.get(&fields["syscall"]);
-        let timestamp = fields["timestamp"].parse::<f64>().unwrap();
+        let timestamp = fields["timestamp"].parse::<f64>()?;
+        let syscall: &str = fields["syscall"].as_ref();
+        let args = fields["arguments"].as_ref();
+        let result = Some(fields["result"].as_ref());
 
-        let parsed_attributes = if let Some(parsers) = parsers {
-            (parsers.attributes)(fields["arguments"].as_ref(), Some(fields["result"].as_ref()))
-        } else {
-            default::RawAttrs::parse(fields["arguments"].as_ref(), None)
-                .map(|v| Rc::new(v) as Rc<dyn Parsable>)
-        };
-
-
-        let attributes = match parsed_attributes {
-            Ok(parsed_args) => parsed_args,
+        let parsers = registry.get(syscall);
+    
+        let attributes = match do_parse(parsers, args, result) {
+            Ok(parsed_attributes) => parsed_attributes,
             Err(e) => {
-                eprintln!("Chyba při parsování syscallu {}: {}\n line: {}", &fields["syscall"], e, line);
+                eprintln!("Error parsing syscall attributes: {} with error: {}", &line, e);
                 continue;
             },
         };
-        
+        let trackers = do_track(parsers, &mut descs, timestamp, Rc::clone(&attributes));
 
-        // let rc_attributes: Rc<Box<dyn Parsable>> = Rc::from(attributes);
-
-        let trackers = if let Some(parsers) = parsers {
-            match &parsers.trackers {
-                Some(trackers) => trackers(&mut descs, timestamp, Rc::clone(&attributes)),
-                None => Err("No trackers".to_string()),
-            }
-        } else {
-            Err("()".to_string())
-        }.ok();
 
         let syscall = Syscall {
             id: &id,
@@ -99,4 +79,45 @@ fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::E
 
     exit(0);
 
+}
+
+
+fn get_fields<'a, 're>(line: &'a str, re: &'re Regex) -> Option<regex::Captures<'a>> {
+    match re.captures(line) {
+        Some(captures) => Some(captures),
+        None => None,
+    }
+}
+
+fn do_parse(parsers: Option<&Register>, args: &str, result: Option<&str>) -> Result<Rc<dyn Parsable>, String> {
+
+    let parsed_attributes = if let Some(parsers) = parsers {
+        (parsers.attributes)(args, result)
+    } else {
+        default::RawAttrs::parse(args, None)
+            .map(|v| Rc::new(v) as Rc<dyn Parsable>)
+    };
+
+
+    let attributes = match parsed_attributes {
+        Ok(parsed_args) => parsed_args,
+        Err(e) => {
+            eprintln!("Chyba při parsování syscallu");
+            return Err(e);
+        },
+    };
+
+    Ok(attributes)
+}
+
+fn do_track(parsers: Option<&Register>, descs: &mut Descs, timestamp: f64, attributes: Rc<dyn Parsable>) -> Option<Box<dyn Trackable>> {
+
+    if let Some(parsers) = parsers {
+        match &parsers.trackers {
+            Some(trackers) => trackers(descs, timestamp, attributes),
+            None => Err("No trackers".to_string()),
+        }
+    } else {
+        Err("()".to_string())
+    }.ok()
 }
