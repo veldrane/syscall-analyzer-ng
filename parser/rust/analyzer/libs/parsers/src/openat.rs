@@ -1,11 +1,15 @@
 use serde::{Deserialize, Serialize};
 use wrappers::parsers::Parsable;
+use wrappers::trackers::Trackable;
 use std::str::FromStr;
 use helpers::helpers::{split_fd_parts_to_strings, split_fd_parts, HexString};
+use std::any::Any;
+use std::rc::Rc;
+use trackers::fd_table::{Descs, DescType};
 
 
 #[derive(Debug,Serialize,Deserialize, Default)]
-pub struct OpenatArguments {
+pub struct OpenAtAttrs {
     dirfd: String,
     path: String,
     requested_file_name: String,
@@ -16,11 +20,16 @@ pub struct OpenatArguments {
 }
 
 
+#[derive(Debug,Serialize,Deserialize, Default)]
+pub struct FileDescriptorTracker {
+    uuid: String,
+}
+
 #[typetag::serde]
-impl Parsable for OpenatArguments {
+impl Parsable for OpenAtAttrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
 
-        let mut openat_syscall = OpenatArguments::default();
+        let mut openat_syscall = OpenAtAttrs::default();
 
         let parts: Vec<String> = args
                                     .chars()
@@ -50,5 +59,53 @@ impl Parsable for OpenatArguments {
         };
 
         Ok(openat_syscall)
+    }
+    
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }
+
+}
+
+#[typetag::serde]
+impl Trackable for FileDescriptorTracker {
+    fn track(descs: &mut Descs, timestamp: f64, attrs: Rc<dyn Parsable>) -> Result<Self, String> {
+
+        // Pokusíme se downcastnout na Box<SocketArgs>
+
+        // eprint!("Socket track: \n");
+
+        let openat_args: Rc<OpenAtAttrs> = attrs
+            .as_any()
+            .downcast::<OpenAtAttrs>()
+            .map_err(|_| "failed downcast to SocketArgs".to_string())?;
+
+
+        if openat_args.fd == -1 {
+            return Err("Socket fd is 0".to_string());
+        }
+        
+
+        let desc_type: DescType = DescType::from_str(&openat_args.file_name)
+            .map_err(|_| "failed to parse descriptor type".to_string())?;
+
+        let uuid = match descs.add(
+            timestamp,
+            openat_args.fd,
+            openat_args.file_name.clone(),
+            desc_type,
+        ) {
+            Ok(uuid) => uuid,
+            Err(_) => {
+            //    eprintln!("Error adding socket descriptor");
+                return Err("No uuid found".to_string()) 
+            }
+        };
+
+        // eprintln!("Socket track uuid: {}", uuid);
+        
+        Ok(FileDescriptorTracker {
+            uuid: uuid
+        })
     }
 }

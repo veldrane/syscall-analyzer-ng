@@ -3,9 +3,11 @@ use helpers::helpers::split_fd_parts;
 use helpers::converts::hex_serde_u64;
 use helpers::converts::hex_serde_u16;
 use wrappers::parsers::Parsable;
+use std::any::Any;
+use std::rc::Rc;
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct MmapArgs {
+pub struct MmapAttrs {
     #[serde(with = "hex_serde_u64")]
     requested_addr: u64,
     size: i32,
@@ -21,7 +23,7 @@ pub struct MmapArgs {
 
 
 #[typetag::serde]
-impl Parsable for MmapArgs {
+impl Parsable for MmapAttrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String>{
 
         let mut file_name = "".to_string();
@@ -57,7 +59,7 @@ impl Parsable for MmapArgs {
             0
         };
 
-        Ok(MmapArgs {
+        Ok(MmapAttrs {
             requested_addr: u64::from_str_radix(&parts[0][2..], 16).unwrap_or(0),
             size: parts[1].parse::<i32>().unwrap_or(0),
             protection: parts[2].to_string(),
@@ -67,6 +69,10 @@ impl Parsable for MmapArgs {
             offset: offset,
             addr: addr,
         })
+    }
+    
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
     }
 }
 

@@ -2,10 +2,11 @@ use std::collections::HashMap;
 //use registry::registry::Parsable;
 use serde::{Deserialize, Serialize};
 use wrappers::parsers::Parsable;
-
+use std::any::Any;
+use std::rc::Rc;
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct CloneArgs {
+pub struct CloneAttrs {
     stack: String,
     flags: String,
     child_tidptr: String,
@@ -13,7 +14,7 @@ pub struct CloneArgs {
 }
 
 #[typetag::serde]
-impl Parsable for CloneArgs {
+impl Parsable for CloneAttrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
 
         let parts: HashMap<String, String> = args
@@ -32,11 +33,15 @@ impl Parsable for CloneArgs {
             None => 0
         };
 
-        Ok(CloneArgs {
+        Ok(CloneAttrs {
             stack: parts["child_stack"].clone(),
             flags: parts["flags"].clone(),
             child_tidptr: parts["child_tidptr"].clone(),
             cloned_pid: cloned_pid,
         })
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
     }   
 }

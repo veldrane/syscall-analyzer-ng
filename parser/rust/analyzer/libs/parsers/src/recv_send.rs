@@ -1,10 +1,12 @@
 use helpers::helpers::split_fd_parts;
 use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
+use std::any::Any;
+use std::rc::Rc;
 
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct RecvSendArgs {
+pub struct SocketTransferAttrs {
     socket_fd: i32,
     socket_name: String,
     buffer: String,
@@ -16,7 +18,7 @@ pub struct RecvSendArgs {
 
 
 #[typetag::serde]
-impl Parsable for RecvSendArgs {
+impl Parsable for SocketTransferAttrs {
     fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
 
         let parts: Vec<String> = args
@@ -33,14 +35,20 @@ impl Parsable for RecvSendArgs {
         
         let (socket_fd, socket_name ) = split_fd_parts(&parts[0]);
 
-        Ok(RecvSendArgs {
+        let size = parts[2].parse::<i32>().map_err(|e| e.to_string())?;
+
+        Ok(SocketTransferAttrs {
             socket_fd: socket_fd,
             socket_name: socket_name,
             buffer: parts[1].to_string(),
-            size:parts[2].parse::<i32>().unwrap(),
+            size:size,
             flags: parts[3].to_string(),
             socket_addr: parts[4].to_string(),
             socket_len: parts[5].parse::<i32>().unwrap_or(0)
         })
     }   
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }
 }

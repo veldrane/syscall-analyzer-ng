@@ -1,10 +1,13 @@
 use helpers::helpers::split_fd_parts;
 use wrappers::parsers::Parsable;
+use wrappers::trackers::Trackable;
 use serde::{Deserialize, Serialize};
-
+use std::any::Any;
+use std::rc::Rc;
+use trackers::fd_table::Descs;
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct ReadWriteArgs {
+pub struct IORequestAttrs {
     fd: i32,
     file_name: String,
     buffer: String,
@@ -13,8 +16,13 @@ pub struct ReadWriteArgs {
     size: i32,
 }
 
+#[derive(Debug, Serialize,Deserialize)]
+pub struct IORequestTracker {
+    uuid: String,
+}
+
 #[typetag::serde]
-impl Parsable for ReadWriteArgs {
+impl Parsable for IORequestAttrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
 
         let parts: Vec<String> = args
@@ -42,7 +50,7 @@ impl Parsable for ReadWriteArgs {
             None => 0
         };
 
-        Ok(ReadWriteArgs {
+        Ok(IORequestAttrs {
             fd: fd,
             file_name: file_name,
             buffer: parts[1].to_string(),
@@ -51,4 +59,46 @@ impl Parsable for ReadWriteArgs {
             size: size,
         })
     }   
+
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }
+
+}
+
+#[typetag::serde]
+impl Trackable for IORequestTracker {
+    fn track(descs: &mut Descs, timestamp: f64, attrs: Rc<dyn Parsable>) -> Result<Self, String> {
+
+        // Pokusíme se downcastnout na Box<SocketArgs>
+
+        // eprint!("Socket track: \n");
+
+        //eprintln!("descriptors: {:?}\n\n\n", descs);
+
+        let args: Rc<IORequestAttrs> = attrs
+            .as_any()
+            .downcast::<IORequestAttrs>()
+            .map_err(|_| "failed downcast to ReadWriteArgs".to_string())?;
+
+
+        if args.fd == -1 {
+            return Err("Socket fd is 0".to_string());
+        }
+        
+
+        let uuid = match descs.get_fd(args.fd) {
+            Some(record) => &record.uuid,
+            None => {
+                return Err("No uuid found".to_string()) 
+            }
+        };
+
+        // eprintln!("Socket track uuid: {}", uuid);
+        
+        Ok(IORequestTracker {
+            uuid: uuid.to_string()
+        })
+    }
 }

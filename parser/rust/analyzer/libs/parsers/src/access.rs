@@ -2,17 +2,18 @@ use helpers::helpers::HexString;
 use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
-
+use std::any::Any;
+use std::rc::Rc;
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct AccessArgs {
+pub struct FileAccessAttrs {
     file_name: String,
     mode: String,
 }
 
 #[typetag::serde]
-impl Parsable for AccessArgs {
-    fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
+impl Parsable for FileAccessAttrs {
+    fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
         let parts: Vec<String> = args
                                     .chars()
                                     .filter(|&c| !r#""\"? "#.contains(c))
@@ -27,9 +28,14 @@ impl Parsable for AccessArgs {
         
         let file_name  = HexString::from_str(&parts[0]).unwrap().to_string();
 
-        Ok(AccessArgs {
+        Ok(FileAccessAttrs {
             file_name: file_name,
             mode: parts[1].to_string(),
         })
-    }   
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }
+    
 }

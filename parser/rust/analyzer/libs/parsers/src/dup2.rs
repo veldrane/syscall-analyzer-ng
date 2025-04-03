@@ -1,10 +1,12 @@
 use helpers::helpers::split_fd_parts;
 use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
+use std::any::Any;
+use std::rc::Rc;
 
 
 #[derive(Debug, Serialize,Deserialize)]
-pub struct Dup2Args {
+pub struct DuplicationAttrs {
     old_fd: i32,
     old_file_name: String,
     requested_fd: i32,
@@ -21,7 +23,7 @@ pub struct Dup2Results {
 
 
 #[typetag::serde]
-impl Parsable for Dup2Args {
+impl Parsable for DuplicationAttrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
 
         let parts: Vec<String> = args
@@ -56,7 +58,7 @@ impl Parsable for Dup2Args {
 
 
 
-        Ok(Dup2Args {
+        Ok(DuplicationAttrs {
             old_fd: old_fd,
             old_file_name: old_file_name,
             requested_fd: requested_fd,
@@ -64,5 +66,9 @@ impl Parsable for Dup2Args {
             fd: fd,
             file_name: file_name,
         })
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
     }   
 }

@@ -3,7 +3,8 @@ use wrappers::parsers::Parsable;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use once_cell::sync::Lazy;
-
+use std::any::Any;
+use std::rc::Rc;
 
 //const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>\w+)\,\s\{(?P<socket_addr>\w+)\}\,\s(?P<socket_len>.*)\)";
 const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>.*)\,\s*\{(?P<socket_addr>.*)\}\,\s(?P<socket_len>.*)";
@@ -14,7 +15,7 @@ const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>.*)\,\s*\{(?P<socket_addr>.*)
 static RE: Lazy<Regex> = Lazy::new(|| Regex::new(ACCEPT_SYSCALL_ARGS).unwrap());
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct NetworkArgs {
+pub struct NetworkSocketAttrs {
     socket_fd: i32,
     socket_name: String,
     socket_addr: String,
@@ -23,7 +24,7 @@ pub struct NetworkArgs {
 
 // socket addr must be described in more depth, not much knowledge about this parameter
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Accept4Args {
+pub struct Accept4Attrs {
     parrent_socket_fd: i32,
     parrent_socket_name: String,
     socket_addr: String,
@@ -33,7 +34,7 @@ pub struct Accept4Args {
 }
 
 #[typetag::serde]
-impl Parsable for NetworkArgs {
+impl Parsable for NetworkSocketAttrs {
     fn parse(args: &str,_ : Option<&str>) -> Result<Self, String> {
         
 
@@ -45,18 +46,23 @@ impl Parsable for NetworkArgs {
         //if parts.len() != 4 {
         //    return Err("Invalid number of arguments".into());
         //}
-        Ok(NetworkArgs {
+        Ok(NetworkSocketAttrs {
             socket_fd: socket_fd,
             socket_name: socket_name.to_string(),
             socket_addr: caps["socket_addr"].to_string(),
             socket_len: caps["socket_len"].parse::<i32>().unwrap_or(0),
         })
     }   
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }
+
 }
 
 
 #[typetag::serde]
-impl Parsable for Accept4Args {
+impl Parsable for Accept4Attrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
         
 
@@ -71,7 +77,7 @@ impl Parsable for Accept4Args {
         };
 
 
-        Ok(Accept4Args {
+        Ok(Accept4Attrs {
             parrent_socket_fd: parrent_socket_fd,
             parrent_socket_name: parrent_socket_name.to_string(),
             socket_addr: caps["socket_addr"].to_string(),
@@ -79,6 +85,10 @@ impl Parsable for Accept4Args {
             socket_fd: socket_fd,
             socket_name: socket_name,
         })
-    }   
+    }
+
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
+    }
 }
 

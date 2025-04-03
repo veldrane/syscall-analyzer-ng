@@ -7,6 +7,8 @@ use serde::{Deserialize, Serialize, Serializer};
 use serde_json::value::Value;
 use indexmap::IndexMap;
 use once_cell::sync::Lazy;
+use std::any::Any;
+use std::rc::Rc;
 
 const SENDMSG_SYSCALL_ARGS: &str = r"(?P<socket_raw>.+)\,\s\{(?P<msg_args>.*)\}\,\s(?P<flags>.+)";
 const MSG_ARGS: &str = r"msg_name\=(?P<msg_name>.+)\,\smsg_namelen\=(?P<msg_namelen>.+)\,\smsg_iov\=\[\{(?P<msg_iov>.*)\}\]\,\smsg_iovlen\=(?P<msg_iovlen>.*)\,\smsg_control\=\[\{(?P<msg_control>.*)\}\]\,\smsg_controllen\=(?P<msg_controllen>.*)\,\smsg_flags\=(?P<msg_flags>.*)";
@@ -32,7 +34,7 @@ impl Default for MsgArgsOutput {
 // const ACCEPT_SYSCALL_ARGS: &str = r"(?P<socket_raw>.*)\,\s*\{(?P<sock_addr>.*)\}\,\s(?P<sock_len>.*)";
 
 #[derive(Debug, Deserialize, Default)]
-pub struct MessagesArgs {
+pub struct SocketMessageAttrs {
     socket_fd: i32,
     socket_name: String,
     msg_args: MsgArgsOutput,
@@ -68,11 +70,11 @@ pub struct MsgControl {
 
 
 #[typetag::serde]
-impl Parsable for MessagesArgs {
+impl Parsable for SocketMessageAttrs {
     fn parse(args: &str, _: Option<&str>) -> Result<Self, String> {
         
 
-        let mut arguments = MessagesArgs::default();
+        let mut arguments = SocketMessageAttrs::default();
 
         let caps = RE.captures(&args).unwrap();
         (arguments.socket_fd, arguments.socket_name) = split_fd_parts(&caps["socket_raw"]);
@@ -144,10 +146,13 @@ impl Parsable for MessagesArgs {
         });
 
         Ok(arguments)
+    }
+    fn as_any(self: Rc<Self>) -> Rc<dyn Any> {
+        self
     }   
 }
 
-impl Serialize for MessagesArgs {
+impl Serialize for SocketMessageAttrs {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
