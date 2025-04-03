@@ -3,15 +3,15 @@ use wrappers::parsers::ParserFn;
 use wrappers::trackers::TrackerFn;
 
 
-pub struct  Register {
+pub struct  RegistryEntry {
     pub attributes: ParserFn,
     pub trackers: Option<TrackerFn>,
 }
 
 
-impl Deref for Register {
+impl Deref for RegistryEntry {
 
-    type Target = Register;
+    type Target = RegistryEntry;
 
     fn deref(&self) -> &Self::Target {
         &self

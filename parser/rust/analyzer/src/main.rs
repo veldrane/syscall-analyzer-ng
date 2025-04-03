@@ -1,7 +1,7 @@
 use std::fs::read_to_string;
 use std::process::exit;
 use parsers::syscall::Syscall;
-use registry::registry::Register;
+use registry::registry::RegistryEntry;
 use parsers::default;
 use trackers::fd_table::Descs;
 use wrappers::parsers::Parsable;
@@ -29,14 +29,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     //let registry = Register::new();
 
-    let registry = init::init_registry();
+    let registry = init::build_registry();
 
     run(&registry)?;
     Ok(())
 }
 
 
-fn run(registry: &HashMap<String, Register>) -> Result<(), Box<dyn std::error::Error>> {
+fn run(registry: &HashMap<String, RegistryEntry>) -> Result<(), Box<dyn std::error::Error>> {
 
     let re = Regex::new(BASIC_SYSCALL)?;
     let mut descs = Descs::with_std_fds(1739965813.133382);
@@ -89,7 +89,7 @@ fn get_fields<'a, 're>(line: &'a str, re: &'re Regex) -> Option<regex::Captures<
     }
 }
 
-fn do_parse(parsers: Option<&Register>, args: &str, result: Option<&str>) -> Result<Rc<dyn Parsable>, String> {
+fn do_parse(parsers: Option<&RegistryEntry>, args: &str, result: Option<&str>) -> Result<Rc<dyn Parsable>, String> {
 
     let parsed_attributes = if let Some(parsers) = parsers {
         (parsers.attributes)(args, result)
@@ -110,7 +110,7 @@ fn do_parse(parsers: Option<&Register>, args: &str, result: Option<&str>) -> Res
     Ok(attributes)
 }
 
-fn do_track(parsers: Option<&Register>, descs: &mut Descs, timestamp: f64, attributes: Rc<dyn Parsable>) -> Option<Box<dyn Trackable>> {
+fn do_track(parsers: Option<&RegistryEntry>, descs: &mut Descs, timestamp: f64, attributes: Rc<dyn Parsable>) -> Option<Box<dyn Trackable>> {
 
     if let Some(parsers) = parsers {
         match &parsers.trackers {

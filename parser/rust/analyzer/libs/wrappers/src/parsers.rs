@@ -3,7 +3,7 @@ use std::rc::Rc;
 
 pub type ParserFn = Rc<dyn Fn(&str, Option<&str>) -> Result<Rc<dyn Parsable>, String> + Send + Sync>;
 
-pub fn parser_wrapper<T: Parsable>(args: &str, results: Option<&str>) -> Result<Rc<dyn Parsable>, String> {
+pub fn as_dyn_parser<T: Parsable>(args: &str, results: Option<&str>) -> Result<Rc<dyn Parsable>, String> {
     T::parse(args, results).map(|parsed| Rc::new(parsed) as Rc<dyn Parsable>)
 }
 

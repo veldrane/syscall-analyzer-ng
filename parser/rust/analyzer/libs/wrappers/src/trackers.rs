@@ -12,7 +12,7 @@ pub type TrackerFn = Box<dyn Fn(&mut Descs, f64, Rc<dyn Parsable>) -> Result<Box
 //}
 
 
-pub fn tracker_wrapper<T: Trackable>(descs: &mut Descs, timestamp: f64, attrs: Rc<dyn Parsable>) -> Result<Box<dyn Trackable>, String> {
+pub fn as_dyn_tracker<T: Trackable>(descs: &mut Descs, timestamp: f64, attrs: Rc<dyn Parsable>) -> Result<Box<dyn Trackable>, String> {
     T::track(descs, timestamp, attrs ).map(|tracked| Box::new(tracked) as Box<dyn Trackable>)
 }
 
