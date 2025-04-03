@@ -166,6 +166,56 @@ pub fn build_registry() -> HashMap<String, RegistryEntry> {
             RegistryEntry { 
                 attributes: Rc::new(as_dyn_parser::<eventfd::Eventfd2Attrs>),
                 trackers: None,   
-        })
+        }),
+        ("execve".to_string(), 
+        RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<execve::ExecveAttrs>),
+            trackers: None,
+        }),
+        ("waitpid".to_string(), 
+        RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<waitpid::WaitpidAttrs>),
+            trackers: None,
+        }),
+        ("fadvise64".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<fadvise64::Fadvise64Attrs>),
+            trackers: None,
+        }),
+        ("fallocate".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<fallocate::FallocateAttrs>),
+            trackers: None,
+        }),
+        ("fdatasync".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<fdatasync::FdatasyncAttrs>),
+            trackers: None,
+        }),
+        ("fgetxattr".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<fgetxattr::FgetxattrAttrs>),
+            trackers: None,
+        }),
+        ("flistxattr".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<flistxattr::FlistxattrAttrs>),
+            trackers: None,
+        }),
+        ("flock".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<flock::FlockAttrs>),
+            trackers: None,
+        }),
+        ("fork".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<fork::ForkAttrs>),
+            trackers: None,
+        }),
+        ("fsync".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<fsync::FsyncAttrs>),
+            trackers: None,
+        }),
+        ("ftruncate".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<ftruncate::FtruncateAttrs>),
+            trackers: None,
+        }),
+        ("futex".to_string(), RegistryEntry { 
+            attributes: Rc::new(as_dyn_parser::<futex::FutexAttrs>),
+            trackers: None,
+        }),
     ]);
 }
