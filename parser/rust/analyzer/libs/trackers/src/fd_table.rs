@@ -161,9 +161,9 @@ impl Descs {
 
     pub fn remove_fd(&mut self, fd: i32) -> Result<(), FdsError> {
         // Příklad: zde by mohlo dojít k odstranění nebo označení záznamu jako smazaného.
-        let desc_record = self.get_fd(fd).ok_or(FdsError::FdNotFound)?;
+        let desc_record = self.get_fd_mut(fd).ok_or(FdsError::FdNotFound)?;
         // Např. můžeme nastavit deleted na true:
-        // desc_record.deleted = true;
+        desc_record.deleted = true;
         Ok(())
     }
 }

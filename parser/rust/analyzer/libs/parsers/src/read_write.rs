@@ -69,7 +69,7 @@ impl Parsable for IORequestAttrs {
 
 #[typetag::serde]
 impl Trackable for IORequestTracker {
-    fn track(descs: &mut Descs, timestamp: f64, attrs: Rc<dyn Parsable>) -> Result<Self, String> {
+    fn track(descs: &mut Descs, _: f64, attrs: Rc<dyn Parsable>) -> Result<Self, String> {
 
         // Pokusíme se downcastnout na Box<SocketArgs>
 
