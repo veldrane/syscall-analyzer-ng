@@ -9,6 +9,7 @@ use wrappers::trackers::Trackable;
 use std::collections::HashMap;
 
 use modules::init;
+use modules::inputs;
 use regex::Regex;
 use std::rc::Rc;
 
@@ -21,13 +22,12 @@ strace -y -T -ttt -ff -xx -qq -o curl $CMD
 */
 
 // const STRACE_OUTPUT: &str = "../../../tests/curl/curl.38945";
-const STRACE_OUTPUT: &str = "../../../tests/sshd/sshd.8797";
+// const STRACE_OUTPUT: &str = "../../../tests/sshd/sshd.8797";
 // const STRACE_OUTPUT: &str = "../../../tests/syscalls/nginx-all.out";
 
+const STRACE_DIR: &str = "../../../tests/sshd";
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-
-
-    //let registry = Register::new();
 
     let registry = init::build_registry();
 
@@ -42,7 +42,9 @@ fn run(registry: &HashMap<String, RegistryEntry>) -> Result<(), Box<dyn std::err
     let mut descs = Descs::with_std_fds(1739965813.133382);
     let mut id = 0;
 
-    for line in read_to_string(STRACE_OUTPUT)?.lines() {
+    let trace = inputs::find_first(STRACE_DIR).unwrap();
+
+    for line in read_to_string(&trace)?.lines() {
 
         id += 1;
         let fields = get_fields(line, &re).ok_or("Error parsing line")?;
@@ -121,3 +123,4 @@ fn do_track(parsers: Option<&RegistryEntry>, descs: &mut Descs, timestamp: f64, 
         Err("()".to_string())
     }.ok()
 }
+

@@ -1,12 +1,14 @@
-// Generated file, do not edit
+// Generated file, do not edit - revised and added filename 03.04.2025
 use wrappers::parsers::Parsable;
 use std::rc::Rc;
 use std::any::Any;
 use serde::{Deserialize, Serialize};
+use helpers::helpers::HexString;
+use std::str::FromStr;
 
 #[derive(Default, Debug, Serialize, Deserialize )]
 pub struct ExecveAttrs {
-    pub filename: String,
+    pub file_name: String,
     pub argv: Vec<String>,
     pub envp: Vec<String>,
     pub ret: i32,
@@ -17,11 +19,20 @@ impl Parsable for ExecveAttrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
         // Očekáváme formát: "filename, argv=[arg1 arg2 ...], envp=[env1 env2 ...]"
         let mut attrs = ExecveAttrs::default();
-        let parts: Vec<&str> = args.split(',').collect();
+
+        let parts: Vec<String> = args
+        .chars()
+        .filter(|&c| !r#""\"? "#.contains(c))
+        .collect::<String>()
+        .split(',')
+        .map(str::to_string)
+        .collect::<Vec<String>>();
+        
         if parts.len() < 3 {
             return Err("Invalid arguments for execve".to_string());
         }
-        attrs.filename = parts[0].to_string();
+
+        attrs.file_name = HexString::from_str(&parts[0]).unwrap().to_string();
 
         // Zpracování argv (očekáváme řetězec typu argv=[...])
         if let Some(start) = parts[1].find('[') {
