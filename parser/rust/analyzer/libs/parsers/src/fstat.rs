@@ -3,10 +3,12 @@ use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
 use std::rc::Rc;
 use std::any::Any;
+use helpers::helpers::split_fd_parts;
 
 #[derive(Default, Debug, Deserialize, Serialize)]
 pub struct FstatAttrs {
     pub fd: i32,
+    pub file_name: String,
     pub statbuf: String,
     pub ret: i32,
 }
@@ -14,15 +16,26 @@ pub struct FstatAttrs {
 #[typetag::serde]
 impl Parsable for FstatAttrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
+        
         let mut attrs = FstatAttrs::default();
-        let parts: Vec<&str> = args.split(',').map(|s| s.trim()).collect();
-        if parts.len() < 1 {
+
+        let parts: Vec<String> = args
+                                    .chars()
+                                    .filter(|&c| !r#""\"? "#.contains(c))
+                                    .collect::<String>()
+                                    .split(',')
+                                    .map(str::to_string)
+                                    .collect::<Vec<String>>();
+
+        if parts.len() < 2 {
             return Err("Invalid arguments for fstat".into());
         }
-        attrs.fd = parts[0].parse().map_err(|e| format!("Failed to parse fd: {}", e))?;
-        if parts.len() > 1 {
-            attrs.statbuf = parts[1].to_string();
-        }
+        
+        let (fd, file_name) = split_fd_parts(&parts[0]);
+        attrs.fd = fd;
+        attrs.file_name = file_name;
+
+
         if let Some(r) = result {
             attrs.ret = r.trim().parse().unwrap_or(0);
         }

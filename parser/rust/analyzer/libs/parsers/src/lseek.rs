@@ -3,10 +3,12 @@ use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
 use std::rc::Rc;
 use std::any::Any;
+use helpers::helpers::split_fd_parts;
 
 #[derive(Default, Debug, Deserialize, Serialize)]
 pub struct LseekAttrs {
     pub fd: i32,
+    pub file_name: String,
     pub offset: i64,
     pub whence: String,
     pub ret: i64,
@@ -16,11 +18,24 @@ pub struct LseekAttrs {
 impl Parsable for LseekAttrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
         let mut attrs = LseekAttrs::default();
-        let parts: Vec<&str> = args.split(',').map(|s| s.trim()).collect();
+
+        let parts: Vec<String> = args
+        .chars()
+        .filter(|&c| !r#""\"? "#.contains(c))
+        .collect::<String>()
+        .split(',')
+        .map(str::to_string)
+        .collect::<Vec<String>>();
+
         if parts.len() < 3 {
             return Err("Invalid arguments for lseek".into());
         }
-        attrs.fd = parts[0].parse().map_err(|e| format!("Failed to parse fd: {}", e))?;
+
+
+        let (fd, file_name) = split_fd_parts(&parts[0]);
+        attrs.fd = fd;
+        attrs.file_name = file_name;
+
         attrs.offset = parts[1].parse().map_err(|e| format!("Failed to parse offset: {}", e))?;
         attrs.whence = parts[2].to_string();
         if let Some(r) = result {

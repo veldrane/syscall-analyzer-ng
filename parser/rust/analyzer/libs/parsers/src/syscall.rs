@@ -8,6 +8,7 @@ use std::rc::Rc;
 
 #[derive(Debug)]
 pub struct Syscall<'a> {
+    pub pid: i32,
     pub id: &'a i32,
     pub timestamp: &'a f64,
     pub name: &'a str,

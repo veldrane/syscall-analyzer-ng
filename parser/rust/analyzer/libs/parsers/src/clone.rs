@@ -10,7 +10,7 @@ pub struct CloneAttrs {
     stack: String,
     flags: String,
     child_tidptr: String,
-    cloned_pid: i32,
+    pub cloned_pid: i32,
 }
 
 #[typetag::serde]
