@@ -28,7 +28,10 @@ strace -y -T -ttt -ff -xx -qq -o curl $CMD
 // const STRACE_OUTPUT: &str = "../../../tests/sshd/sshd.8797";
 // const STRACE_OUTPUT: &str = "../../../tests/syscalls/nginx-all.out";
 
-const STRACE_DIR: &str = "../../../tests/sshd";
+//const STRACE_DIR: &str = "../../../tests/sshd";
+
+const STRACE_DIR: &str = "/home/veldrane/Bitbucket/private/syscall-analyzer-ng/tests/sshd";
+
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 
@@ -42,61 +45,79 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 fn run(registry: &HashMap<String, RegistryEntry>) -> Result<(), Box<dyn std::error::Error>> {
 
     let re = Regex::new(BASIC_SYSCALL)?;
-    //let mut descs = Descs::with_std_fds(1739965813.133382);
     let mut archive = Archive::new();
-    let (trace, ts) = inputs::find_first(STRACE_DIR).expect("First trace file not found");
+
+    let (pid, ts) = inputs::find_first(STRACE_DIR).expect("First trace file not found");
 
     let mut id = 0;
-    let pid = 8797;
+    //let pid = 8797;
 
-    let mut descs = get_descs(&archive, pid);
-
-
-    for (pid, descs) in archive.iter() {
-        println!("pid {}, descs: {:?}", pid, descs);
+    if archive.len() == 0 {
+        archive.add_descs(pid, Descs::with_std_fds(ts));
     }
 
+    let mut worklist: Vec<i32> = archive.keys().cloned().collect();
 
-    
-    for line in read_to_string(&trace)?.lines() {
+    while let Some(pid) = worklist.pop() {
 
-        id += 1;
-        let fields = get_fields(line, &re).ok_or("Error parsing line")?;
+        let mut descs = match archive.get_descs(pid) {
+            Some(d) => d.clone(),
+            None => Descs::with_std_fds(ts),
 
-        let (timestamp, name, args, result, duration) = get_basic(&fields);
-        let parsers = registry.get(name);
-    
-        let attributes = match do_parse(parsers, args, result) {
-            Ok(parsed_attributes) => parsed_attributes,
-            Err(e) => {
-                eprintln!("Error parsing syscall attributes: {} with error: {}", &line, e);
-                continue;
-            },
-        };
-        let trackers = do_track(parsers, &mut descs, timestamp, Rc::clone(&attributes));
-
-        if name == "clone" {
-            let cloned_pid = get_cloned_pid(Rc::clone(&attributes)).ok_or("No cloned pid")?;
-            archive.add_descs(cloned_pid, Descs::with_std_fds(1739965813.133382));
-        }
-
-
-        let syscall = Syscall {
-            pid: pid,
-            id: &id,
-            timestamp: &timestamp,
-            name: name,
-            attributes: attributes,
-            trackers: trackers,
-            result: result.unwrap_or(""),
-            duration: duration,
         };
 
-        println!("{}", serde_json::to_string(&syscall).unwrap());
+        let trace = format!("{}/sshd.{}", STRACE_DIR, pid);
+
+            for line in read_to_string(&trace)?.lines() {
+
+                id += 1;
+                let fields = match get_fields(line, &re).ok_or("Error parsing line") {
+                    Ok(fields) => fields,
+                    _ => {
+                        continue;
+                    },
+                };
+
+                let (timestamp, name, args, result, duration) = get_basic(&fields);
+                let parsers = registry.get(name);
+            
+                let attributes = match do_parse(parsers, args, result) {
+                    Ok(parsed_attributes) => parsed_attributes,
+                    Err(e) => {
+                        eprintln!("Error parsing syscall attributes: {} with error: {}", &line, e);
+                        continue;
+                    },
+                };
+                let trackers = do_track(parsers, &mut descs, timestamp, Rc::clone(&attributes));
+
+                if name == "clone" {
+                    let cloned_pid  = match get_cloned_pid(Rc::clone(&attributes)) {
+                        Some(cloned_pid) => cloned_pid,
+                        None => {
+                            eprintln!("Error parsing clone attributes, line {}", &line);
+                            continue;
+                        },
+                    };
+                    archive.add_descs(cloned_pid, Descs::with_std_fds(timestamp));
+                    worklist.push(cloned_pid);
+                }
+
+
+                let syscall = Syscall {
+                    pid: &pid,
+                    id: &id,
+                    timestamp: &timestamp,
+                    name: name,
+                    attributes: attributes,
+                    trackers: trackers,
+                    result: result.unwrap_or(""),
+                    duration: duration,
+                };
+
+                println!("{}", serde_json::to_string(&syscall).unwrap());
+            }
     }
-
     exit(0);
-
 }
 
 

@@ -5,7 +5,7 @@ use std::io::BufRead;
 
 
 
-pub fn find_first(dir_path: &str) -> Option<(String, f64)> {
+pub fn find_first(dir_path: &str) -> Option<(i32, f64)> {
 
     let path = Path::new(dir_path);
 
@@ -16,11 +16,21 @@ pub fn find_first(dir_path: &str) -> Option<(String, f64)> {
 
     for entry in entries {
 
-        println!("Checking file: {:?}", entry.path());
+        let path_buf = entry.path();
+        let path_str = path_buf.to_str().unwrap_or("");
+        let parts: Vec<&str> = path_str.split(".").collect();
+
+        let pid = parts[parts.len() - 1]
+            .split(".")
+            .collect::<Vec<&str>>()
+            .last()
+            .unwrap_or(&"0")
+            .parse::<i32>()
+            .unwrap_or(0);
 
         match find_first_ts(&entry) {
             Some(ts) => {
-                return Some((entry.path().to_string_lossy().to_string(), ts));
+                return Some((pid, ts));
             },
             None => {
                 continue
@@ -31,20 +41,21 @@ pub fn find_first(dir_path: &str) -> Option<(String, f64)> {
     None
 }
 
-fn find_first_ts(dir_entry: &DirEntry) -> Option<f64> {
+fn find_first_ts(dir_entry: &DirEntry) -> Option<(f64)> {
 
     let f = File::open(dir_entry.path()).expect("Failed to open file");
     let file = BufReader::new(f);
     let line = file.lines().next();
 
+
     match &line {
         Some(Ok(line)) => {
             if line.contains("execve") {
-                let result = line.split_whitespace()
+                let ts = line.split_whitespace()
                     .filter_map(|s| s.parse::<f64>().ok())
                     .next();
 
-                return result;
+                return ts;
             }
         },
         _ => {}

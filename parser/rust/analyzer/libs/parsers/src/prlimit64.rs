@@ -6,7 +6,7 @@ use std::any::Any;
 
 #[derive(Default, Debug, Deserialize, Serialize)]
 pub struct Prlimit64Attrs {
-    pub pid: i32,
+    pub target_pid: i32,
     pub resource: String,
     pub new_limit: String,
     pub old_limit: String,
@@ -21,7 +21,7 @@ impl Parsable for Prlimit64Attrs {
         if parts.len() < 4 {
             return Err("Invalid arguments for prlimit64".into());
         }
-        attrs.pid = parts[0].parse().map_err(|e| format!("Failed to parse pid: {}", e))?;
+        attrs.target_pid = parts[0].parse().map_err(|e| format!("Failed to parse pid: {}", e))?;
         attrs.resource = parts[1].to_string();
         attrs.new_limit = parts[2].to_string();
         attrs.old_limit = parts[3].to_string();

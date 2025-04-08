@@ -73,7 +73,7 @@ impl Parsable for NetworkSocketAttrs {
                                     .split(',')
                                     .map(str::to_string)
                                     .collect::<Vec<String>>();
-        if parts.len() != 3 {
+        if parts.len() < 3 {
             return Err("Invalid number of arguments".into());
         }
 

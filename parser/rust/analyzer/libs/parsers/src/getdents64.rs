@@ -3,10 +3,12 @@ use wrappers::parsers::Parsable;
 use serde::{Deserialize, Serialize};
 use std::rc::Rc;
 use std::any::Any;
+use helpers::helpers::split_fd_parts;
 
 #[derive(Default, Debug, Deserialize, Serialize)]
 pub struct Getdents64Attrs {
     pub fd: i32,
+    pub file_name: String,
     pub dirp: String,
     pub count: usize,
     pub ret: i32,
@@ -16,11 +18,21 @@ pub struct Getdents64Attrs {
 impl Parsable for Getdents64Attrs {
     fn parse(args: &str, result: Option<&str>) -> Result<Self, String> {
         let mut attrs = Getdents64Attrs::default();
-        let parts: Vec<&str> = args.split(',').map(|s| s.trim()).collect();
+
+        let parts: Vec<String> = args
+                                    .chars()
+                                    .filter(|&c| !r#""\"? "#.contains(c))
+                                    .collect::<String>()
+                                    .split(',')
+                                    .map(str::to_string)
+                                    .collect::<Vec<String>>();
+
         if parts.len() < 3 {
-            return Err("Invalid arguments for getdents64".into());
+            return Err("Invalid number of arguments".into());
         }
-        attrs.fd = parts[0].parse().map_err(|e| format!("Failed to parse fd: {}", e))?;
+        let (fd, file_name ) = split_fd_parts(&parts[0]);
+        attrs.fd = fd;
+        attrs.file_name = file_name;
         attrs.dirp = parts[1].to_string();
         attrs.count = parts[2].parse().map_err(|e| format!("Failed to parse count: {}", e))?;
         if let Some(r) = result {

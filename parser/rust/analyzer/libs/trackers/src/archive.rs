@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use std::ops::{ Deref, DerefMut };
 
 
+#[derive(Debug, Clone)]
 pub struct Archive(HashMap<i32, Descs>);
 
 impl Archive {
