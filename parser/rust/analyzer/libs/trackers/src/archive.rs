@@ -11,7 +11,7 @@ impl Archive {
         Archive(HashMap::new())
     }
 
-    pub fn add_descs(&mut self, pid: i32, desc: Descs) {
+    pub fn add_descs(&mut self, pid: i32, desc: Descs) -> () {
         self.0.insert(pid, desc);
     }
 

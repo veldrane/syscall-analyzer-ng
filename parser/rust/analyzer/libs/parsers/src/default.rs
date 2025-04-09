@@ -5,7 +5,7 @@ use std::rc::Rc;
 
 #[derive(Debug,Serialize,Deserialize)]
 pub struct RawAttrs {
-    raw: String,
+    pub raw: String,
 }
 
 #[typetag::serde]

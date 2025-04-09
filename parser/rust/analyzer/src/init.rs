@@ -10,7 +10,7 @@ pub fn build_registry() -> HashMap<String, RegistryEntry> {
         ("mmap".to_string(), 
             RegistryEntry { 
                 attributes: Rc::new(as_dyn_parser::<mmap::MmapAttrs>),
-                trackers: None,      
+                trackers: Some(Box::new(as_dyn_tracker::<mmap::MMapFilesTracker>))      
         }),
         ("mprotect".to_string(), 
             RegistryEntry { 

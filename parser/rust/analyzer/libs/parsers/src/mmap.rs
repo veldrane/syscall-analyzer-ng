@@ -5,6 +5,8 @@ use helpers::converts::hex_serde_u16;
 use wrappers::parsers::Parsable;
 use std::any::Any;
 use std::rc::Rc;
+use wrappers::trackers::Trackable;
+use trackers::fd_table::Descs;
 
 #[derive(Debug, Serialize,Deserialize)]
 pub struct MmapAttrs {
@@ -76,3 +78,43 @@ impl Parsable for MmapAttrs {
     }
 }
 
+#[derive(Debug, Serialize,Deserialize)]
+pub struct MMapFilesTracker {
+    uuid: String,
+}
+
+#[typetag::serde]
+impl Trackable for MMapFilesTracker {
+    fn track(descs: &mut Descs, _: f64, attrs: Rc<dyn Parsable>) -> Result<Self, String> {
+
+        // Pokusíme se downcastnout na Box<SocketArgs>
+
+        // eprint!("Socket track: \n");
+
+        //eprintln!("descriptors: {:?}\n\n\n", descs);
+
+        let args: Rc<MmapAttrs> = attrs
+            .as_any()
+            .downcast::<MmapAttrs>()
+            .map_err(|_| "failed downcast to ReadWriteArgs".to_string())?;
+
+
+        if args.fd == -1 {
+            return Err("Socket fd is 0".to_string());
+        }
+        
+
+        let uuid = match descs.get_fd(args.fd) {
+            Some(record) => &record.uuid,
+            None => {
+                return Err("No uuid found".to_string()) 
+            }
+        };
+
+        // eprintln!("Socket track uuid: {}", uuid);
+        
+        Ok(MMapFilesTracker {
+            uuid: uuid.to_string()
+        })
+    }
+}
