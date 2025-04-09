@@ -121,14 +121,6 @@ fn run(registry: &HashMap<String, RegistryEntry>) -> Result<(), Box<dyn std::err
 }
 
 
-fn get_descs(archive: &Archive, pid: i32) -> Descs {
-    
-    match archive.get_descs(pid) {
-        Some(descs) => descs,
-        None => Descs::with_std_fds(1739965813.133382),
-    }
-}
-
 fn get_cloned_pid(attributes: Rc<dyn Parsable>) -> Option<i32> {
     if let Some(attrs) = attributes.as_any().downcast_ref::<CloneAttrs>() {
         Some(attrs.cloned_pid)
