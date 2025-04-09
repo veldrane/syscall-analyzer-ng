@@ -8,6 +8,7 @@ use std::rc::Rc;
 
 #[derive(Debug)]
 pub struct Syscall<'a> {
+    pub pid: &'a i32,
     pub id: &'a i32,
     pub timestamp: &'a f64,
     pub name: &'a str,
@@ -28,6 +29,7 @@ impl<'a> Serialize for Syscall<'a> {
 
         let attributes = Rc::clone(&self.attributes);
 
+        map.serialize_entry("pid", self.pid)?;
         map.serialize_entry("id", self.id)?;
         map.serialize_entry("timestamp", self.timestamp)?;
         map.serialize_entry("name", self.name)?;
