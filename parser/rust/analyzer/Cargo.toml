@@ -22,3 +22,5 @@ wrappers = { path = "libs/wrappers" }
 tokio = { version = "*", features = ["full"] }
 elasticsearch = "8.17.0-alpha.1"
 url = "2.5.4"
+chrono = "0.4.40"
+colored = "3.0.0"

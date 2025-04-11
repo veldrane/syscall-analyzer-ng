@@ -3,7 +3,7 @@ use parsers::syscall::Syscall;
 use registry::registry::RegistryEntry;
 use trackers::{fd_table::Descs, archive::Archive};
 use regex::Regex;
-use crate::helpers::*;
+use crate::{helpers::*, logging::Logger};
 
 pub fn process_pid(
     trace_dir: &str,
@@ -14,6 +14,7 @@ pub fn process_pid(
     archive: &mut Archive,
     mut id_counter: i32,
     worklist: &mut Vec<i32>,
+    log: &Logger,
 ) -> Result<i32, Box<dyn Error>> {
 
     let mut descs = match archive.get_descs(pid) {
@@ -21,11 +22,11 @@ pub fn process_pid(
         None => Descs::with_std_fds(timestamp),
 
     };
+
     let trace_path = format!("{}/sshd.{}", trace_dir, pid);
     let content = read_to_string(&trace_path)?;
-
     for line in content.lines() {
-        id_counter = process_line(line, pid,  regex, registry, &mut descs, archive, worklist, id_counter)?;
+        id_counter = process_line(line, pid,  regex, registry, &mut descs, archive, worklist, id_counter, log)?;
     }
 
     Ok(id_counter)
@@ -42,17 +43,19 @@ pub fn process_line(
     archive: &mut Archive,
     worklist: &mut Vec<i32>,
     id_counter: i32,
+    log: &Logger
 ) -> Result<i32, Box<dyn Error>> {
 
-    let fields = match get_fields(line, &regex).ok_or("Error parsing line") {
+    let fields = match get_fields(line, &regex).ok_or(log.error(format!("Error parsing line"))) {
         Ok(fields) => fields,
         _ => {
             return Ok(id_counter);
         },
     };
+    
     let (timestamp, name, args, result, duration) = get_basic(&fields);
     let parsers = registry.get(name);
-    let attributes = match do_parse(parsers, args, result) {
+    let attributes = match do_parse(parsers, args, result, log) {
         Ok(parsed_attributes) => parsed_attributes,
         Err(_) => {
             return Ok(id_counter);
@@ -63,10 +66,10 @@ pub fn process_line(
 
     if name == "clone" {
         if let Some(cloned_pid) = get_cloned_pid(Rc::clone(&attributes)) {
-            archive.add_descs(cloned_pid, Descs::with_std_fds(timestamp));
+            archive.add_descs(cloned_pid, descs.clone_alive());
             worklist.push(cloned_pid);
         } else {
-            eprintln!("Error parsing clone attributes, line {}", line);
+            log.error(format!("Error parsing clone attributes, line {}", line));
             return Ok(id_counter);
         }
     }
@@ -83,7 +86,7 @@ pub fn process_line(
         .with_duration(&duration)
         .build();
 
-    println!("{}", serde_json::to_string(&syscall)?);
+    // println!("{}", serde_json::to_string(&syscall)?);
     Ok(new_id)
 
 }

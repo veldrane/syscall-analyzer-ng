@@ -5,6 +5,8 @@ use trackers::fd_table::Descs;
 use wrappers::{parsers::Parsable, trackers::Trackable};
 use regex::Regex;
 
+use crate::logging::Logger;
+
 pub fn get_cloned_pid(attributes: Rc<dyn Parsable>) -> Option<i32> {
     if let Some(attrs) = attributes.as_any().downcast_ref::<CloneAttrs>() {
         Some(attrs.cloned_pid)
@@ -30,7 +32,7 @@ pub fn get_fields<'a, 're>(line: &'a str, re: &'re Regex) -> Option<regex::Captu
     }
 }
 
-pub fn do_parse(parsers: Option<&RegistryEntry>, args: &str, result: Option<&str>) -> Result<Rc<dyn Parsable>, String> {
+pub fn do_parse(parsers: Option<&RegistryEntry>, args: &str, result: Option<&str>, log: &Logger) -> Result<Rc<dyn Parsable>, String> {
 
     let parsed_attributes = if let Some(parsers) = parsers {
         (parsers.attributes)(args, result)
@@ -43,7 +45,7 @@ pub fn do_parse(parsers: Option<&RegistryEntry>, args: &str, result: Option<&str
     let attributes = match parsed_attributes {
         Ok(parsed_args) => parsed_args,
         Err(e) => {
-            eprintln!("Chyba při parsování syscallu");
+            log.error("Chyba při parsování syscallu".to_string());
             return Err(e);
         },
     };

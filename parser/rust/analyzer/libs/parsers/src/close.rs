@@ -23,6 +23,7 @@ pub struct CloseRangeAttrs {
 #[derive(Debug, Serialize,Deserialize)]
 pub struct FileDescriptorTracker {
     uuid: String,
+    parrent: Option<String>,
 }
 
 
@@ -65,12 +66,15 @@ impl Trackable for FileDescriptorTracker {
         }
         
 
-        let uuid = match descs.get_fd(args.fd) {
-            Some(record) => record.uuid.clone(),
+        let record = match descs.get_fd(args.fd) {
+            Some(record) => record,
             None => {
                 return Err("No uuid found".to_string()) 
             }
         };
+
+        let uuid = record.uuid.clone();
+        let parrent = record.parrent .clone();
 
         //eprintln!("Close track uuid: {}", uuid);
         descs.close(&uuid, timestamp).map_err(|_| {
@@ -82,7 +86,8 @@ impl Trackable for FileDescriptorTracker {
         // eprintln!("Socket track uuid: {}", uuid);
         
         Ok(FileDescriptorTracker {
-            uuid: uuid.to_string()
+            uuid: uuid,
+            parrent: parrent
         })
     }
 }

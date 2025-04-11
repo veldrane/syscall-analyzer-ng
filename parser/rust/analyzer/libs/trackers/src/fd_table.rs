@@ -1,4 +1,5 @@
 use std::ops::DerefMut;
+use std::sync::mpsc::RecvError;
 use uuid::Uuid;
 use std::ops::Deref;
 use std::str::FromStr;
@@ -53,25 +54,27 @@ pub enum FdsError {
 
 #[derive(Debug, Clone)]
 pub struct DescRecord {
-    pub created: f64,
-    pub closed: Option<f64>,
+    pub create_time: f64, // unix time in seconds
+    pub close_time: Option<f64>, //
+    pub parrent: Option<String>,
     pub uuid: String,
     pub fd: i32,
     pub path: String,
     pub fd_type: DescType,
-    pub deleted: bool,
+    pub closed: bool,
 }
 
 impl DescRecord {
 
     pub fn new(created: f64, fd: i32, path: String, fd_type: DescType) -> Self {
         Self {
-            created: created,
-            closed: None,
+            create_time: created,
+            close_time: None,
+            parrent: None,
             uuid: Uuid::new_v4().to_string(),
             path: path,
             fd_type: fd_type,
-            deleted: false,
+            closed: false,
             fd: fd,
         }
     }
@@ -84,13 +87,14 @@ impl DescRecord {
         };
 
         Self {
-            created: created,
-            closed: None,
+            create_time: created,
+            close_time: None,
+            parrent: None,
             uuid: Uuid::new_v4().to_string(),
             fd:fd,
             path: path.to_string(),
             fd_type: DescType::File,
-            deleted: false,
+            closed: false,
         }
     }
 }
@@ -113,19 +117,19 @@ impl Descs {
     }
 
     pub fn contains(&self, d: &DescRecord) -> bool {
-        self.iter().any(|f| (f.fd == d.fd) && !f.deleted)
+        self.iter().any(|f| (f.fd == d.fd) && !f.closed)
     }
 
     pub fn get_fd(&self, fd: i32) -> Option<&DescRecord> {
-        self.iter().find(|r| (r.fd == fd) && !r.deleted)
+        self.iter().find(|r| (r.fd == fd) && !r.closed)
     }
 
     pub fn get_fd_mut(&mut self, fd: i32) -> Option<&mut DescRecord> {
-        self.iter_mut().find(|r| (r.fd == fd) && !r.deleted)
+        self.iter_mut().find(|r| (r.fd == fd) && !r.closed)
     }
 
     pub fn find_by_uuid_mut(&mut self, uuid: &str) -> Option<&mut DescRecord> {
-        self.iter_mut().find(|r| (r.uuid == uuid) && !r.deleted)
+        self.iter_mut().find(|r| (r.uuid == uuid) && !r.closed)
     }
 
     pub fn add(&mut self, created: f64, fd: i32, path: String, d_type: DescType) -> Result<String, FdsError> {
@@ -137,33 +141,51 @@ impl Descs {
 
     pub fn close(&mut self, uuid: &str, closed: f64) -> Result<(), FdsError> {
         let desc_record = self.find_by_uuid_mut(uuid).ok_or(FdsError::FdNotFound)?;
-        desc_record.closed = Some(closed);
-        desc_record.deleted = true;
+        desc_record.close_time = Some(closed);
+        desc_record.closed = true;
         Ok(())
     }
 
     pub fn close_fd(&mut self, fd: i32, closed: f64) -> Result<(), FdsError> {
         let desc_record = self.get_fd_mut(fd).ok_or(FdsError::FdNotFound)?;
-        desc_record.closed = Some(closed);
-        desc_record.deleted = true;
+        desc_record.close_time = Some(closed);
+        desc_record.closed = true;
         Ok(())
     }
 
     pub fn close_range(&mut self, min_fd: i32, max_fd: i32, closed: f64) -> Result<(), FdsError> {
         for desc_record in self.iter_mut() {
             if desc_record.fd >= min_fd && desc_record.fd <= max_fd {
-                desc_record.closed = Some(closed);
-                desc_record.deleted = true;
+                desc_record.close_time = Some(closed);
+                desc_record.closed = true;
             }
         }
         Ok(())
+    }
+
+    pub fn clone_alive(&self) -> Self {
+        let mut alive = Descs::new();
+        for desc_record in self.iter() {
+
+            if desc_record.fd == 0 | 1 | 2 {
+                continue;
+            }
+            
+            if !desc_record.closed {
+                let mut record = desc_record.clone();
+                record.parrent = Some(desc_record.uuid.clone());
+                record.uuid = Uuid::new_v4().to_string();
+                alive.0.push(record);
+            }
+        }
+        alive
     }
 
     pub fn remove_fd(&mut self, fd: i32) -> Result<(), FdsError> {
         // Příklad: zde by mohlo dojít k odstranění nebo označení záznamu jako smazaného.
         let desc_record = self.get_fd_mut(fd).ok_or(FdsError::FdNotFound)?;
         // Např. můžeme nastavit deleted na true:
-        desc_record.deleted = true;
+        desc_record.closed = true;
         Ok(())
     }
 }

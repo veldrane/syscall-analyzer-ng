@@ -17,7 +17,7 @@ pub struct EpollControlAttrs {
     epoll_opetation: String,
     epoll_event: Option<String>,
     fd: Option<i32>,
-    name: Option<String>,
+    file_name: Option<String>,
     socket_fd: Option<i32>,
     socket_name: Option<String>,
     timer_fd: Option<i32>,
@@ -82,7 +82,7 @@ impl Parsable for EpollControlAttrs {
             },
             _ => {
                 epoll_ctl_args.fd = Some(fd);
-                epoll_ctl_args.name = Some(name);
+                epoll_ctl_args.file_name = Some(name);
             }
         };
 

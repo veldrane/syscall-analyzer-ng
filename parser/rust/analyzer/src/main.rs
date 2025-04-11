@@ -1,8 +1,10 @@
-use std::{process::exit, collections::HashMap};
+use std::{collections::HashMap, process::exit, sync::mpsc};
 use registry::registry::RegistryEntry;
 use trackers::{fd_table::Descs, archive::Archive};
-use modules::{ init, inputs, processors as p};
+use modules::{ logging::Logger as l, registrator as r, inputs, processors as p};
 use regex::Regex;
+
+
 
 const BASIC_SYSCALL: &str = r"(?P<timestamp>\d+.\d+)\s(?P<name>\w+)\((?P<arguments>.*)\)\s*\=\s(?P<result>.*)\s<(?P<duration>\d+\.\d+)>";
 
@@ -16,14 +18,16 @@ const STRACE_DIR: &str = "/home/veldrane/Bitbucket/private/syscall-analyzer-ng/t
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 
-    let registry = init::build_registry();
+    let registry = r::build();
+    let log = l::build();
 
-    run(&registry)?;
+    log.info("Syscall analyzer started...".to_string());
+    run(&registry, &log)?;
     Ok(())
 }
 
 
-fn run(registry: &HashMap<String, RegistryEntry>) -> Result<(), Box<dyn std::error::Error>> {
+fn run(registry: &HashMap<String, RegistryEntry>, log: &l) -> Result<(), Box<dyn std::error::Error>> {
 
     let basic_regex = Regex::new(BASIC_SYSCALL)?;
     let (pid, init_timestamp) = inputs::find_first(STRACE_DIR).expect("First trace file not found");
@@ -35,6 +39,7 @@ fn run(registry: &HashMap<String, RegistryEntry>) -> Result<(), Box<dyn std::err
     let mut id_counter = 0;
     
     while let Some(pid) = worklist.pop() {
+        log.info(format!("Process the trace for new pid {}", pid));
         id_counter = p::process_pid(
             &STRACE_DIR,
             pid,
@@ -44,6 +49,7 @@ fn run(registry: &HashMap<String, RegistryEntry>) -> Result<(), Box<dyn std::err
             &mut archive,
             id_counter,
             &mut worklist,
+            &log
         )?;
     }
     exit(0);
