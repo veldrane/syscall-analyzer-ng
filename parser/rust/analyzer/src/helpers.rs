@@ -45,7 +45,7 @@ pub fn do_parse(parsers: Option<&RegistryEntry>, args: &str, result: Option<&str
     let attributes = match parsed_attributes {
         Ok(parsed_args) => parsed_args,
         Err(e) => {
-            log.error("Chyba při parsování syscallu".to_string());
+            log.error(format!("parsing syscall arguments: {}", e));
             return Err(e);
         },
     };

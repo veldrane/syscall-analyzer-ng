@@ -4,3 +4,4 @@ pub mod inputs;
 pub mod processors;
 pub mod helpers;
 pub mod logging;
+pub mod file_output;
